@@ -11,6 +11,5 @@ Skeleton of participants module
 
 # Authors
 
-- Herminio García González (@herminiogg)
-- Jose Emilio Labra Gayo (@labra)
+Ignacio Escribano Burgos - UO227766
 
