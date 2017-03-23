@@ -18,9 +18,19 @@ public class Suggestion {
 	public Long id;
 	@ManyToMany
 	private Set<Participant> participantes = new HashSet<Participant>();
-	private int numApoyos;
+	private int minVotos; // Numero minimo de votos necesarios para que se envie
+							// la propuesta al parlamento. Se configura
+							// exteriormente
+	private int popularidad; // Positivos - Negativos Accedemos aqui
+								// directamente pero tenemos que llevar un
+								// control de cada tipo de voto
+	private int votosPositivos;
+	private int votosNegativos;
 	private String titulo;
 	private String descripcion;
+	private Categoria categoria;
+	private SuggestionState estado; // El estado de la propuesta
+
 	@OneToMany(mappedBy = "suggestion")
 	private Set<Comment> comentarios = new HashSet<Comment>();
 
@@ -28,8 +38,10 @@ public class Suggestion {
 
 	}
 
-	public Suggestion(int numApoyos, String titulo, String descripcion) {
-		this.numApoyos = numApoyos;
+	public Suggestion(String titulo, String descripcion) {
+		this.votosPositivos = 0;
+		this.votosNegativos = 0;
+		this.popularidad = this.votosPositivos - this.votosNegativos;
 		this.titulo = titulo;
 		this.descripcion = descripcion;
 	}
@@ -42,12 +54,36 @@ public class Suggestion {
 		this.id = id;
 	}
 
-	public int getNumApoyos() {
-		return numApoyos;
+	public int getMinVotos() {
+		return minVotos;
 	}
 
-	public void setNumApoyos(int numApoyos) {
-		this.numApoyos = numApoyos;
+	public void setMinVotos(int minVotos) {
+		this.minVotos = minVotos;
+	}
+
+	public int getPopularidad() {
+		return popularidad;
+	}
+
+	public void setPopularidad(int popularidad) {
+		this.popularidad = popularidad;
+	}
+
+	public int getVotosPositivos() {
+		return votosPositivos;
+	}
+
+	public void setVotosPositivos(int votosPositivos) {
+		this.votosPositivos = votosPositivos;
+	}
+
+	public int getVotosNegativos() {
+		return votosNegativos;
+	}
+
+	public void setVotosNegativos(int votosNegativos) {
+		this.votosNegativos = votosNegativos;
 	}
 
 	public String getTitulo() {
@@ -58,12 +94,35 @@ public class Suggestion {
 		this.titulo = titulo;
 	}
 
+	public SuggestionState getEstado() {
+		return estado;
+	}
+
+	public void setEstado(SuggestionState estado) {
+		this.estado = estado;
+	}
+
 	public String getDescripcion() {
 		return descripcion;
 	}
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
+	@Override
+	public String toString() {
+		return "Suggestion [minVotos=" + minVotos + ", popularidad=" + popularidad + ", votosPositivos="
+				+ votosPositivos + ", votosNegativos=" + votosNegativos + ", titulo=" + titulo + ", descripcion="
+				+ descripcion + ", categoria=" + categoria + ", estado=" + estado + "]";
 	}
 
 	protected Set<Participant> _getParticipantes() {
@@ -107,9 +166,4 @@ public class Suggestion {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "Suggestion [numApoyos=" + numApoyos + ", titulo=" + titulo
-				+ ", descripcion=" + descripcion + "]";
-	}
 }

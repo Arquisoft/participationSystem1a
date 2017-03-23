@@ -1,5 +1,8 @@
 package asw.dbUpdate.model;
 
+import java.util.Date;
+import java.util.Calendar;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -14,6 +17,10 @@ public class Comment {
 	@GeneratedValue
 	private Long id;
 	private String texto;
+	private int votosPositivos;
+	private int votosNegativos;
+	private int valoracion;
+	private Date fechaCreacion;
 	@ManyToOne
 	@JoinColumn(name = "id_user", referencedColumnName = "id")
 	private Participant user;
@@ -26,6 +33,10 @@ public class Comment {
 
 	public Comment(String texto) {
 		this.texto = texto;
+		this.votosPositivos = 0;
+		this.votosNegativos = 0;
+		this.valoracion = this.votosPositivos - this.votosNegativos;
+		this.fechaCreacion = Calendar.getInstance().getTime();
 	}
 
 	public String getTexto() {
@@ -56,6 +67,38 @@ public class Comment {
 		return id;
 	}
 
+	public int getVotosPositivos() {
+		return votosPositivos;
+	}
+
+	public void setVotosPositivos(int votosPositivos) {
+		this.votosPositivos = votosPositivos;
+	}
+
+	public int getVotosNegativos() {
+		return votosNegativos;
+	}
+
+	public void setVotosNegativos(int votosNegativos) {
+		this.votosNegativos = votosNegativos;
+	}
+
+	public int getValoracion() {
+		return valoracion;
+	}
+
+	public void setValoracion(int valoracion) {
+		this.valoracion = valoracion;
+	}
+
+	public Date getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(Date fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -83,8 +126,8 @@ public class Comment {
 
 	@Override
 	public String toString() {
-		return "Comment [texto=" + texto + ", user=" + user + ", suggestion="
-				+ suggestion + "]";
+		return "Comment [texto=" + texto + ", votosPositivos=" + votosPositivos + ", votosNegativos=" + votosNegativos
+				+ ", valoracion=" + valoracion + ", fechaCreacion=" + fechaCreacion + "]";
 	}
 
 }
