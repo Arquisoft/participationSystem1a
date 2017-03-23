@@ -11,5 +11,8 @@ Skeleton of participants module
 
 # Authors
 
+Daniel Alba Muñiz - UO245188
+Rubén de la Varga Cabero - UO246977
 Ignacio Escribano Burgos - UO227766 
 Daniel Duque Barrientos - UO245553
+
