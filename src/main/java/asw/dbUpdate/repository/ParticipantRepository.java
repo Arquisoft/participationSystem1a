@@ -17,5 +17,4 @@ public interface ParticipantRepository extends JpaRepository<Participant, Long> 
 	 * @return El Participante con dicho email
 	 */
 	public ParticipantRepository findByEmail(String email);
-
 }
