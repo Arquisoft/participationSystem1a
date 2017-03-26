@@ -17,7 +17,7 @@ public class GetSuggestionImpl implements GetSuggestion{
 		return repository.findAll();
 	}
 	@Override
-	public Suggestion getSuggestionByTitle(String titulo) {
+	public List<Suggestion> getSuggestionByTitle(String titulo) {
 		return repository.findByTitulo(titulo);
 	}
 	
