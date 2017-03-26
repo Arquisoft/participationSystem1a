@@ -3,6 +3,7 @@ package asw.dbUpdate.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -11,11 +12,18 @@ public class VoteComment {
 	@Id
 	@GeneratedValue
 	public long id;
+	
+	@ManyToOne
 	private Participant participant;
+	@ManyToOne
 	private Comment comment;
 
 	VoteComment(){
 		
+	}
+	
+	public VoteComment(Participant participant, Comment comment) {
+		Associations.VotarComentario.link(participant, this, comment);
 	}
 	
 	public long getId() {
@@ -32,8 +40,12 @@ public class VoteComment {
 		return participant;
 	}
 
-
+	// Creo que este no se debería usar
 	public void setParticipant(Participant participant) {
+		this.participant = participant;
+	}
+
+	public void _setParticipant(Participant p) {
 		this.participant = participant;
 	}
 
@@ -42,8 +54,12 @@ public class VoteComment {
 		return comment;
 	}
 
-
+	// Creo que este no se debería utilizar
 	public void setComment(Comment comment) {
+		this.comment = comment;
+	}
+	
+	public void _setComment(Comment comment) {
 		this.comment = comment;
 	}
 	

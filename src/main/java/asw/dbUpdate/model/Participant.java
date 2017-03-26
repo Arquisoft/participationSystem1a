@@ -34,6 +34,11 @@ public class Participant {
 	private Set<Comment> comentarios = new HashSet<Comment>();
 	@ManyToMany(mappedBy = "participantes")
 	private Set<Suggestion> sugerencias = new HashSet<Suggestion>();
+	
+	@OneToMany(mappedBy = "participant")
+	private Set<VoteSuggestion> votSugerencias = new HashSet<VoteSuggestion>();
+	@OneToMany(mappedBy = "participant")
+	private Set<VoteComment> votComentarios = new HashSet<VoteComment>();
 
 	Participant() {
 	}
@@ -137,6 +142,22 @@ public class Participant {
 
 	public String getNacionalidad() {
 		return nacionalidad;
+	}
+	
+	protected Set<VoteComment> _getVotComentarios() {
+		return votComentarios;
+	}
+
+	public Set<VoteComment> getVotComentarios() {
+		return new HashSet<>(votComentarios);
+	}
+
+	protected Set<VoteSuggestion> _getVotSugerencias() {
+		return votSugerencias;
+	}
+
+	public Set<VoteSuggestion> getVotSugerencias() {
+		return new HashSet<>(votSugerencias);
 	}
 
 	@Override

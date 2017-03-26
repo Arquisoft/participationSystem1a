@@ -1,6 +1,8 @@
 package asw.dbUpdate.model;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Calendar;
 
 import javax.persistence.Entity;
@@ -8,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -27,6 +30,9 @@ public class Comment {
 	@ManyToOne
 	@JoinColumn(name = "id_suggestion", referencedColumnName = "id")
 	private Suggestion suggestion;
+	
+	@OneToMany(mappedBy = "comment")
+	private Set<VoteComment> votComentarios = new HashSet<VoteComment>();
 
 	Comment() {
 	}
@@ -97,6 +103,14 @@ public class Comment {
 
 	public void setFechaCreacion(Date fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
+	}
+	
+	protected Set<VoteComment> _getVotComentarios() {
+		return votComentarios;
+	}
+
+	public Set<VoteComment> getVotComentarios() {
+		return new HashSet<>(votComentarios);
 	}
 
 	@Override

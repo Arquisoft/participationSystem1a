@@ -33,6 +33,9 @@ public class Suggestion {
 
 	@OneToMany(mappedBy = "suggestion")
 	private Set<Comment> comentarios = new HashSet<Comment>();
+	
+	@OneToMany(mappedBy = "suggestion")
+	private Set<VoteSuggestion> votSugerencias = new HashSet<VoteSuggestion>();
 
 	Suggestion() {
 
@@ -116,6 +119,14 @@ public class Suggestion {
 
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
+	}
+	
+	protected Set<VoteSuggestion> _getVotSugerencias() {
+		return votSugerencias;
+	}
+
+	public Set<VoteSuggestion> getVotSugerencias() {
+		return new HashSet<>(votSugerencias);
 	}
 
 	@Override
