@@ -1,48 +1,39 @@
 package asw.dbUpdate.model;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import asw.dbUpdate.model.keys.VoteSuggestionKey;
 
 @Entity
 @Table(name = "TVoteSuggestion")
+@IdClass(VoteSuggestionKey.class)
 public class VoteSuggestion {
 	@Id
-	@GeneratedValue
-	public long id;
 	@ManyToOne
+	@JoinColumn(name = "id_participant", referencedColumnName = "id")
 	private Participant participant;
+	@Id
 	@ManyToOne
+	@JoinColumn(name = "id_suggestion", referencedColumnName = "id")
 	private Suggestion suggestion;
-	
+
 	VoteSuggestion() {
-		
+
 	}
 
 	public VoteSuggestion(Participant participant, Suggestion suggestion) {
 		Associations.VotarPropuesta.link(participant, this, suggestion);
-	}
-	
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
 	}
 
 	public Participant getParticipant() {
 		return participant;
 	}
 
-	// Creo que este no debería estar
-	public void setParticipant(Participant participant) {
-		this.participant = participant;
-	}
-	
-	public void _setParticipant(Participant participant) {
+	protected void _setParticipant(Participant participant) {
 		this.participant = participant;
 	}
 
@@ -50,12 +41,7 @@ public class VoteSuggestion {
 		return suggestion;
 	}
 
-	// Creo que este no debería estar
-	public void setSuggestion(Suggestion suggestion) {
-		this.suggestion = suggestion;
-	}
-
-	public void _setSuggestion(Suggestion suggestion) {
+	protected void _setSuggestion(Suggestion suggestion) {
 		this.suggestion = suggestion;
 	}
 
@@ -63,7 +49,8 @@ public class VoteSuggestion {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((participant == null) ? 0 : participant.hashCode());
+		result = prime * result + ((suggestion == null) ? 0 : suggestion.hashCode());
 		return result;
 	}
 
@@ -76,14 +63,22 @@ public class VoteSuggestion {
 		if (getClass() != obj.getClass())
 			return false;
 		VoteSuggestion other = (VoteSuggestion) obj;
-		if (id != other.id)
+		if (participant == null) {
+			if (other.participant != null)
+				return false;
+		} else if (!participant.equals(other.participant))
+			return false;
+		if (suggestion == null) {
+			if (other.suggestion != null)
+				return false;
+		} else if (!suggestion.equals(other.suggestion))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "VoteSuggestion [participant=" + participant + ", suggestion=" + suggestion + "]";
+		return "VoteSuggestion [participant=" + participant.getId() + ", suggestion=" + suggestion.getId() + "]";
 	}
-	
+
 }
