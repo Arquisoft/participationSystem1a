@@ -2,27 +2,30 @@ package asw.dbUpdate.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import asw.dbUpdate.GetComment;
 import asw.dbUpdate.model.Comment;
+import asw.dbUpdate.repository.CommentRepository;
 
+@Component
 public class GetCommentImpl implements GetComment {
+	@Autowired
+	private CommentRepository repository;
 
 	@Override
 	public List<Comment> getAllComments() {
-		// TODO Auto-generated method stub
-		return null;
+		return (List<Comment>) repository.findAll();
 	}
 
 	@Override
-	public Comment getCommentsByUser(Long idUser) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Comment> getCommentsByUser(Long idUser) {
+		return repository.findById_user(idUser);
 	}
 
 	@Override
-	public Comment getCommentsBySuggestion(Long idSuggestion) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Comment> getCommentsBySuggestion(Long idSuggestion) {
+		return repository.findById_suggestion(idSuggestion);
 	}
 
 }

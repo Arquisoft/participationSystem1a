@@ -1,13 +1,13 @@
 package asw.dbUpdate.impl;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.stereotype.Component;
 import asw.dbUpdate.GetSuggestion;
 import asw.dbUpdate.model.Suggestion;
 import asw.dbUpdate.repository.SuggestionRepository;
 
+@Component
 public class GetSuggestionImpl implements GetSuggestion {
 
 	@Autowired

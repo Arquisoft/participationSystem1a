@@ -7,7 +7,7 @@ import asw.dbUpdate.model.Comment;
 public interface GetComment {
 
 	public List<Comment> getAllComments();
-	public Comment getCommentsByUser(Long idUser);
-	public Comment getCommentsBySuggestion(Long idSuggestion);
+	public List<Comment> getCommentsByUser(Long idUser);
+	public List<Comment> getCommentsBySuggestion(Long idSuggestion);
 
 }

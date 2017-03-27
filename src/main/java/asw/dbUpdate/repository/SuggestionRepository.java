@@ -9,7 +9,6 @@ import asw.dbUpdate.model.Suggestion;
 
 @Repository
 public interface SuggestionRepository extends CrudRepository<Suggestion, Long>{
-	Suggestion save(Suggestion suggestion);
 	List<Suggestion> findAll();
 	List<Suggestion> findByTitulo(String titulo);
 }
