@@ -8,17 +8,19 @@ import asw.dbUpdate.GetSuggestion;
 import asw.dbUpdate.model.Suggestion;
 import asw.dbUpdate.repository.SuggestionRepository;
 
-public class GetSuggestionImpl implements GetSuggestion{
+public class GetSuggestionImpl implements GetSuggestion {
 
 	@Autowired
 	private SuggestionRepository repository;
+
 	@Override
-	public List<Suggestion> getSuggestion() {
+	public List<Suggestion> getAllSuggestions() {
 		return repository.findAll();
 	}
+
 	@Override
 	public List<Suggestion> getSuggestionByTitle(String titulo) {
 		return repository.findByTitulo(titulo);
 	}
-	
+
 }

@@ -5,6 +5,6 @@ import java.util.List;
 import asw.dbUpdate.model.Suggestion;
 
 public interface GetSuggestion {
-	public List<Suggestion> getSuggestion(); //Este sería por popularidad, no está acabado
+	public List<Suggestion> getAllSuggestions(); //Este sería por popularidad, no está acabado
 	public List<Suggestion> getSuggestionByTitle(String titulo);
 }
