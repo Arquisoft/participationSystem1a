@@ -18,6 +18,7 @@ public class VoteController {
 		ReportWriter.getInstance().getWriteReport().log("", ""); // Se envia un
 																	// aviso a
 																	// kafka
+		ServicesFactory.saveSuggestionService().saveSuggestion(suggestion);
 		return "index";
 	}
 
@@ -28,6 +29,7 @@ public class VoteController {
 		ReportWriter.getInstance().getWriteReport().log("", ""); // Se envia un
 																	// aviso a
 																	// kafka
+		ServicesFactory.saveSuggestionService().saveSuggestion(suggestion);
 		return "index";
 	}
 
