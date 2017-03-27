@@ -33,7 +33,7 @@ public class Suggestion {
 
 	@OneToMany(mappedBy = "suggestion")
 	private Set<Comment> comentarios = new HashSet<Comment>();
-	
+
 	@OneToMany(mappedBy = "suggestion")
 	private Set<VoteSuggestion> votSugerencias = new HashSet<VoteSuggestion>();
 
@@ -120,7 +120,7 @@ public class Suggestion {
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
-	
+
 	protected Set<VoteSuggestion> _getVotSugerencias() {
 		return votSugerencias;
 	}
@@ -175,6 +175,20 @@ public class Suggestion {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public void incrementVotes() {
+		this.votosPositivos++;
+		updatePopularity();
+	}
+
+	public void decrementVotes() {
+		this.votosNegativos++;
+		updatePopularity();
+	}
+
+	private void updatePopularity() {
+		this.popularidad = this.votosPositivos - this.votosNegativos;
 	}
 
 }
