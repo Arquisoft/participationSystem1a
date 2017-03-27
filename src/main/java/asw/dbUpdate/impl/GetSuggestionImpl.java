@@ -23,4 +23,9 @@ public class GetSuggestionImpl implements GetSuggestion {
 		return repository.findByTitulo(titulo);
 	}
 
+	@Override
+	public Suggestion getSuggestionById(Long id) {
+		return repository.findOne(id);
+	}
+
 }
