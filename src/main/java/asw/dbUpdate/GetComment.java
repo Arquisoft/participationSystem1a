@@ -9,7 +9,7 @@ import asw.dbUpdate.model.Suggestion;
 public interface GetComment {
 
 	List<Comment> getAllComments();
-	List<Comment> getCommentsByUser(Participant user);
+	List<Comment> getCommentsByParticipant(Participant participant);
 	List<Comment> getCommentsBySuggestion(Suggestion suggestion);
 
 }

@@ -25,7 +25,7 @@ public class VoteController {
 	@RequestMapping("/voteDown")
 	public String votingDown(@RequestParam Long id, Model mode) {
 		Suggestion suggestion = ServicesFactory.getSuggestionService().getSuggestionById(id);
-		suggestion.decrementVotes();
+		//suggestion.decrementVotes();
 		ReportWriter.getInstance().getWriteReport().log("", ""); // Se envia un
 																	// aviso a
 																	// kafka

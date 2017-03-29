@@ -11,6 +11,6 @@ import asw.dbUpdate.model.Suggestion;
 
 @Repository
 public interface CommentRepository extends CrudRepository<Comment, Long> {
-	List<Comment> findByUser(Participant user);
+	List<Comment> findByParticipant(Participant participant);
 	List<Comment> findBySuggestion(Suggestion Suggestion);
 }

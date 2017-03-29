@@ -23,8 +23,8 @@ public class GetCommentImpl implements GetComment {
 	}
 
 	@Override
-	public List<Comment> getCommentsByUser(Participant user) {
-		return repository.findByUser(user);
+	public List<Comment> getCommentsByParticipant(Participant participant) {
+		return repository.findByParticipant(participant);
 	}
 
 	@Override

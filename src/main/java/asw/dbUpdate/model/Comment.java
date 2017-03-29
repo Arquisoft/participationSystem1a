@@ -28,8 +28,8 @@ public class Comment {
 	@Temporal(TemporalType.DATE)
 	private Date fechaCreacion;
 	@ManyToOne
-	@JoinColumn(name = "id_user", referencedColumnName = "id")
-	private Participant user;
+	@JoinColumn(name = "id_participant", referencedColumnName = "id")
+	private Participant participant;
 	@ManyToOne
 	@JoinColumn(name = "id_suggestion", referencedColumnName = "id")
 	private Suggestion suggestion;
@@ -57,11 +57,11 @@ public class Comment {
 	}
 
 	public Participant getUser() {
-		return user;
+		return participant;
 	}
 
 	protected void _setUser(Participant user) {
-		this.user = user;
+		this.participant = user;
 	}
 
 	public Suggestion getSuggestion() {

@@ -2,6 +2,17 @@ package asw.dbUpdate.model;
 
 public class Associations {
 	// TODO mantener las relaciones entre tablas
+
+	public static class Crear {
+		public static void link(Participant p, Suggestion s) {
+			
+		}
+
+		public static void unlink(Participant p, Suggestion s) {
+			
+		}
+	}
+
 	public static class Comentar {
 		public static void link(Comment c, Participant p, Suggestion s) {
 			c._setUser(p);
@@ -20,19 +31,19 @@ public class Associations {
 
 	public static class Apoyar {
 		public static void link(Participant p, Suggestion s) {
-			
+
 		}
 
 		public static void unlink(Participant p, Suggestion s) {
 
 		}
 	}
-	
+
 	public static class VotarComentario {
 		public static void link(Participant p, VoteComment v, Comment c) {
 			v._setParticipant(p);
 			v._setComment(c);
-			
+
 			p._getVotComentarios().add(v);
 			c._getVotComentarios().add(v);
 		}
@@ -40,17 +51,17 @@ public class Associations {
 		public static void unlink(Participant p, VoteComment v, Comment c) {
 			p._getVotComentarios().remove(v);
 			c._getVotComentarios().remove(v);
-			
+
 			v._setParticipant(null);
 			v._setComment(null);
 		}
 	}
-	
+
 	public static class VotarPropuesta {
 		public static void link(Participant p, VoteSuggestion v, Suggestion s) {
 			v._setParticipant(p);
 			v._setSuggestion(s);
-			
+
 			p._getVotSugerencias().add(v);
 			s._getVotSugerencias().add(v);
 		}
@@ -58,7 +69,7 @@ public class Associations {
 		public static void unlink(Participant p, VoteSuggestion v, Suggestion s) {
 			p._getVotSugerencias().remove(v);
 			s._getVotSugerencias().remove(v);
-			
+
 			v._setParticipant(null);
 			v._setSuggestion(null);
 		}

@@ -8,7 +8,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -30,11 +29,10 @@ public class Participant {
 	private String DNI;
 	private String direccion;
 	private String nacionalidad;
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "participant")
 	private Set<Comment> comentarios = new HashSet<Comment>();
-	@ManyToMany(mappedBy = "participantes")
-	private Set<Suggestion> sugerencias = new HashSet<Suggestion>();
-	
+	@OneToMany(mappedBy="creator")
+	private Set<Suggestion> propias = new HashSet<Suggestion>();	
 	@OneToMany(mappedBy = "participant")
 	private Set<VoteSuggestion> votSugerencias = new HashSet<VoteSuggestion>();
 	@OneToMany(mappedBy = "participant")
@@ -66,14 +64,6 @@ public class Participant {
 
 	public Set<Comment> getComentarios() {
 		return new HashSet<>(comentarios);
-	}
-
-	protected Set<Suggestion> _getSugerencias() {
-		return sugerencias;
-	}
-
-	public Set<Suggestion> getSugerencias() {
-		return new HashSet<>(sugerencias);
 	}
 
 	public void setId(Long id) {

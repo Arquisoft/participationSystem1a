@@ -4,9 +4,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -16,8 +19,6 @@ public class Suggestion {
 	@Id
 	@GeneratedValue
 	public Long id;
-	@ManyToMany
-	private Set<Participant> participantes = new HashSet<Participant>();
 	private int minVotos; // Numero minimo de votos necesarios para que se envie
 							// la propuesta al parlamento. Se configura
 							// exteriormente
@@ -25,10 +26,15 @@ public class Suggestion {
 								// directamente pero tenemos que llevar un
 								// control de cada tipo de voto
 	private int votosPositivos;
-	private int votosNegativos;
+	@ManyToOne
+	@JoinColumn(name = "id_creator", referencedColumnName = "id")
+	private Participant creator;
 	private String titulo;
 	private String descripcion;
-	private Categoria categoria;
+	@ManyToOne
+	@JoinColumn(name = "id_category", referencedColumnName = "id")
+	private Category category;
+	@Enumerated(EnumType.STRING)
 	private SuggestionState estado; // El estado de la propuesta
 
 	@OneToMany(mappedBy = "suggestion")
@@ -41,10 +47,10 @@ public class Suggestion {
 
 	}
 
-	public Suggestion(String titulo, String descripcion) {
+	public Suggestion(String titulo, String descripcion, Participant creator) {
 		this.votosPositivos = 0;
-		this.votosNegativos = 0;
-		this.popularidad = this.votosPositivos - this.votosNegativos;
+		this.creator = creator;
+		this.popularidad = this.votosPositivos;
 		this.titulo = titulo;
 		this.descripcion = descripcion;
 	}
@@ -59,6 +65,14 @@ public class Suggestion {
 
 	public int getMinVotos() {
 		return minVotos;
+	}
+
+	public Participant getCreator() {
+		return creator;
+	}
+
+	public void setCreator(Participant creator) {
+		this.creator = creator;
 	}
 
 	public void setMinVotos(int minVotos) {
@@ -79,14 +93,6 @@ public class Suggestion {
 
 	public void setVotosPositivos(int votosPositivos) {
 		this.votosPositivos = votosPositivos;
-	}
-
-	public int getVotosNegativos() {
-		return votosNegativos;
-	}
-
-	public void setVotosNegativos(int votosNegativos) {
-		this.votosNegativos = votosNegativos;
 	}
 
 	public String getTitulo() {
@@ -113,12 +119,12 @@ public class Suggestion {
 		this.descripcion = descripcion;
 	}
 
-	public Categoria getCategoria() {
-		return categoria;
+	public Category getCategory() {
+		return category;
 	}
 
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 	protected Set<VoteSuggestion> _getVotSugerencias() {
@@ -132,20 +138,12 @@ public class Suggestion {
 	@Override
 	public String toString() {
 		return "Suggestion [minVotos=" + minVotos + ", popularidad=" + popularidad + ", votosPositivos="
-				+ votosPositivos + ", votosNegativos=" + votosNegativos + ", titulo=" + titulo + ", descripcion="
-				+ descripcion + ", categoria=" + categoria + ", estado=" + estado + "]";
-	}
-
-	protected Set<Participant> _getParticipantes() {
-		return participantes;
+				+ votosPositivos + ", titulo=" + titulo + ", descripcion=" + descripcion + ", categoria="
+				+ category.getId() + ", estado=" + estado + "]";
 	}
 
 	protected Set<Comment> _getComentarios() {
 		return comentarios;
-	}
-
-	public Set<Participant> getParticipantes() {
-		return new HashSet<>(participantes);
 	}
 
 	public Set<Comment> getComentarios() {
@@ -179,16 +177,7 @@ public class Suggestion {
 
 	public void incrementVotes() {
 		this.votosPositivos++;
-		updatePopularity();
-	}
-
-	public void decrementVotes() {
-		this.votosNegativos++;
-		updatePopularity();
-	}
-
-	private void updatePopularity() {
-		this.popularidad = this.votosPositivos - this.votosNegativos;
+		this.popularidad++;
 	}
 
 }
