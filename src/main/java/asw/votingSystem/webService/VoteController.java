@@ -18,18 +18,18 @@ public class VoteController {
 		ReportWriter.getInstance().getWriteReport().log("", ""); // Se envia un
 																	// aviso a
 																	// kafka
-		ServicesFactory.saveSuggestionService().saveSuggestion(suggestion);
+		ServicesFactory.getSuggestionService().saveSuggestion(suggestion);
 		return "index";
 	}
 
 	@RequestMapping("/voteDown")
 	public String votingDown(@RequestParam Long id, Model mode) {
 		Suggestion suggestion = ServicesFactory.getSuggestionService().getSuggestionById(id);
-		//suggestion.decrementVotes();
+		// suggestion.decrementVotes();
 		ReportWriter.getInstance().getWriteReport().log("", ""); // Se envia un
 																	// aviso a
 																	// kafka
-		ServicesFactory.saveSuggestionService().saveSuggestion(suggestion);
+		ServicesFactory.getSuggestionService().saveSuggestion(suggestion);
 		return "index";
 	}
 

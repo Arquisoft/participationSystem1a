@@ -1,30 +1,26 @@
 package asw.dbUpdate;
 
-import asw.dbUpdate.impl.GetCommentImpl;
-import asw.dbUpdate.impl.GetParticipantImpl;
-import asw.dbUpdate.impl.GetSuggestionImpl;
-import asw.dbUpdate.impl.SaveCommentImpl;
-import asw.dbUpdate.impl.SaveSuggestionImpl;
+import asw.dbUpdate.impl.CategoryServiceImpl;
+import asw.dbUpdate.impl.CommentServiceImpl;
+import asw.dbUpdate.impl.ParticipantServiceImpl;
+import asw.dbUpdate.impl.SuggestionServiceImpl;
 
 public class ServicesFactory {
 
-	public static GetSuggestion getSuggestionService() {
-		return new GetSuggestionImpl();
+	public static CommentService getCommentService(){
+		return new CommentServiceImpl();
 	}
-
-	public GetComment getComentService() {
-		return new GetCommentImpl();
+	
+	public static SuggestionService getSuggestionService(){
+		return new SuggestionServiceImpl();
 	}
-
-	public static GetParticipant getParticipantService() {
-		return new GetParticipantImpl();
+	
+	public static ParticipantService getParticipantService(){
+		return new ParticipantServiceImpl();
 	}
-
-	public static SaveSuggestion saveSuggestionService() {
-		return new SaveSuggestionImpl();
+	
+	public static CategoryService getCategoryService(){
+		return new CategoryServiceImpl();
 	}
-
-	public static SaveComment saveCommentService() {
-		return new SaveCommentImpl();
-	}
+	
 }
