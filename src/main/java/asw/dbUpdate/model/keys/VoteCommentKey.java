@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class VoteCommentKey implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	Long parcipant;
+	Long participant;
 	Long comment;
 
 	@Override
@@ -13,7 +13,7 @@ public class VoteCommentKey implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((comment == null) ? 0 : comment.hashCode());
-		result = prime * result + ((parcipant == null) ? 0 : parcipant.hashCode());
+		result = prime * result + ((participant == null) ? 0 : participant.hashCode());
 		return result;
 	}
 
@@ -31,10 +31,10 @@ public class VoteCommentKey implements Serializable {
 				return false;
 		} else if (!comment.equals(other.comment))
 			return false;
-		if (parcipant == null) {
-			if (other.parcipant != null)
+		if (participant == null) {
+			if (other.participant != null)
 				return false;
-		} else if (!parcipant.equals(other.parcipant))
+		} else if (!participant.equals(other.participant))
 			return false;
 		return true;
 	}

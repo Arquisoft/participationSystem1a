@@ -3,13 +3,15 @@ package asw.dbUpdate.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
 import asw.dbUpdate.GetComment;
 import asw.dbUpdate.model.Comment;
 import asw.dbUpdate.repository.CommentRepository;
 
-@Component
+@Service
 public class GetCommentImpl implements GetComment {
+	
 	@Autowired
 	private CommentRepository repository;
 

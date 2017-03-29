@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "TComments")
@@ -23,6 +25,7 @@ public class Comment {
 	private int votosPositivos;
 	private int votosNegativos;
 	private int valoracion;
+	@Temporal(TemporalType.DATE)
 	private Date fechaCreacion;
 	@ManyToOne
 	@JoinColumn(name = "id_user", referencedColumnName = "id")
@@ -30,7 +33,7 @@ public class Comment {
 	@ManyToOne
 	@JoinColumn(name = "id_suggestion", referencedColumnName = "id")
 	private Suggestion suggestion;
-	
+
 	@OneToMany(mappedBy = "comment")
 	private Set<VoteComment> votComentarios = new HashSet<VoteComment>();
 
@@ -104,7 +107,7 @@ public class Comment {
 	public void setFechaCreacion(Date fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
 	}
-	
+
 	protected Set<VoteComment> _getVotComentarios() {
 		return votComentarios;
 	}
