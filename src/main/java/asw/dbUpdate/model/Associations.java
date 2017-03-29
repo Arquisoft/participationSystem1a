@@ -1,15 +1,16 @@
 package asw.dbUpdate.model;
 
 public class Associations {
-	// TODO mantener las relaciones entre tablas
 
 	public static class Crear {
 		public static void link(Participant p, Suggestion s) {
-			
+			s._setCreator(p);
+			p._getPropias().add(s);
 		}
 
 		public static void unlink(Participant p, Suggestion s) {
-			
+			p._getPropias().remove(s);
+			s._setCreator(null);
 		}
 	}
 
@@ -26,16 +27,6 @@ public class Associations {
 			s._getComentarios().remove(c);
 			c._setUser(null);
 			c._setSuggestion(null);
-		}
-	}
-
-	public static class Apoyar {
-		public static void link(Participant p, Suggestion s) {
-
-		}
-
-		public static void unlink(Participant p, Suggestion s) {
-
 		}
 	}
 

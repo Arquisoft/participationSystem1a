@@ -31,8 +31,8 @@ public class Participant {
 	private String nacionalidad;
 	@OneToMany(mappedBy = "participant")
 	private Set<Comment> comentarios = new HashSet<Comment>();
-	@OneToMany(mappedBy="creator")
-	private Set<Suggestion> propias = new HashSet<Suggestion>();	
+	@OneToMany(mappedBy = "creator")
+	private Set<Suggestion> propias = new HashSet<Suggestion>();
 	@OneToMany(mappedBy = "participant")
 	private Set<VoteSuggestion> votSugerencias = new HashSet<VoteSuggestion>();
 	@OneToMany(mappedBy = "participant")
@@ -41,9 +41,8 @@ public class Participant {
 	Participant() {
 	}
 
-	public Participant(String nombre, String apellidos, String password,
-			Date fechaNacimiento, String email, String dNI, String direccion,
-			String nacionalidad) {
+	public Participant(String nombre, String apellidos, String password, Date fechaNacimiento, String email, String dNI,
+			String direccion, String nacionalidad) {
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.password = password;
@@ -133,7 +132,7 @@ public class Participant {
 	public String getNacionalidad() {
 		return nacionalidad;
 	}
-	
+
 	protected Set<VoteComment> _getVotComentarios() {
 		return votComentarios;
 	}
@@ -148,6 +147,14 @@ public class Participant {
 
 	public Set<VoteSuggestion> getVotSugerencias() {
 		return new HashSet<>(votSugerencias);
+	}
+
+	protected Set<Suggestion> _getPropias() {
+		return propias;
+	}
+
+	public Set<Suggestion> getPropias() {
+		return new HashSet<>(propias);
 	}
 
 	@Override
@@ -177,10 +184,9 @@ public class Participant {
 
 	@Override
 	public String toString() {
-		return "Participant [nombre=" + nombre + ", apellidos=" + apellidos
-				+ ", fechaNacimiento=" + fechaNacimiento + ", email=" + email
-				+ ", DNI=" + DNI + ", direccion=" + direccion
-				+ ", nacionalidad=" + nacionalidad + "]";
+		return "Participant [nombre=" + nombre + ", apellidos=" + apellidos + ", fechaNacimiento=" + fechaNacimiento
+				+ ", email=" + email + ", DNI=" + DNI + ", direccion=" + direccion + ", nacionalidad=" + nacionalidad
+				+ "]";
 	}
 
 }

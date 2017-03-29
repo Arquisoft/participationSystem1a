@@ -71,7 +71,7 @@ public class Suggestion {
 		return creator;
 	}
 
-	public void setCreator(Participant creator) {
+	protected void _setCreator(Participant creator) {
 		this.creator = creator;
 	}
 
