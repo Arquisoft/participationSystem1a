@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import asw.dbUpdate.ParticipantService;
-import asw.dbUpdate.ServicesFactory;
 import asw.dbUpdate.SuggestionService;
 import asw.dbUpdate.model.Participant;
 import asw.dbUpdate.model.Suggestion;
@@ -44,8 +43,4 @@ public class MainController {
 			return "index";
 		}
 	}
-
-	// Aqui iria tambien un RequestMapping para la interfaz de configuracion
-	// comprobando si el usuario es admin. Lleva a una pagina html con las
-	// opciones
 }
