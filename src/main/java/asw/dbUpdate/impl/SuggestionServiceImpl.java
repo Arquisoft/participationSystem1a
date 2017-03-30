@@ -11,12 +11,16 @@ import asw.dbUpdate.repository.SuggestionRepository;
 
 @Service
 public class SuggestionServiceImpl implements SuggestionService {
-	@Autowired
 	private SuggestionRepository repository;
+
+	@Autowired
+	public SuggestionServiceImpl(SuggestionRepository repository) {
+		this.repository = repository;
+	}
 
 	@Override
 	public List<Suggestion> getAllSuggestions() {
-		return repository.findAllOrderByPopularidadDesc();
+		return repository.findAll();
 	}
 
 	@Override

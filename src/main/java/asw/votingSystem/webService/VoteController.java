@@ -11,16 +11,16 @@ import asw.reportWriter.ReportWriter;
 @Controller
 public class VoteController {
 
-	@RequestMapping("/support")
-	public String votingUp(@RequestParam Long id, Model mode) {
-		Suggestion suggestion = ServicesFactory.getSuggestionService().getSuggestionById(id);
-		suggestion.incrementVotes();
-		ReportWriter.getInstance().getWriteReport().log("", ""); // Se envia un
-																	// aviso a
-																	// kafka
-		ServicesFactory.getSuggestionService().saveSuggestion(suggestion);
-		return "index";
-	}
+//	@RequestMapping("/support")
+//	public String votingUp(@RequestParam Long id, Model mode) {
+//		Suggestion suggestion = ServicesFactory.getSuggestionService().getSuggestionById(id);
+//		suggestion.incrementVotes();
+//		ReportWriter.getInstance().getWriteReport().log("", ""); // Se envia un
+//																	// aviso a
+//																	// kafka
+//		ServicesFactory.getSuggestionService().saveSuggestion(suggestion);
+//		return "index";
+//	}
 
 
 }

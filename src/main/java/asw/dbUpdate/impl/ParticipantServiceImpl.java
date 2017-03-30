@@ -10,8 +10,12 @@ import asw.dbUpdate.repository.ParticipantRepository;
 @Service
 public class ParticipantServiceImpl implements ParticipantService {
 
-	@Autowired
 	private ParticipantRepository repository;
+
+	@Autowired
+	public ParticipantServiceImpl(ParticipantRepository repository) {
+		this.repository = repository;
+	}
 
 	@Override
 	public Participant getParticipant(String email) {

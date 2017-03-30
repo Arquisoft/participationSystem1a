@@ -8,8 +8,12 @@ import asw.dbUpdate.repository.CategoryRepository;
 
 public class CategoryServiceImpl implements CategoryService {
 
-	@Autowired
 	private CategoryRepository repository;
+
+	@Autowired
+	public CategoryServiceImpl(CategoryRepository repository) {
+		this.repository = repository;
+	}
 
 	@Override
 	public Category getCategoryById(Long id) {
