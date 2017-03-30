@@ -16,5 +16,5 @@ public interface ParticipantRepository extends CrudRepository<Participant, Long>
 	 *            del Partipante
 	 * @return El Participante con dicho email
 	 */
-	public Participant findByEmail(String email);
+	public Participant findByEmailAndPassword(String email, String password);
 }

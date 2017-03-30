@@ -23,6 +23,7 @@ public class Participant {
 	private String apellidos;
 	private String password;
 	private Date fechaNacimiento;
+	private boolean admin;
 	@Column(unique = true)
 	private String email;
 	@Column(unique = true)
@@ -131,6 +132,14 @@ public class Participant {
 
 	public String getNacionalidad() {
 		return nacionalidad;
+	}
+
+	public boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
 	}
 
 	protected Set<VoteComment> _getVotComentarios() {

@@ -18,8 +18,8 @@ public class ParticipantServiceImpl implements ParticipantService {
 	}
 
 	@Override
-	public Participant getParticipant(String email) {
-		Participant participant = repository.findByEmail(email);
+	public Participant getParticipant(String email, String password) {
+		Participant participant = repository.findByEmailAndPassword(email, password);
 		return participant;
 	}
 }
