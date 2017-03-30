@@ -1,12 +1,26 @@
-<!DOCTYPE html>
-<html xmlns:p="http://primefaces.org/ui">
+<!DOCTYPE HTML>
+<html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<meta charset="UTF-8" />
+<title>Login</title>
 </head>
 <body>
-	<p:commandLink action="@{/main}" type="submit" value="Listado">
-	</p:commandLink>
-
+	<h1>Login</h1>
+	<form method="POST" action="main">
+		<table>
+			<tr>
+				<td><label for="email"><strong>Usuario:</strong> </label></td>
+				<td><input type="text" id="email" name="email" /></td>
+			</tr>
+			<tr>
+				<td><label for="password"><strong>Contraseña:</strong>
+				</label></td>
+				<td><input type="password" id="password" name="password" /></td>
+			</tr>
+			<tr>
+				<td><button type="submit" id="login">Entrar</button></td>
+			</tr>
+		</table>
+	</form>
 </body>
 </html>
