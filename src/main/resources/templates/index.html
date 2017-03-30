@@ -1,13 +1,29 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>PAGINA DE INICIO</title>
+<meta charset="utf-8" />
 </head>
 <body>
-<h1>ParticipationSystem0 skeleton</h1>
-<form th:action="@{/send}" th:object="${message}" method="POST">
-    <label for="message">Type a message: </label>
-    <input type="text" id="message" th:field="*{message}" />
-    <input type="submit" value="Send" />
-</form>
+	<h1>Propuestas activas</h1>
+	<table id="tablaPropuestas" border="1">
+		<thead>
+			<tr>
+				<th>Titulo</th>
+				<th>Descripcion</th>
+				<th>Apoyar</th>
+				<th>Comentarios</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="iter : ${sugerencias}">
+				<td th:text="${iter.titulo}">Titulo</td>
+				<td th:text="${iter.descripcion}">Descripcion</td>
+				<td><a id="apoyar${iter.id}" href="apoyar?sugerencia=${iter}">Apoyar
+						propuesta</a></td>
+				<td><a id="comentarios${iter.id}"
+					href="getComentarios?sugerencia=${iter}">Ver Comentarios</a></td>
+			</tr>
+		</tbody>
+	</table>
 </body>
 </html>
