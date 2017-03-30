@@ -1,3 +1,5 @@
+Desde la carpeta raiz de Kafka (El Kafka esta en el onedrive compartido)
+
 .\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
 
-.\bin\windows\kafka-server-start.bat .\config\server.config
+.\bin\windows\kafka-server-start.bat .\config\server.properties
