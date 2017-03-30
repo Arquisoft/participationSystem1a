@@ -6,7 +6,7 @@ import asw.dbUpdate.model.Suggestion;
 
 public interface SuggestionService {
 	
-	List<Suggestion> getAllSuggestions(); //Este sería por popularidad, no está acabado
+	List<Suggestion> getAllSuggestions();
 	List<Suggestion> getSuggestionByTitle(String titulo);
 	Suggestion getSuggestionById(Long id);
 	

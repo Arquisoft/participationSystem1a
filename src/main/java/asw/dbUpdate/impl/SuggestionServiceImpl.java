@@ -16,7 +16,7 @@ public class SuggestionServiceImpl implements SuggestionService {
 
 	@Override
 	public List<Suggestion> getAllSuggestions() {
-		return repository.findAll();
+		return repository.findAllOrderByPopularidadDesc();
 	}
 
 	@Override

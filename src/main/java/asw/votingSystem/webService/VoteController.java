@@ -11,7 +11,7 @@ import asw.reportWriter.ReportWriter;
 @Controller
 public class VoteController {
 
-	@RequestMapping("/voteUp")
+	@RequestMapping("/support")
 	public String votingUp(@RequestParam Long id, Model mode) {
 		Suggestion suggestion = ServicesFactory.getSuggestionService().getSuggestionById(id);
 		suggestion.incrementVotes();
@@ -22,15 +22,5 @@ public class VoteController {
 		return "index";
 	}
 
-	@RequestMapping("/voteDown")
-	public String votingDown(@RequestParam Long id, Model mode) {
-		Suggestion suggestion = ServicesFactory.getSuggestionService().getSuggestionById(id);
-		// suggestion.decrementVotes();
-		ReportWriter.getInstance().getWriteReport().log("", ""); // Se envia un
-																	// aviso a
-																	// kafka
-		ServicesFactory.getSuggestionService().saveSuggestion(suggestion);
-		return "index";
-	}
 
 }
