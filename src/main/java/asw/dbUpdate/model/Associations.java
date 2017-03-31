@@ -50,6 +50,7 @@ public class Associations {
 
 	public static class VotarPropuesta {
 		public static void link(Participant p, VoteSuggestion v, Suggestion s) {
+			s.incrementVotes();
 			v._setParticipant(p);
 			v._setSuggestion(s);
 
@@ -58,6 +59,7 @@ public class Associations {
 		}
 
 		public static void unlink(Participant p, VoteSuggestion v, Suggestion s) {
+			s.reduceVotes();
 			p._getVotSugerencias().remove(v);
 			s._getVotSugerencias().remove(v);
 

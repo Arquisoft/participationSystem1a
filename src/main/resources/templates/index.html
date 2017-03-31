@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 </head>
 <body>
-<a href="crearPropuesta">Crear propuesta</a>
+	<a href="crearPropuesta">Crear propuesta</a>
 	<h1>Propuestas activas</h1>
 	<table id="tablaPropuestas" border="1">
 		<thead>
@@ -19,10 +19,9 @@
 			<tr th:each="iter : ${sugerencias}">
 				<td th:text="${iter.titulo}">Titulo</td>
 				<td th:text="${iter.descripcion}">Descripcion</td>
-				<td><a id="apoyar${iter.id}" href="apoyar?sugerencia=${iter}">Apoyar
-						propuesta</a></td>
-				<td><a id="comentarios${iter.id}"
-					href="getComentarios?sugerencia=${iter}">Ver Comentarios</a></td>
+				<td><a id="apoyar${iter.id}"
+					th:href="@{/support(sugerencia=${iter.id})}">Apoyar propuesta</a></td>
+				<td><a id="comentarios${iter.id}" href="">Ver Comentarios</a></td>
 			</tr>
 		</tbody>
 	</table>

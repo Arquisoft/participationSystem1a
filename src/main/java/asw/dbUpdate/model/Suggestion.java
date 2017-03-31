@@ -180,4 +180,9 @@ public class Suggestion {
 		this.popularidad++;
 	}
 
+	public void reduceVotes() {
+		this.votosPositivos--;
+		this.popularidad--;
+	}
+
 }
