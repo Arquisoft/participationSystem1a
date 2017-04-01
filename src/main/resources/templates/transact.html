@@ -20,6 +20,7 @@
 				<th>Description</th>
 				<th>Votes</th>
 				<th>Votes to be accepted</th>
+				<th>Date end</th>
 				<th>Reject</th>
 			</tr>
 		</thead>
@@ -29,6 +30,7 @@
 				<td th:text="${iter.descripcion}">Description</td>
 				<td th:text="${iter.votosPositivos}">Votes</td>
 				<td th:text="${iter.minVotos}">Min Votes</td>
+				<td th:text="${iter.fecha_fin}">End Date</td>
 				<td>
 					<a th:href="@{/rejectSuggestion(idPropuesta=${iter.id})}">Reject</a>
 				</td>
