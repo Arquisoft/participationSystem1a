@@ -30,28 +30,36 @@ public class ConfigurationController {
 
 	@RequestMapping("/accepted")
 	public String findAcceptedSuggestions(Model model) {
-		List<Suggestion> acceptedSuggestions = suggestionService.getSuggestionByStatus(SuggestionState.Aceptada);
+		List<Suggestion> acceptedSuggestions = suggestionService
+				.getSuggestionByStatus(SuggestionState.Aceptada);
 		model.addAttribute("suggestions", acceptedSuggestions);
+
 		return "accepted";
 	}
 
 	@RequestMapping("/rejected")
-	public String findRejectedSuggestions(Model model) {
-		List<Suggestion> rejectedSuggestions = suggestionService.getSuggestionByStatus(SuggestionState.Rechazada);
+
+	public String findRejectedSuggestions(Model model){
+		List<Suggestion> rejectedSuggestions = suggestionService
+				.getSuggestionByStatus(SuggestionState.Rechazada);
 		model.addAttribute("suggestions", rejectedSuggestions);
 		return "rejected";
 	}
 
 	@RequestMapping("/transact")
+
 	public String findTrasactSuggestions(Model model) {
-		List<Suggestion> trasactSuggestions = suggestionService.getSuggestionByStatus(SuggestionState.EnVotacion);
+		List<Suggestion> trasactSuggestions = suggestionService
+				.getSuggestionByStatus(SuggestionState.EnVotacion);
 		model.addAttribute("suggestions", trasactSuggestions);
 		return "transact";
 	}
 
 	@RequestMapping("/find")
-	public String findSuggestion(@RequestParam("suggestion_name") String title, HttpSession session, Model model) {
-		List<Suggestion> suggestions = suggestionService.getSuggestionByTitle(title);
+	public String findSuggestion(@RequestParam("suggestion_name") String title,
+				HttpSession session, Model model) {
+		List<Suggestion> suggestions = suggestionService
+				.getSuggestionByTitle(title);
 		model.addAttribute("sugerencias", suggestions);
 		return "config";
 	}
