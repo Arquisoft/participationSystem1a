@@ -8,18 +8,17 @@
 	<h1>Edit Suggestion</h1>
 	<form method="POST" action="save" id="editform">
 		Suggestion Title
-		<input type="text" name="suggestion_title" value="${sugerencia.titulo}">
+		<input type="text" name="suggestion_title" />
 		<br>
 		Suggestion Category
-		<input type="text" name="suggestion_category" value="${sugerencia.category}"/>
+		<input type="text" name="suggestion_category" />
 		<br>
 		Suggestion Creation Date
-		<input type="text" name="suggestion_creation" value="${sugerencia.fecha_creacion}"/>
+		<input type="text" name="suggestion_creation" />
 		<br>
 		Suggestion End Date
-		<input type="text" name="suggestion_ends" value="${sugerencia.fecha_fin}"/>
-		<br>
-		
+		<input type="text" name="suggestion_ends" />
+		<br>		
 	</form>
 	Suggestion Description<br>
 	<textarea name="description" form="editform" placeholder="${sugerencia.descripcion}" cols="80" rows="15"></textarea>

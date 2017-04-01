@@ -38,6 +38,22 @@ public class Suggestion {
 	private String descripcion;
 	@Temporal(TemporalType.DATE)
 	private Date fecha_creacion;
+	public Date getFecha_creacion() {
+		return fecha_creacion;
+	}
+
+	public void setFecha_creacion(Date fecha_creacion) {
+		this.fecha_creacion = fecha_creacion;
+	}
+
+	public Date getFecha_fin() {
+		return fecha_fin;
+	}
+
+	public void setFecha_fin(Date fecha_fin) {
+		this.fecha_fin = fecha_fin;
+	}
+
 	@Temporal(TemporalType.DATE)
 	private Date fecha_fin;
 	@ManyToOne
