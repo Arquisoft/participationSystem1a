@@ -1,10 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<meta charset="UTF-8">
+<title>Admin page</title>
 </head>
 <body>
-
+	<h1>Administration Page</h1>
+	<p>Find Suggestion<p>
+	<form>
+		Suggestion Title
+		<input type="text" name="find_text"/>
+	</form>
+	<table id="suggestionsTable" border="1">
+		<thead>
+			<tr>
+				<th>Title</th>
+				<th>Description</th>
+				<th>Author</th>	
+				<th>Votes</th>
+				<th>State</th>
+				<th>Edit Suggestion</th>
+				<th>Delete Suggestion</th>
+		</thead>
+		<tbody>
+			<tr th:each="iter : ${sugerencias}">
+				<td th:text="${iter.titulo}">Title</td>
+				<td th:text="${iter.descripcion}">Description</td>
+				<td th:text="${iter.creator}">Author</td>
+				<td th:text="${iter.popularidad}">Votes</td>
+				<td th:text="${iter.estado}">State</td>
+				<td align="center"><a id="editar${iter.id}"
+						th:href="@{/edit(sugerencia=${iter.id})}" href="">Edit</a></td>
+				<td align="center"><a id="delete${iter.id}"
+						th:href="@{/delete(sugerencia=${iter.id})}" href="">Delete</a></td>
+			</tr>
+		</tbody>
+	</table>
 </body>
 </html>
