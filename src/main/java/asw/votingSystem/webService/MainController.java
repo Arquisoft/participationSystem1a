@@ -36,9 +36,11 @@ public class MainController {
 		if (p == null)
 			return "error";
 		session.setAttribute("usuario", p);
-		if (p.isAdmin())
+		if (p.isAdmin()) {
+			List<Suggestion> sugerencias = suggestionService.getVotables();
+			model.addAttribute("sugerencias", sugerencias);
 			return "config";
-		else {
+		} else {
 			List<Suggestion> sugerencias = suggestionService.getVotables();
 			model.addAttribute("sugerencias", sugerencias);
 			return "index";
