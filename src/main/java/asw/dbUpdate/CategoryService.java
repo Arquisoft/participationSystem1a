@@ -7,4 +7,5 @@ public interface CategoryService {
 	Category getCategoryByName(String name);
 	
 	void saveCategory(Category category);
+	void deleteCategory(Category categoria);
 }

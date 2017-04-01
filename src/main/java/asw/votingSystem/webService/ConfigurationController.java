@@ -23,6 +23,7 @@ public class ConfigurationController {
 	// webService (Al estar vacio git hub no lo sube)
 	@Autowired
 	private SuggestionService suggestionService;
+	
 	@Autowired
 	private CategoryService categoryService;
 	
@@ -70,12 +71,25 @@ public class ConfigurationController {
 		return "config";
 	}
 	
-	@RequestMapping("/categories")
-	public String categories(@RequestParam("category") String nombre, HttpSession session, Model model) {
+	@RequestMapping("/addCategories")
+	public String addCategory(@RequestParam("acategory") String nombre, HttpSession session, Model model) {
 		Category category = categoryService.getCategoryByName(nombre);
 		if(category == null){
 			Category categoria = new Category(nombre);
 			categoryService.saveCategory(categoria);
+		}
+		// Enviar aviso a kafka
+		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
+		model.addAttribute("sugerencias", sugerencias);
+		return "config";
+	}
+	
+	@RequestMapping("/removeCategories")
+	public String removeCategory(@RequestParam("rmcategory") String nombre, HttpSession session, Model model) {
+		Category category = categoryService.getCategoryByName(nombre);
+		if(category != null){
+			Category categoria = new Category(nombre);
+			categoryService.deleteCategory(categoria);
 		}
 		// Enviar aviso a kafka
 		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();

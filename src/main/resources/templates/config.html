@@ -7,16 +7,20 @@
 <body>
 	<h1>Administration Page</h1>
 	<h2>Configuration</h2>
-	<form method="POST" action="categories">
-			Add/Remove Category <input type="text" name="category" /> 
-			<input type="submit" name="addrm_category" value="Add/Remove"/>
+	<form method="POST" action="addCategory">
+			Add Category <input type="text" name="acategory" /> 
+			<input type="submit" name="addcategory" value="Add"/>
+	</form>
+	<form method="POST" action="removeCategory">
+			Add Category <input type="text" name="rcategory" /> 
+			<input type="submit" name="rmcategory" value="Remove"/>
 	</form>
 	<form method="POST" action="words">
 			Add non-permitted word <input type="text" name="npw" />
 			<input type="submit" name="add_word" value="Add"/>
 	</form>
 	<form method="POST" action="days">
-		Suggestion Title <input type="text" name="suggestion_duration" /> 
+		Number of days <input type="text" name="suggestion_duration" /> 
 		<input type="submit" name="days" value="Modificar"/>
 	</form>
 	<h2>Find Suggestion</h2>
