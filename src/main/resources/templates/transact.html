@@ -10,7 +10,7 @@
 		<li><a href="">Parameter configuration</a></li>
 		<li><a href="accepted.html">Accepted Suggestions</a></li>
 		<li><a href="rejected.html">Rejected Suggestions</a></li>
-		<li><a href="transact.html">Suggestions on transact</a></li>
+		<li><a href="transact.html">Suggestions on vote</a></li>
 	</ul>
 	<h4 th:if="${hidden}">There are not suggestions on trasaction</h4>
 	<table th:if="${not hidden}" border="1">
@@ -20,6 +20,7 @@
 				<th>Description</th>
 				<th>Votes</th>
 				<th>Votes to be accepted</th>
+				<th>Date end</th>
 				<th>Reject</th>
 			</tr>
 		</thead>
@@ -29,8 +30,8 @@
 				<td th:text="${iter.descripcion}">Description</td>
 				<td th:text="${iter.votosPositivos}">Votes</td>
 				<td th:text="${iter.minVotos}">Min Votes</td>
-				<td>
-					<a th:href="@{/rejectSuggestion(idPropuesta=${iter.id})}">Reject</a>
+				<td th:text="${iter.fecha_fin}">End Date</td>
+				<td><a th:href="@{/rejectSuggestion(idPropuesta=${iter.id})}">Reject</a>
 				</td>
 			</tr>
 		</tbody>
