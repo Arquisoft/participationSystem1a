@@ -28,4 +28,32 @@ public class ConfigurationController {
 		model.addAttribute("sugerencias", suggestions);
 		return "config";
 	}
+	
+	@RequestMapping("/save")
+	public String saveSuggestion(@RequestParam("sugerencia") Long id, HttpSession session, Model model) {
+		suggestionService.saveSuggestion((Suggestion) session.getAttribute("sugerencia"));
+		// Enviar aviso a kafka
+		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
+		model.addAttribute("sugerencias", sugerencias);
+		return "config";
+	}
+	
+	@RequestMapping("/delete")
+	public String deleteSuggestion(@RequestParam("sugerencia") Long id, HttpSession session, Model model) {
+		suggestionService.deleteSuggestion((Suggestion) session.getAttribute("sugerencia"));
+		// Enviar aviso a kafka
+		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
+		model.addAttribute("sugerencias", sugerencias);
+		return "config";
+	}
+	
+	@RequestMapping("/edit")
+	public String editSuggestion(@RequestParam("sugerencia") Long id, HttpSession session, Model model) {
+		Suggestion sugerencia = suggestionService.getSuggestionById(id);
+		model.addAttribute("sugerencia", sugerencia);
+		// Enviar aviso a kafka
+		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
+		model.addAttribute("sugerencias", sugerencias);
+		return "edit";
+	}
 }

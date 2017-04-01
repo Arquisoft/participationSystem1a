@@ -1,5 +1,6 @@
 package asw.dbUpdate.model;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,6 +32,8 @@ public class Suggestion {
 	private Participant creator;
 	private String titulo;
 	private String descripcion;
+	private Date fecha_creacion;
+	private Date fecha_fin;
 	@ManyToOne
 	@JoinColumn(name = "id_category", referencedColumnName = "id")
 	private Category category;
@@ -54,7 +57,7 @@ public class Suggestion {
 		this.titulo = titulo;
 		this.descripcion = descripcion;
 	}
-
+	
 	public Long getId() {
 		return id;
 	}
