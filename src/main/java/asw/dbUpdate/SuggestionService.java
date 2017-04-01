@@ -12,4 +12,5 @@ public interface SuggestionService {
 	Suggestion getSuggestionById(Long id);
 	
 	void saveSuggestion(Suggestion suggestion);
+	void deleteSuggestion(Suggestion suggestion);
 }

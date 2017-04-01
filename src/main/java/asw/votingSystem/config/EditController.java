@@ -24,12 +24,11 @@ public class EditController {
 	private SuggestionService suggestionService;
 
 	@RequestMapping("/edit")
-	public String editSuggestion(@RequestParam("sugerencia") Long id, HttpSession session, Model model) {
-		Suggestion s = suggestionService.getSuggestionById(id);
-		model.addAttribute("sugerencia", s);
+	public void editSuggestion(@RequestParam("sugerencia") Long id, HttpSession session, Model model) {
+		Suggestion sugerencia = suggestionService.getSuggestionById(id);
+		model.addAttribute("sugerencia", sugerencia);
 		// Enviar aviso a kafka
 		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
 		model.addAttribute("sugerencias", sugerencias);
-		return "edit";
 	}
 }

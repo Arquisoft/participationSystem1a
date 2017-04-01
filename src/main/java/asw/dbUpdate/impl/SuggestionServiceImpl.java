@@ -43,4 +43,9 @@ public class SuggestionServiceImpl implements SuggestionService {
 	public List<Suggestion> getVotables() {
 		return repository.findByEstadoOrderByPopularidadDesc(SuggestionState.BuscandoApoyo);
 	}
+
+	@Override
+	public void deleteSuggestion(Suggestion suggestion) {
+		repository.delete(suggestion);		
+	}
 }
