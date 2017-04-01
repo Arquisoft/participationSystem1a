@@ -1,11 +1,13 @@
 package asw.dbUpdate.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import asw.dbUpdate.CategoryService;
 import asw.dbUpdate.model.Category;
 import asw.dbUpdate.repository.CategoryRepository;
 
+@Service
 public class CategoryServiceImpl implements CategoryService {
 
 	private CategoryRepository repository;
@@ -27,7 +29,7 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public void saveCategory(Category category) {
-		repository.save(category);		
+		repository.save(category);
 	}
 
 }
