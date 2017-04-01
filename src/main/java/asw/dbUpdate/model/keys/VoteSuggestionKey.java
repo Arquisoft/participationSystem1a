@@ -8,6 +8,14 @@ public class VoteSuggestionKey implements Serializable {
 	Long participant;
 	Long suggestion;
 
+	VoteSuggestionKey() {
+	}
+
+	public VoteSuggestionKey(Long participant, Long suggestion) {
+		this.participant = participant;
+		this.suggestion = suggestion;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

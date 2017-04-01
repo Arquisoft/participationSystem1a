@@ -1,5 +1,5 @@
 package asw.dbUpdate.model;
 
 public enum SuggestionState {
-	BuscandoApoyo, EnVotacion 
+	BuscandoApoyo, EnVotacion, Desactivada 
 }
