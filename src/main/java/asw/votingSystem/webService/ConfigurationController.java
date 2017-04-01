@@ -34,33 +34,35 @@ public class ConfigurationController {
 		return "config";
 	}
 	
-	@RequestMapping("/save")
+	/*@RequestMapping("/save")
 	public String saveSuggestion(@RequestParam("sugerencia") Long id, HttpSession session, Model model) {
+		
 		suggestionService.saveSuggestion((Suggestion) session.getAttribute("sugerencia"));
 		// Enviar aviso a kafka
 		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
 		model.addAttribute("sugerencias", sugerencias);
 		return "config";
-	}
+	}*/
 	
 	@RequestMapping("/delete")
 	public String deleteSuggestion(@RequestParam("sugerencia") Long id, HttpSession session, Model model) {
-		suggestionService.deleteSuggestion((Suggestion) session.getAttribute("sugerencia"));
+		Suggestion sugerencia = suggestionService.getSuggestionById(id);
+		suggestionService.deleteSuggestion(sugerencia);
 		// Enviar aviso a kafka
 		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
 		model.addAttribute("sugerencias", sugerencias);
 		return "config";
 	}
 	
-	@RequestMapping("/edit")
+	/*@RequestMapping("/edit")
 	public String editSuggestion(@RequestParam("sugerencia") Long id, HttpSession session, Model model) {
 		Suggestion sugerencia = suggestionService.getSuggestionById(id);
-		model.addAttribute("sugerencia", sugerencia);
+		model.addAttribute(sugerencia);
 		// Enviar aviso a kafka
 		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
 		model.addAttribute("sugerencias", sugerencias);
 		return "edit";
-	}
+	}*/
 	
 	@RequestMapping("/days")
 	public String setDays(@RequestParam("days") int dias, HttpSession session, Model model) {
@@ -71,7 +73,7 @@ public class ConfigurationController {
 		return "config";
 	}
 	
-	@RequestMapping("/addCategories")
+	@RequestMapping("/addCategory")
 	public String addCategory(@RequestParam("acategory") String nombre, HttpSession session, Model model) {
 		Category category = categoryService.getCategoryByName(nombre);
 		if(category == null){
@@ -84,7 +86,7 @@ public class ConfigurationController {
 		return "config";
 	}
 	
-	@RequestMapping("/removeCategories")
+	@RequestMapping("/removeCategory")
 	public String removeCategory(@RequestParam("rmcategory") String nombre, HttpSession session, Model model) {
 		Category category = categoryService.getCategoryByName(nombre);
 		if(category != null){
@@ -96,5 +98,4 @@ public class ConfigurationController {
 		model.addAttribute("sugerencias", sugerencias);
 		return "config";
 	}
-	
 }
