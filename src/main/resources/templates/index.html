@@ -27,7 +27,7 @@
                 <td><a id="apoyar${iter.id}"
                     th:href="@{/support(sugerencia=${iter.id})}">Apoyar
                         propuesta</a></td>
-                <td><a id="comentarios${iter.id}" href="">Ver
+                <td><a id="comentarios${iter.id}" href="@{/comments(sugerencia=${iter.id})}">Ver
                         Comentarios</a></td>
             </tr>
         </tbody>

@@ -1,0 +1,37 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Portal de usuario</title>
+<meta charset="utf-8" />
+</head>
+<body>
+	<h1>Comentarios de la propuesta</h1>
+	<p th:text="${mensaje}" />
+	<table id="tablaPropuestas" border="1">
+		<thead>
+			<tr>
+				<th>Texto</th>
+				<th>Votos positivos</th>
+				<th>Votos negativos</th>
+				<th>Popularidad</th>
+				<th>Votar positivo</th>
+				<th>Votar negativo</th>
+				<th>Participante</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="iter : ${comentarios}">
+				<td th:text="${iter.texto}">Texto</td>
+				<td th:text="${iter.votosPositivos}">Votos positivos</td>
+				<td th:text="${iter.votosNegativos}">Votos negativos</td>
+				<td th:text="${iter.popularidad}">Popularidad</td>
+				<td th:text="${iter.participant.email}">Participante</td>
+				<td th:text="${iter.votosNegativos}">Votar positivo</td>
+				<td><a id="positivo${iter.id}"
+					th:href="@{/support(sugerencia=${iter.id})}">Votar positivo</a></td>
+				<td><a id="negativo${iter.id}"
+					th:href="@{/support(sugerencia=${iter.id})}">Votar negativo</a></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>
