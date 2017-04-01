@@ -27,7 +27,7 @@
 			<tr th:each="iter : ${sugerencias}">
 				<td th:text="${iter.titulo}">Title</td>
 				<td th:text="${iter.descripcion}">Description</td>
-				<td th:text="${iter.creator}">Author</td>
+				<td th:text="${iter.creator.nombre()} ${iter.creator.apellidos}">Author</td>
 				<td th:text="${iter.popularidad}">Votes</td>
 				<td th:text="${iter.estado}">State</td>
 				<td align="center"><a id="editar${iter.id}"
