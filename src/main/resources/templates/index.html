@@ -1,29 +1,36 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>PAGINA DE INICIO</title>
+<title>Portal de usuario</title>
 <meta charset="utf-8" />
 </head>
 <body>
-	<a href="crearPropuesta">Crear propuesta</a>
-	<h1>Propuestas activas</h1>
-	<table id="tablaPropuestas" border="1">
-		<thead>
-			<tr>
-				<th>Titulo</th>
-				<th>Descripcion</th>
-				<th>Apoyar</th>
-				<th>Comentarios</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="iter : ${sugerencias}">
-				<td th:text="${iter.titulo}">Titulo</td>
-				<td th:text="${iter.descripcion}">Descripcion</td>
-				<td><a id="apoyar${iter.id}"
-					th:href="@{/support(sugerencia=${iter.id})}">Apoyar propuesta</a></td>
-				<td><a id="comentarios${iter.id}" href="">Ver Comentarios</a></td>
-			</tr>
-		</tbody>
-	</table>
+    <a href="crearPropuesta">Crear propuesta</a>
+    <h1>Propuestas activas</h1>
+    <p th:text="${mensaje}" />
+    <table id="tablaPropuestas" border="1">
+        <thead>
+            <tr>
+                <th>Titulo</th>
+                <th>Descripcion</th>
+                <th>Categoria</th>
+                <th>Popularidad</th>
+                <th>Apoyar</th>
+                <th>Comentarios</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="iter : ${sugerencias}">
+                <td th:text="${iter.titulo}">Titulo</td>
+                <td th:text="${iter.descripcion}">Descripcion</td>
+                <td th:text="${iter.category.name}">Categoria</td>
+                <td th:text="${iter.popularidad}">Popularidad</td>
+                <td><a id="apoyar${iter.id}"
+                    th:href="@{/support(sugerencia=${iter.id})}">Apoyar
+                        propuesta</a></td>
+                <td><a id="comentarios${iter.id}" href="">Ver
+                        Comentarios</a></td>
+            </tr>
+        </tbody>
+    </table>
 </body>
 </html>

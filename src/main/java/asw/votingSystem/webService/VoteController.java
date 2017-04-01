@@ -26,10 +26,12 @@ public class VoteController {
 
 	@RequestMapping("/support")
 	public String votingUp(@RequestParam("sugerencia") Long id, HttpSession session, Model model) {
-		participantService.supportSuggestion(((Participant) session.getAttribute("usuario")).getId(), id);
-
+		if (!participantService.supportSuggestion(((Participant) session.getAttribute("usuario")).getId(), id))
+			model.addAttribute("mensaje", "Ya has votado esta sugerencia anteriormente");
+		else
+			model.addAttribute("mensaje", "");
 		// Enviar aviso a kafka
-		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
+		List<Suggestion> sugerencias = suggestionService.getVotables();
 		model.addAttribute("sugerencias", sugerencias);
 		return "index";
 	}

@@ -7,12 +7,15 @@ import org.springframework.transaction.annotation.Transactional;
 import asw.dbUpdate.ParticipantService;
 import asw.dbUpdate.model.Participant;
 import asw.dbUpdate.model.Suggestion;
+import asw.dbUpdate.model.SuggestionState;
 import asw.dbUpdate.model.VoteSuggestion;
+import asw.dbUpdate.model.keys.VoteSuggestionKey;
 import asw.dbUpdate.repository.ParticipantRepository;
 import asw.dbUpdate.repository.SuggestionRepository;
 import asw.dbUpdate.repository.VoteSuggestionRepository;
 
-//CADA VEZ QUE SE CREE UN OBJETO NUEVO SE DEBE HACER DENTRO DE UN METODO TRANSACTIONAL DENTRO DE UN SERVICE PARA PODER USAR LA CLASE ASSOCIATIONS
+//CADA VEZ QUE SE CREE UN OBJETO NUEVO SE DEBE HACER DENTRO DE UN METODO TRANSACTIONAL DENTRO DE UN SERVICE 
+//PARA PODER USAR LA CLASE ASSOCIATIONS
 
 @Service
 public class ParticipantServiceImpl implements ParticipantService {
@@ -36,10 +39,16 @@ public class ParticipantServiceImpl implements ParticipantService {
 
 	@Override
 	@Transactional
-	public void supportSuggestion(Long participant, Long suggestion) {
+	public boolean supportSuggestion(Long participant, Long suggestion) {
 		Participant part = pr.findOne(participant);
 		Suggestion sugg = sr.findOne(suggestion);
-		VoteSuggestion vote = new VoteSuggestion(part, sugg);
-		vsr.save(vote);
+		if (!vsr.exists(new VoteSuggestionKey(part.getId(), sugg.getId()))) {
+			VoteSuggestion vote = new VoteSuggestion(part, sugg);
+			vsr.save(vote);
+			if (sugg.getPopularidad() >= sugg.getMinVotos())
+				sugg.setEstado(SuggestionState.EnVotacion);
+			return true;
+		}
+		return false;
 	}
 }

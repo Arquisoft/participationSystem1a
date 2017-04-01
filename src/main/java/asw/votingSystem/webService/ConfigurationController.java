@@ -23,8 +23,9 @@ public class ConfigurationController {
 	private SuggestionService suggestionService;
 	
 	@RequestMapping("/find")
-	public void findSuggestion(@RequestParam String title, HttpSession session, Model model){
+	public String findSuggestion(@RequestParam String title, HttpSession session, Model model){
 		List<Suggestion> suggestions = suggestionService.getSuggestionByTitle(title);
 		model.addAttribute("sugerencias", suggestions);
+		return "config";
 	}
 }

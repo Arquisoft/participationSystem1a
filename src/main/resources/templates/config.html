@@ -7,9 +7,10 @@
 <body>
 	<h1>Administration Page</h1>
 	<p>Find Suggestion<p>
-	<form>
+	<form method="POST" action="find">
 		Suggestion Title
-		<input type="text" name="find_text"/>
+		<input type="text" name="suggestion_name"/>
+		<input type="submit" name="find">
 	</form>
 	<table id="suggestionsTable" border="1">
 		<thead>
