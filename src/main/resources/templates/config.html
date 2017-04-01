@@ -19,6 +19,8 @@
 				<th>Author</th>
 				<th>Votes</th>
 				<th>State</th>
+				<th>Creation Date</th>
+				<th>End Date</th>
 				<th>Edit Suggestion</th>
 				<th>Delete Suggestion</th>
 			</tr>
@@ -30,6 +32,8 @@
 				<td th:text="${iter.creator.nombre()} ${iter.creator.apellidos}">Author</td>
 				<td th:text="${iter.popularidad}">Votes</td>
 				<td th:text="${iter.estado}">State</td>
+				<td th:text="${iter.fecha_creacion}">Creation Date</td>
+				<td th:text="${iter.fecha_fin}">End Date</td>
 				<td align="center"><a id="editar${iter.id}"
 					th:href="@{/edit(sugerencia=${iter.id})}" href="">Edit</a></td>
 				<td align="center"><a id="delete${iter.id}"

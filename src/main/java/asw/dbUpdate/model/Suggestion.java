@@ -1,5 +1,7 @@
 package asw.dbUpdate.model;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,10 +15,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "TSuggestions")
 public class Suggestion {
+	private final static int DIAS_ABIERTA = 7;
 	@Id
 	@GeneratedValue
 	public Long id;
@@ -32,7 +37,9 @@ public class Suggestion {
 	private Participant creator;
 	private String titulo;
 	private String descripcion;
+	@Temporal(TemporalType.DATE)
 	private Date fecha_creacion;
+	@Temporal(TemporalType.DATE)
 	private Date fecha_fin;
 	@ManyToOne
 	@JoinColumn(name = "id_category", referencedColumnName = "id")
@@ -56,6 +63,15 @@ public class Suggestion {
 		this.popularidad = this.votosPositivos;
 		this.titulo = titulo;
 		this.descripcion = descripcion;
+	}
+	
+	public Suggestion(String titulo, String descripcion, Participant creator,
+			Date fecha_creacion, Date fecha_fin){
+		this();
+		this.fecha_creacion = fecha_creacion;
+		Calendar c = Calendar.getInstance();
+		c.add(Calendar.DATE, DIAS_ABIERTA); //Pone la fecha de finalización DIAS_ABIERTA mas tarde
+		this.fecha_fin = c.getTime();
 	}
 	
 	public Long getId() {

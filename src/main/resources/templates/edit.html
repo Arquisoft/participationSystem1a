@@ -13,9 +13,16 @@
 		Suggestion Category
 		<input type="text" name="suggestion_category" value="${sugerencia.category}"/>
 		<br>
+		Suggestion Creation Date
+		<input type="text" name="suggestion_creation" value="${sugerencia.fecha_creacion}"/>
+		<br>
+		Suggestion End Date
+		<input type="text" name="suggestion_ends" value="${sugerencia.fecha_fin}"/>
+		<br>
+		
 	</form>
 	Suggestion Description<br>
-	<textarea name="description" form="editform" value="${sugerencia.descripcion}" cols="80" rows="15"></textarea>
+	<textarea name="description" form="editform" placeholder="${sugerencia.descripcion}" cols="80" rows="15"></textarea>
 	<br>
 	<input type="submit" name="save" form="editform" value="Save"/>
 </body>
