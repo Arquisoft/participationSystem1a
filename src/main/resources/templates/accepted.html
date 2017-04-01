@@ -8,9 +8,9 @@
 	<h1>Accepted Suggestions</h1>
 	<ul>
 		<li><a href="">Parameter configuration</a></li>
-		<li><a href="accepted.html">Accepted Suggestions</a></li>
-		<li><a href="rejected.html">Rejected Suggestions</a></li>
-		<li><a href="transact.html">Suggestions on vote</a></li>
+		<li><a th:href="@{/accepted}">Accepted Suggestions</a></li>
+		<li><a th:href="@{/rejected}">Rejected Suggestions</a></li>
+		<li><a th:href="@{/transact}">Suggestions on vote</a></li>
 	</ul>
 	<table border="1">
 		<thead>
@@ -20,7 +20,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="iter : acceptedSuggestions">
+			<tr th:each="iter : ${suggestions}">
 				<td th:text="${iter.titulo}">Title</td>
 				<td th:text="${iter.descripcion}">Description</td>
 			</tr>

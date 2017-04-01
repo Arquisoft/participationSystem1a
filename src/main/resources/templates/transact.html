@@ -24,7 +24,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="iter : $trasactSuggestions}">
+			<tr th:each="iter : ${suggestions}">
 				<td th:text="${iter.titulo}">Title</td>
 				<td th:text="${iter.descripcion}">Description</td>
 				<td th:text="${iter.votosPositivos}">Votes</td>

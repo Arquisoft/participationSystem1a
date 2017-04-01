@@ -29,29 +29,26 @@ public class ConfigurationController {
 	private CategoryService categoryService;
 
 	@RequestMapping("/accepted")
-	public String findAcceptedSuggestions(Model model){
-		List<Suggestion> acceptedSuggestions = suggestionService
-				.getSuggestionByStatus(SuggestionState.Aceptada);
-		model.addAttribute(acceptedSuggestions);
+	public String findAcceptedSuggestions(Model model) {
+		List<Suggestion> acceptedSuggestions = suggestionService.getSuggestionByStatus(SuggestionState.Aceptada);
+		model.addAttribute("suggestions", acceptedSuggestions);
 		return "accepted";
 	}
-	
+
 	@RequestMapping("/rejected")
-	public String findRejectedSuggestions(Model model){
-		List<Suggestion> rejectedSuggestions = suggestionService
-				.getSuggestionByStatus(SuggestionState.Rechazada);
-		model.addAttribute(rejectedSuggestions);
+	public String findRejectedSuggestions(Model model) {
+		List<Suggestion> rejectedSuggestions = suggestionService.getSuggestionByStatus(SuggestionState.Rechazada);
+		model.addAttribute("suggestions", rejectedSuggestions);
 		return "rejected";
 	}
-	
+
 	@RequestMapping("/transact")
-	public String findTrasactSuggestions(Model model){
-		List<Suggestion> trasactSuggestions = suggestionService
-				.getSuggestionByStatus(SuggestionState.EnVotacion);
-		model.addAttribute(trasactSuggestions);
+	public String findTrasactSuggestions(Model model) {
+		List<Suggestion> trasactSuggestions = suggestionService.getSuggestionByStatus(SuggestionState.EnVotacion);
+		model.addAttribute("suggestions", trasactSuggestions);
 		return "transact";
 	}
-	
+
 	@RequestMapping("/find")
 	public String findSuggestion(@RequestParam("suggestion_name") String title, HttpSession session, Model model) {
 		List<Suggestion> suggestions = suggestionService.getSuggestionByTitle(title);
@@ -78,6 +75,7 @@ public class ConfigurationController {
 		model.addAttribute("sugerencias", sugerencias);
 		return "config";
 	}
+
 	@RequestMapping("/days")
 	public String setDays(@RequestParam("days") int dias, HttpSession session, Model model) {
 		Suggestion.DIAS_ABIERTA = dias;
@@ -113,7 +111,7 @@ public class ConfigurationController {
 	}
 
 	@RequestMapping("/rejectSuggestion")
-	public String rejectSuggestion(@RequestParam("transacSuggestion") Long id, Model model){
+	public String rejectSuggestion(@RequestParam("transacSuggestion") Long id, Model model) {
 		Suggestion suggestion = suggestionService.getSuggestionById(id);
 		suggestion.setEstado(SuggestionState.Rechazada);
 		suggestionService.saveSuggestion(suggestion);
