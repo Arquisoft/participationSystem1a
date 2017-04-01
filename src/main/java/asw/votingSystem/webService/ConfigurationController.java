@@ -32,7 +32,7 @@ public class ConfigurationController {
 	public String findAcceptedSuggestions(Model model){
 		List<Suggestion> acceptedSuggestions = suggestionService
 				.getSuggestionByStatus(SuggestionState.Aceptada);
-		model.addAttribute(acceptedSuggestions);
+		model.addAttribute("acceptedSugestions", acceptedSuggestions);
 		return "accepted";
 	}
 	
@@ -40,7 +40,7 @@ public class ConfigurationController {
 	public String findRejectedSuggestions(Model model){
 		List<Suggestion> rejectedSuggestions = suggestionService
 				.getSuggestionByStatus(SuggestionState.Rechazada);
-		model.addAttribute(rejectedSuggestions);
+		model.addAttribute("rejectedSuggestions", rejectedSuggestions);
 		return "rejected";
 	}
 	
@@ -48,7 +48,7 @@ public class ConfigurationController {
 	public String findTrasactSuggestions(Model model){
 		List<Suggestion> trasactSuggestions = suggestionService
 				.getSuggestionByStatus(SuggestionState.EnVotacion);
-		model.addAttribute(trasactSuggestions);
+		model.addAttribute("transactSuggestions", trasactSuggestions);
 		return "transact";
 	}
 	
