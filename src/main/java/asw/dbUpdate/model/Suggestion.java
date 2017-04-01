@@ -218,5 +218,4 @@ public class Suggestion {
 		this.votosPositivos--;
 		this.popularidad--;
 	}
-
 }

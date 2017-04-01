@@ -48,4 +48,9 @@ public class SuggestionServiceImpl implements SuggestionService {
 	public void deleteSuggestion(Suggestion suggestion) {
 		repository.delete(suggestion);		
 	}
+
+	@Override
+	public List<Suggestion> getSuggestionByStatus(SuggestionState estado) {
+		return repository.findByEstado(estado);
+	}
 }

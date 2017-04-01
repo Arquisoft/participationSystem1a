@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.hadoop.mapred.gethistory_jsp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import asw.dbUpdate.CategoryService;
 import asw.dbUpdate.SuggestionService;
 import asw.dbUpdate.model.Category;
 import asw.dbUpdate.model.Suggestion;
+import asw.dbUpdate.model.SuggestionState;
 
 @Controller
 public class ConfigurationController {
@@ -27,6 +29,30 @@ public class ConfigurationController {
 	@Autowired
 	private CategoryService categoryService;
 
+	@RequestMapping("/accepted")
+	public String findAcceptedSuggestions(Model model){
+		List<Suggestion> acceptedSuggestions = suggestionService
+				.getSuggestionByStatus(SuggestionState.Aceptada);
+		model.addAttribute(acceptedSuggestions);
+		return "accepted";
+	}
+	
+	@RequestMapping("/rejected")
+	public String findRejectedSuggestions(Model model){
+		List<Suggestion> rejectedSuggestions = suggestionService
+				.getSuggestionByStatus(SuggestionState.Rechazada);
+		model.addAttribute(rejectedSuggestions);
+		return "rejected";
+	}
+	
+	@RequestMapping("/transact")
+	public String findTrasactSuggestions(Model model){
+		List<Suggestion> trasactSuggestions = suggestionService
+				.getSuggestionByStatus(SuggestionState.EnVotacion);
+		model.addAttribute(trasactSuggestions);
+		return "transact";
+	}
+	
 	@RequestMapping("/find")
 	public String findSuggestion(@RequestParam("suggestion_name") String title, HttpSession session, Model model) {
 		List<Suggestion> suggestions = suggestionService.getSuggestionByTitle(title);
@@ -87,4 +113,14 @@ public class ConfigurationController {
 		return "config";
 	}
 
+	@RequestMapping("/rejectSuggestion")
+	public String rejectSuggestion(@RequestParam("transacSuggestion") Long id, Model model){
+		Suggestion suggestion = suggestionService.getSuggestionById(id);
+		suggestion.setEstado(SuggestionState.Rechazada);
+		suggestionService.saveSuggestion(suggestion);
+		// Enviar aviso a kafka
+		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
+		model.addAttribute("sugerencias", sugerencias);
+		return "transact";
+	}
 }

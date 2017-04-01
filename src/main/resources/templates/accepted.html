@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Administration</title>
+</head>
+<body>
+	<h1>Accepted Suggestions</h1>
+	<ul>
+		<li><a href="">Parameter configuration</a><li>
+		<li><a href="accepted.html">Accepted Suggestions</a><li>
+		<li><a href="rejected.html">Rejected Suggestions</a><li>
+		<li><a href="transact.html">Suggestions on vote</a><li>
+	</ul>
+	<h4 th:if="${hidden}">There are not accepted suggestions</h4>
+	<table th:if="${not hidden}" border="1">
+		<thead>
+			<tr>
+				<th>Suggestion</th>
+				<th>Description</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="iter : acceptedSuggestions">
+				<td th:text="${iter.titulo}">Title</td>
+				<td th:text="${iter.descripcion}">Description</td>
+		</tbody>
+	</table>
+</body>
+</html>	

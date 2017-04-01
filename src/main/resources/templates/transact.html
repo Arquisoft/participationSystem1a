@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Administration</title>
+</head>
+<body>
+	<h1>Suggestions on transact</h1>
+	<ul>
+		<li><a href="">Parameter configuration</a><li>
+		<li><a href="accepted.html">Accepted Suggestions</a><li>
+		<li><a href="rejected.html">Rejected Suggestions</a><li>
+		<li><a href="transact.html">Suggestions on transact</a><li>
+	</ul>
+	<h4 th:if="${hidden}">There are not suggestions on trasaction</h4>
+	<table th:if="${not hidden}" border="1">
+		<thead>
+			<tr>
+				<th>Suggestion</th>
+				<th>Description</th>
+				<th>Votes</th>
+				<th>Votes to be accepted</th>
+				<th>Reject</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="iter : $trasactSuggestions}">
+				<td th:text="${iter.titulo}">Title</td>
+				<td th:text="${iter.descripcion}">Description</td>
+				<td th:text="${iter.votosPositivos}">Votes</td>
+				<td th:text="${iter.minVotos}">Min Votes</td>
+				<td>
+					<a th:href="@{/rejectSuggestion(idPropuesta=${iter.id})}">Reject</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>
