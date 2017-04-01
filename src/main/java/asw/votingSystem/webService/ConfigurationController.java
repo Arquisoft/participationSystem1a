@@ -10,7 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import asw.dbUpdate.CategoryService;
 import asw.dbUpdate.SuggestionService;
+import asw.dbUpdate.model.Category;
 import asw.dbUpdate.model.Suggestion;
 
 @Controller
@@ -21,6 +23,8 @@ public class ConfigurationController {
 	// webService (Al estar vacio git hub no lo sube)
 	@Autowired
 	private SuggestionService suggestionService;
+	@Autowired
+	private CategoryService categoryService;
 	
 	@RequestMapping("/find")
 	public String findSuggestion(@RequestParam("suggestion_name") String title, HttpSession session, Model model){
@@ -56,4 +60,27 @@ public class ConfigurationController {
 		model.addAttribute("sugerencias", sugerencias);
 		return "edit";
 	}
+	
+	@RequestMapping("/days")
+	public String setDays(@RequestParam("days") int dias, HttpSession session, Model model) {
+		Suggestion.DIAS_ABIERTA = dias;
+		// Enviar aviso a kafka
+		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
+		model.addAttribute("sugerencias", sugerencias);
+		return "config";
+	}
+	
+	@RequestMapping("/categories")
+	public String categories(@RequestParam("category") String nombre, HttpSession session, Model model) {
+		Category category = categoryService.getCategoryByName(nombre);
+		if(category == null){
+			Category categoria = new Category(nombre);
+			categoryService.saveCategory(categoria);
+		}
+		// Enviar aviso a kafka
+		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
+		model.addAttribute("sugerencias", sugerencias);
+		return "config";
+	}
+	
 }

@@ -1,6 +1,5 @@
 package asw.dbUpdate.model;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
@@ -21,7 +20,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "TSuggestions")
 public class Suggestion {
-	private final static int DIAS_ABIERTA = 7;
+	public static int DIAS_ABIERTA = 7;
 	@Id
 	@GeneratedValue
 	public Long id;

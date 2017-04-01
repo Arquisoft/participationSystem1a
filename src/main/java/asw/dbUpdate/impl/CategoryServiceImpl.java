@@ -20,4 +20,14 @@ public class CategoryServiceImpl implements CategoryService {
 		return repository.findOne(id);
 	}
 
+	@Override
+	public Category getCategoryByName(String name) {
+		return repository.findByName(name);
+	}
+
+	@Override
+	public void saveCategory(Category category) {
+		repository.save(category);		
+	}
+
 }
