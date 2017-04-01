@@ -56,11 +56,11 @@ public class Comment {
 		this.texto = texto;
 	}
 
-	public Participant getUser() {
+	public Participant getParticipant() {
 		return participant;
 	}
 
-	protected void _setUser(Participant user) {
+	protected void _setParticipant(Participant user) {
 		this.participant = user;
 	}
 
@@ -145,6 +145,15 @@ public class Comment {
 	public String toString() {
 		return "Comment [texto=" + texto + ", votosPositivos=" + votosPositivos + ", votosNegativos=" + votosNegativos
 				+ ", valoracion=" + valoracion + ", fechaCreacion=" + fechaCreacion + "]";
+	}
+
+	public void incrementPositiveVotes() {
+		this.votosPositivos++;
+
+	}
+
+	public void incrementateNegativeVotes() {
+		this.votosNegativos++;
 	}
 
 }

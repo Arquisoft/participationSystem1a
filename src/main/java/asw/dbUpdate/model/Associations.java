@@ -16,7 +16,7 @@ public class Associations {
 
 	public static class Comentar {
 		public static void link(Comment c, Participant p, Suggestion s) {
-			c._setUser(p);
+			c._setParticipant(p);
 			c._setSuggestion(s);
 			s._getComentarios().add(c);
 			p._getComentarios().add(c);
@@ -25,7 +25,7 @@ public class Associations {
 		public static void unlink(Comment c, Participant p, Suggestion s) {
 			p._getComentarios().remove(c);
 			s._getComentarios().remove(c);
-			c._setUser(null);
+			c._setParticipant(null);
 			c._setSuggestion(null);
 		}
 	}

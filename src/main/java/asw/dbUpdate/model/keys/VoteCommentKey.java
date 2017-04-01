@@ -8,6 +8,14 @@ public class VoteCommentKey implements Serializable {
 	Long participant;
 	Long comment;
 
+	VoteCommentKey() {
+	}
+
+	public VoteCommentKey(Long participant, Long comment) {
+		this.participant = participant;
+		this.comment = comment;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
