@@ -19,10 +19,11 @@ public class DeleteController {
 	private SuggestionService suggestionService;
 
 	@RequestMapping("/delete")
-	public void editSuggestion(@RequestParam("sugerencia") Long id, HttpSession session, Model model) {
+	public String editSuggestion(@RequestParam("sugerencia") Long id, HttpSession session, Model model) {
 		suggestionService.deleteSuggestion((Suggestion) session.getAttribute("sugerencia"));
 		// Enviar aviso a kafka
 		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
 		model.addAttribute("sugerencias", sugerencias);
+		return "config";
 	}
 }

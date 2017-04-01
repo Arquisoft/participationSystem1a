@@ -18,10 +18,11 @@ public class SaveController {
 	private SuggestionService suggestionService;
 
 	@RequestMapping("/save")
-	public void saveSuggestion(@RequestParam("sugerencia") Long id, HttpSession session, Model model) {
+	public String saveSuggestion(@RequestParam("sugerencia") Long id, HttpSession session, Model model) {
 		suggestionService.saveSuggestion((Suggestion) session.getAttribute("sugerencia"));
 		// Enviar aviso a kafka
 		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
 		model.addAttribute("sugerencias", sugerencias);
+		return "config";
 	}
 }
