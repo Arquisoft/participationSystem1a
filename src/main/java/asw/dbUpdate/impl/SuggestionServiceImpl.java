@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import asw.dbUpdate.SuggestionService;
 import asw.dbUpdate.model.Suggestion;
+import asw.dbUpdate.model.SuggestionState;
 import asw.dbUpdate.repository.SuggestionRepository;
 
 @Service
@@ -36,5 +37,10 @@ public class SuggestionServiceImpl implements SuggestionService {
 	@Override
 	public void saveSuggestion(Suggestion suggestion) {
 		repository.save(suggestion);
+	}
+
+	@Override
+	public List<Suggestion> getVotables() {
+		return repository.findByEstadoOrderByPopularidadDesc(SuggestionState.BuscandoApoyo);
 	}
 }

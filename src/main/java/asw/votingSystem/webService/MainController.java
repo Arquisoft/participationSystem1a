@@ -38,7 +38,7 @@ public class MainController {
 		if (p.isAdmin())
 			return "config";
 		else {
-			List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
+			List<Suggestion> sugerencias = suggestionService.getVotables();
 			model.addAttribute("sugerencias", sugerencias);
 			return "index";
 		}

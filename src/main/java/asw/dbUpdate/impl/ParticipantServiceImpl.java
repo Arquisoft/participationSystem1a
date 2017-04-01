@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import asw.dbUpdate.ParticipantService;
 import asw.dbUpdate.model.Participant;
 import asw.dbUpdate.model.Suggestion;
+import asw.dbUpdate.model.SuggestionState;
 import asw.dbUpdate.model.VoteSuggestion;
 import asw.dbUpdate.model.keys.VoteSuggestionKey;
 import asw.dbUpdate.repository.ParticipantRepository;
@@ -44,6 +45,8 @@ public class ParticipantServiceImpl implements ParticipantService {
 		if (!vsr.exists(new VoteSuggestionKey(part.getId(), sugg.getId()))) {
 			VoteSuggestion vote = new VoteSuggestion(part, sugg);
 			vsr.save(vote);
+			if (sugg.getPopularidad() >= sugg.getMinVotos())
+				sugg.setEstado(SuggestionState.EnVotacion);
 			return true;
 		}
 		return false;
