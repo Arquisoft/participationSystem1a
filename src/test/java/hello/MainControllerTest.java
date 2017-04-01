@@ -51,5 +51,4 @@ public class MainControllerTest {
 		ResponseEntity<String> response = template.getForEntity(userURI, String.class);
 		UserInfo expected = new UserInfo("pepe",0);
 	}
-
 }
