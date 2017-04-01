@@ -54,16 +54,6 @@ public class ConfigurationController {
 		return "config";
 	}
 	
-	/*@RequestMapping("/edit")
-	public String editSuggestion(@RequestParam("sugerencia") Long id, HttpSession session, Model model) {
-		Suggestion sugerencia = suggestionService.getSuggestionById(id);
-		model.addAttribute(sugerencia);
-		// Enviar aviso a kafka
-		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
-		model.addAttribute("sugerencias", sugerencias);
-		return "edit";
-	}*/
-	
 	@RequestMapping("/days")
 	public String setDays(@RequestParam("days") int dias, HttpSession session, Model model) {
 		Suggestion.DIAS_ABIERTA = dias;
@@ -90,8 +80,7 @@ public class ConfigurationController {
 	public String removeCategory(@RequestParam("rmcategory") String nombre, HttpSession session, Model model) {
 		Category category = categoryService.getCategoryByName(nombre);
 		if(category != null){
-			Category categoria = new Category(nombre);
-			categoryService.deleteCategory(categoria);
+			categoryService.deleteCategory(category);
 		}
 		// Enviar aviso a kafka
 		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
