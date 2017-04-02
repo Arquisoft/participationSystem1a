@@ -1,7 +1,6 @@
 package asw.votingSystem.webService;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -31,19 +30,18 @@ public class ConfigurationController {
 
 	@Autowired
 	private CategoryService categoryService;
-	
+
 	@Autowired
 	private WordService wordService;
-	
+
 	@RequestMapping("/parameters")
-	public String parameters(Model model){
+	public String parameters(Model model) {
 		return "parameters";
 	}
-	
+
 	@RequestMapping("/accepted")
 	public String findAcceptedSuggestions(Model model) {
-		List<Suggestion> acceptedSuggestions = suggestionService
-				.getSuggestionByStatus(SuggestionState.Aceptada);
+		List<Suggestion> acceptedSuggestions = suggestionService.getSuggestionByStatus(SuggestionState.Aceptada);
 		model.addAttribute("suggestions", acceptedSuggestions);
 
 		return "accepted";
@@ -51,9 +49,8 @@ public class ConfigurationController {
 
 	@RequestMapping("/rejected")
 
-	public String findRejectedSuggestions(Model model){
-		List<Suggestion> rejectedSuggestions = suggestionService
-				.getSuggestionByStatus(SuggestionState.Rechazada);
+	public String findRejectedSuggestions(Model model) {
+		List<Suggestion> rejectedSuggestions = suggestionService.getSuggestionByStatus(SuggestionState.Rechazada);
 		model.addAttribute("suggestions", rejectedSuggestions);
 		return "rejected";
 	}
@@ -61,17 +58,14 @@ public class ConfigurationController {
 	@RequestMapping("/transact")
 
 	public String findTrasactSuggestions(Model model) {
-		List<Suggestion> trasactSuggestions = suggestionService
-				.getSuggestionByStatus(SuggestionState.BuscandoApoyo);
+		List<Suggestion> trasactSuggestions = suggestionService.getSuggestionByStatus(SuggestionState.BuscandoApoyo);
 		model.addAttribute("suggestions", trasactSuggestions);
 		return "transact";
 	}
 
 	@RequestMapping("/find")
-	public String findSuggestion(@RequestParam("suggestion_name") String title,
-				HttpSession session, Model model) {
-		List<Suggestion> suggestions = suggestionService
-				.getSuggestionByTitle(title);
+	public String findSuggestion(@RequestParam("suggestion_name") String title, HttpSession session, Model model) {
+		List<Suggestion> suggestions = suggestionService.getSuggestionByTitle(title);
 		model.addAttribute("suggestions", suggestions);
 		return "config";
 	}
@@ -112,8 +106,7 @@ public class ConfigurationController {
 			Category categoria = new Category(nombre);
 			categoryService.saveCategory(categoria);
 			model.addAttribute("mensaje", "Category " + nombre + " has been added");
-		}
-		else
+		} else
 			model.addAttribute("mensaje", "Category " + nombre + " already exist");
 		// Enviar aviso a kafka
 		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
@@ -125,40 +118,39 @@ public class ConfigurationController {
 	public String removeCategory(@RequestParam("rmcategory") String nombre, HttpSession session, Model model) {
 		Category category = categoryService.getCategoryByName(nombre);
 		if (category != null && category.getSuggestions().isEmpty()) {
-			
+
 			categoryService.deleteCategory(category);
 			model.addAttribute("mensaje", "Category " + nombre + " has been removed");
-		}
-		else
-			model.addAttribute("mensaje", "Category " + nombre +" doesn't exist or there are suggestion in it");
+		} else
+			model.addAttribute("mensaje", "Category " + nombre + " doesn't exist or there are suggestion in it");
 		// Enviar aviso a kafka
 		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
 		model.addAttribute("sugerencias", sugerencias);
 		return "parameters";
 	}
-	
+
 	@RequestMapping("/addWords")
-	public String  addWord(@RequestParam("npw") String word2a, Model model){
+	public String addWord(@RequestParam("npw") String word2a, Model model) {
 		Word word = wordService.getWordByName(word2a);
-		if(word == null){
+		if (word == null) {
 			Word w = new Word(word2a);
 			wordService.saveWord(w);
 			model.addAttribute("mensaje", "Non-permitted word " + word2a + " has been added");
-		}else{
+		} else {
 			model.addAttribute("mensaje", "Non-permitted word " + word2a + " already exist");
-		}	
+		}
 		return "parameters";
 	}
-	
+
 	@RequestMapping("/removeWords")
-	public String  removeWord(@RequestParam("rpw") String word2r, Model model){
+	public String removeWord(@RequestParam("rpw") String word2r, Model model) {
 		Word word = wordService.getWordByName(word2r);
-		if(word != null){
+		if (word != null) {
 			wordService.deleteWord(word);
 			model.addAttribute("mensaje", "Non-permitted word " + word2r + " has been removed");
-		}else{
+		} else {
 			model.addAttribute("mensaje", "Non-permitted word " + word2r + " doesn't exist");
-		}	
+		}
 		return "parameters";
 	}
 
@@ -173,12 +165,12 @@ public class ConfigurationController {
 		model.addAttribute("sugerencias", sugerencias);
 		return "transact";
 	}
-	
+
 	@RequestMapping("/updateMinVotes")
-	public String updateMinVote(@RequestParam("suggestion") Long id,
-			@RequestParam("minVotes") int newMinVotes, Model model){
+	public String updateMinVote(@RequestParam("suggestion") Long id, @RequestParam("minVotes") int newMinVotes,
+			Model model) {
 		Suggestion suggestion = suggestionService.getSuggestionById(id);
-		if(newMinVotes > 0){
+		if (newMinVotes > 0) {
 			suggestion.setMinVotos(newMinVotes);
 			suggestionService.saveSuggestion(suggestion);
 		}
@@ -188,37 +180,37 @@ public class ConfigurationController {
 		findTrasactSuggestions(model);
 		return "transact";
 	}
-	
+
 	@RequestMapping("/voting")
-	public String voting(Model model){
-		List<Suggestion> votingSuggestions = suggestionService
-				.getSuggestionByStatus(SuggestionState.EnVotacion);
+	public String voting(Model model) {
+		List<Suggestion> votingSuggestions = suggestionService.getSuggestionByStatus(SuggestionState.EnVotacion);
 		model.addAttribute("suggestions", votingSuggestions);
 		return "voting";
 	}
-	
+
 	@RequestMapping("/accept")
-	public String accept(@RequestParam("idPropuesta") Long id, Model model){
+	public String accept(@RequestParam("idPropuesta") Long id, Model model) {
 		Suggestion suggestion = suggestionService.getSuggestionById(id);
 		suggestion.setEstado(SuggestionState.Aceptada);
 		// Enviar aviso a kafka
 		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
 		model.addAttribute("sugerencias", sugerencias);
 		voting(model);
-		voting(model);
 		return "voting";
 	}
-	
-	//Esto no funciona, me tiene desesperao
+
+	// Esto no funciona, me tiene desesperao - Fixed :)
 	@RequestMapping("/postponeEndDate")
-	public String postponeEndDate(@RequestParam("suggestion") Long id, 
-			@RequestParam("endDate") int days, Model model){
-		Suggestion suggestion = suggestionService.getSuggestionById(id);
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(suggestion.getFecha_creacion());
-		calendar.add(Calendar.DAY_OF_YEAR, days);  
-	    suggestionService.saveSuggestion(suggestion);
-		findTrasactSuggestions(model);
-		return "transact";
+	public String postponeEndDate(@RequestParam("suggestion") Long id, @RequestParam("endDate") int days, Model model) {
+		if (days > 0) {
+			Suggestion suggestion = suggestionService.getSuggestionById(id);
+			Calendar c = Calendar.getInstance();
+			c.setTime(suggestion.getFecha_fin());
+			c.add(Calendar.DAY_OF_MONTH, days);
+			suggestion.setFecha_fin(c.getTime());
+			suggestionService.saveSuggestion(suggestion);
+			findTrasactSuggestions(model);
+		}
+		return "redirect:transact";
 	}
 }

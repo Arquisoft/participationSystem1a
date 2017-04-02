@@ -46,7 +46,7 @@ public class SuggestionServiceImpl implements SuggestionService {
 
 	@Override
 	public void deleteSuggestion(Suggestion suggestion) {
-		repository.delete(suggestion);		
+		repository.delete(suggestion);
 	}
 
 	@Override

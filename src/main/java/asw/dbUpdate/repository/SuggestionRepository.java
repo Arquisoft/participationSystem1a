@@ -14,4 +14,5 @@ public interface SuggestionRepository extends CrudRepository<Suggestion, Long> {
 	List<Suggestion> findByEstadoOrderByPopularidadDesc(SuggestionState ss);
 	List<Suggestion> findByTitulo(String titulo);
 	List<Suggestion> findByEstado(SuggestionState estado);
+
 }

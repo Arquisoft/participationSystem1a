@@ -35,15 +35,17 @@
 				<td th:text="${iter.fecha_fin}">End Date</td>
 				<td><a th:href="@{/rejectSuggestion(idPropuesta=${iter.id})}">Reject</a></td>
 				<td>
-					<form method="POST" th:action="@{/updateMinVotes(suggestion=${iter.id})}">
-						<input type="number" name="minVotes"/>
-						<input type="submit" name="update" value="Update"/>
+					<form method="POST"
+						th:action="@{/updateMinVotes(suggestion=${iter.id})}">
+						<input type="number" name="minVotes" value="0" /> <input
+							type="submit" name="update" value="Update" />
 					</form>
 				</td>
 				<td>
-					<form method="POST" th:action="@{/postponeEndDate(suggestion=${iter.id})}">
-						<input type="number" name="endDate"/>
-						<input type="submit" name="update_date" value="Update"/>
+					<form method="POST"
+						th:action="@{/postponeEndDate(suggestion=${iter.id})}">
+						<input type="number" name="endDate" value="0" /> <input
+							type="submit" name="update_date" value="Update" />
 					</form>
 				</td>
 			</tr>
