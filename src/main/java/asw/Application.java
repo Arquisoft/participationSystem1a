@@ -9,11 +9,6 @@ import asw.reportWriter.kafka.KafkaProducer;
 public class Application {
 
 	public static void main(String[] args) {
-//		SpringApplication.run(Application.class, args);
-		
-		KafkaProducer kP = new KafkaProducer();
-		
-		kP.sendNewSuggestion(2);
-		kP.send(KafkaProducer.NEW_SUGGESTION, "funciona");
+		SpringApplication.run(Application.class, args);
 	}
 }
