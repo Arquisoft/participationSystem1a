@@ -27,7 +27,7 @@ public class ConfigurationController {
 
 	@Autowired
 	private CategoryService categoryService;
-
+	
 	@RequestMapping("/accepted")
 	public String findAcceptedSuggestions(Model model) {
 		List<Suggestion> acceptedSuggestions = suggestionService
@@ -60,7 +60,7 @@ public class ConfigurationController {
 				HttpSession session, Model model) {
 		List<Suggestion> suggestions = suggestionService
 				.getSuggestionByTitle(title);
-		model.addAttribute("sugerencias", suggestions);
+		model.addAttribute("suggestions", suggestions);
 		return "config";
 	}
 
@@ -90,7 +90,7 @@ public class ConfigurationController {
 		// Enviar aviso a kafka
 		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
 		model.addAttribute("sugerencias", sugerencias);
-		return "config";
+		return "parameters";
 	}
 
 	@RequestMapping("/addCategories")
@@ -103,7 +103,7 @@ public class ConfigurationController {
 		// Enviar aviso a kafka
 		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
 		model.addAttribute("sugerencias", sugerencias);
-		return "config";
+		return "parameters";
 	}
 
 	@RequestMapping("/removeCategories")
@@ -115,7 +115,7 @@ public class ConfigurationController {
 		// Enviar aviso a kafka
 		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
 		model.addAttribute("sugerencias", sugerencias);
-		return "config";
+		return "paremeters";
 	}
 
 	@RequestMapping("/rejectSuggestion")
