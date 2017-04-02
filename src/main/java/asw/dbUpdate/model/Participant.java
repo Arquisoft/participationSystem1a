@@ -33,7 +33,7 @@ public class Participant {
 	private String nacionalidad;
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "participant")
 	private Set<Comment> comentarios = new HashSet<Comment>();
-	@OneToMany(mappedBy = "creator")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "creator")
 	private Set<Suggestion> propias = new HashSet<Suggestion>();
 	@OneToMany(mappedBy = "participant")
 	private Set<VoteSuggestion> votSugerencias = new HashSet<VoteSuggestion>();

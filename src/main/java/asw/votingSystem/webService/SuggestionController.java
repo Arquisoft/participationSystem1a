@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import asw.dbUpdate.CategoryService;
-import asw.dbUpdate.CommentService;
-import asw.dbUpdate.ParticipantService;
 import asw.dbUpdate.SuggestionService;
+import asw.dbUpdate.WordService;
 import asw.dbUpdate.model.Category;
 import asw.dbUpdate.model.Participant;
 import asw.dbUpdate.model.Suggestion;
+import asw.dbUpdate.model.Word;
 
 @Controller
 public class SuggestionController {
@@ -30,6 +30,9 @@ public class SuggestionController {
 
 	@Autowired
 	private CategoryService categoryService;
+	
+	@Autowired
+	private WordService wordService;
 
 	@RequestMapping("/createSuggestion")
 	public String viewFormCreateSuggestion(Model model) {
@@ -50,6 +53,17 @@ public class SuggestionController {
 				model.addAttribute("mensajes", "No existe esa categoria");
 				return "createSuggestion";
 			}
+			List<Word> words = wordService.getAllWords();
+			for (int i = 0; i<words.size(); i++){
+				if (suggestion_title.contains(words.get(i).getWord())){
+					model.addAttribute("mensajes", "El titulo de la propuesta contiene palabras prohibidas");
+					return "createSuggestion";
+				}
+				if (suggestion_description.contains(words.get(i).getWord())){
+					model.addAttribute("mensajes", "La descripción de la propuesta contiene palabras prohibidas");
+					return "createSuggestion";
+				}
+			}
 			DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			String startDate = "2013-09-25";
 			Date fechaFin = null;
@@ -59,7 +73,7 @@ public class SuggestionController {
 				e.printStackTrace();
 			}
 			suggestionService.saveSuggestion(new Suggestion(suggestion_title, suggestion_description,
-					(Participant) session.getAttribute("usuario"), fechaFin));
+					(Participant) session.getAttribute("usuario"), fechaFin, categoria));
 			List<Suggestion> sugerencias = suggestionService.getVotables();
 			model.addAttribute("sugerencias", sugerencias);
 			return "index";
