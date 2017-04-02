@@ -27,7 +27,12 @@ public class ConfigurationController {
 
 	@Autowired
 	private CategoryService categoryService;
-
+	
+	@RequestMapping("/parameters")
+	public String parameters(Model model){
+		return "parameters";
+	}
+	
 	@RequestMapping("/accepted")
 	public String findAcceptedSuggestions(Model model) {
 		List<Suggestion> acceptedSuggestions = suggestionService
@@ -60,7 +65,7 @@ public class ConfigurationController {
 				HttpSession session, Model model) {
 		List<Suggestion> suggestions = suggestionService
 				.getSuggestionByTitle(title);
-		model.addAttribute("sugerencias", suggestions);
+		model.addAttribute("suggestions", suggestions);
 		return "config";
 	}
 
@@ -85,12 +90,12 @@ public class ConfigurationController {
 	}
 
 	@RequestMapping("/days")
-	public String setDays(@RequestParam("days") int dias, HttpSession session, Model model) {
+	public String setDays(@RequestParam("suggestion_duration") int dias, HttpSession session, Model model) {
 		Suggestion.DIAS_ABIERTA = dias;
 		// Enviar aviso a kafka
 		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
 		model.addAttribute("sugerencias", sugerencias);
-		return "config";
+		return "parameters";
 	}
 
 	@RequestMapping("/addCategories")
@@ -99,23 +104,30 @@ public class ConfigurationController {
 		if (category == null) {
 			Category categoria = new Category(nombre);
 			categoryService.saveCategory(categoria);
+			model.addAttribute("mensaje", "Category " + nombre + " has been added");
 		}
+		else
+			model.addAttribute("mensaje", "Category " + nombre + " already exist");
 		// Enviar aviso a kafka
 		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
 		model.addAttribute("sugerencias", sugerencias);
-		return "config";
+		return "parameters";
 	}
 
 	@RequestMapping("/removeCategories")
 	public String removeCategory(@RequestParam("rmcategory") String nombre, HttpSession session, Model model) {
 		Category category = categoryService.getCategoryByName(nombre);
-		if (category != null) {
+		if (category != null && category.getSuggestions().isEmpty()) {
+			
 			categoryService.deleteCategory(category);
+			model.addAttribute("mensaje", "Category " + nombre + " has been removed");
 		}
+		else
+			model.addAttribute("mensaje", "Category " + nombre +" doesn't exist or there are suggestion in it");
 		// Enviar aviso a kafka
 		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
 		model.addAttribute("sugerencias", sugerencias);
-		return "config";
+		return "parameters";
 	}
 
 	@RequestMapping("/rejectSuggestion")
