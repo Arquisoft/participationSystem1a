@@ -31,7 +31,7 @@ public class CommentController {
 
 	@Autowired
 	private ParticipantService participantService;
-	
+
 	@Autowired
 	private WordService wordService;
 
@@ -72,16 +72,15 @@ public class CommentController {
 			model.addAttribute("mensaje", "No ha escrito nada");
 		} else {
 			List<Word> words = wordService.getAllWords();
-			for (int i = 0; i < words.size(); i++){
-				if (comment.contains(words.get(i).getWord())){
+			for (int i = 0; i < words.size(); i++) {
+				if (comment.toLowerCase().contains(words.get(i).getWord())) {
 					model.addAttribute("mensaje", "El comentario contiene palabras prohibidas");
 					return "comments";
 				}
 			}
 			Participant p = (Participant) session.getAttribute("usuario");
 			Suggestion s = suggestionService.getSuggestionById((Long) session.getAttribute("idSugerencia"));
-			Comment c = commentService.saveComment(new Comment(comment, p,
-					s));
+			Comment c = commentService.saveComment(new Comment(comment, p, s));
 			new KafkaProducer().sendNewComment(c.getId());
 
 		}

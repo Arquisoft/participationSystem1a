@@ -30,7 +30,7 @@ public class SuggestionController {
 
 	@Autowired
 	private CategoryService categoryService;
-	
+
 	@Autowired
 	private WordService wordService;
 
@@ -54,12 +54,12 @@ public class SuggestionController {
 				return "createSuggestion";
 			}
 			List<Word> words = wordService.getAllWords();
-			for (int i = 0; i<words.size(); i++){
-				if (suggestion_title.contains(words.get(i).getWord())){
+			for (int i = 0; i < words.size(); i++) {
+				if (suggestion_title.toLowerCase().contains(words.get(i).getWord())) {
 					model.addAttribute("mensajes", "El titulo de la propuesta contiene palabras prohibidas");
 					return "createSuggestion";
 				}
-				if (suggestion_description.contains(words.get(i).getWord())){
+				if (suggestion_description.toLowerCase().contains(words.get(i).getWord())) {
 					model.addAttribute("mensajes", "La descripción de la propuesta contiene palabras prohibidas");
 					return "createSuggestion";
 				}
