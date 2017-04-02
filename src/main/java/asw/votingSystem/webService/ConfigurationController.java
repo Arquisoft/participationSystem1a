@@ -1,5 +1,7 @@
 package asw.votingSystem.webService;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -60,7 +62,7 @@ public class ConfigurationController {
 
 	public String findTrasactSuggestions(Model model) {
 		List<Suggestion> trasactSuggestions = suggestionService
-				.getSuggestionByStatus(SuggestionState.EnVotacion);
+				.getSuggestionByStatus(SuggestionState.BuscandoApoyo);
 		model.addAttribute("suggestions", trasactSuggestions);
 		return "transact";
 	}
@@ -161,13 +163,62 @@ public class ConfigurationController {
 	}
 
 	@RequestMapping("/rejectSuggestion")
-	public String rejectSuggestion(@RequestParam("transacSuggestion") Long id, Model model) {
+	public String rejectSuggestion(@RequestParam("idPropuesta") Long id, Model model) {
 		Suggestion suggestion = suggestionService.getSuggestionById(id);
 		suggestion.setEstado(SuggestionState.Rechazada);
 		suggestionService.saveSuggestion(suggestion);
+		findTrasactSuggestions(model);
 		// Enviar aviso a kafka
 		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
 		model.addAttribute("sugerencias", sugerencias);
+		return "transact";
+	}
+	
+	@RequestMapping("/updateMinVotes")
+	public String updateMinVote(@RequestParam("suggestion") Long id,
+			@RequestParam("minVotes") int newMinVotes, Model model){
+		Suggestion suggestion = suggestionService.getSuggestionById(id);
+		if(newMinVotes > 0){
+			suggestion.setMinVotos(newMinVotes);
+			suggestionService.saveSuggestion(suggestion);
+		}
+		// Enviar aviso a kafka
+		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
+		model.addAttribute("sugerencias", sugerencias);
+		findTrasactSuggestions(model);
+		return "transact";
+	}
+	
+	@RequestMapping("/voting")
+	public String voting(Model model){
+		List<Suggestion> votingSuggestions = suggestionService
+				.getSuggestionByStatus(SuggestionState.EnVotacion);
+		model.addAttribute("suggestions", votingSuggestions);
+		return "voting";
+	}
+	
+	@RequestMapping("/accept")
+	public String accept(@RequestParam("idPropuesta") Long id, Model model){
+		Suggestion suggestion = suggestionService.getSuggestionById(id);
+		suggestion.setEstado(SuggestionState.Aceptada);
+		// Enviar aviso a kafka
+		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
+		model.addAttribute("sugerencias", sugerencias);
+		voting(model);
+		voting(model);
+		return "voting";
+	}
+	
+	//Esto no funciona, me tiene desesperao
+	@RequestMapping("/postponeEndDate")
+	public String postponeEndDate(@RequestParam("suggestion") Long id, 
+			@RequestParam("endDate") int days, Model model){
+		Suggestion suggestion = suggestionService.getSuggestionById(id);
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(suggestion.getFecha_creacion());
+		calendar.add(Calendar.DAY_OF_YEAR, days);  
+	    suggestionService.saveSuggestion(suggestion);
+		findTrasactSuggestions(model);
 		return "transact";
 	}
 }

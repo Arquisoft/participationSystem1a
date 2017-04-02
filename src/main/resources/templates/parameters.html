@@ -10,7 +10,8 @@
 		<li><a href="parameters.html">Parameter configuration</a></li>
 		<li><a href="accepted.html">Accepted Suggestions</a></li>
 		<li><a href="rejected.html">Rejected Suggestions</a></li>
-		<li><a href="transact.html">Suggestions on vote</a></li>
+		<li><a href="transact.html">Suggestions taking support</a></li>
+		<li><a href="voting.html">Suggestions on vote</a></li>
 	</ul>
 	<p th:text="${mensaje}" />
 	<form method="POST" action="addCategories">
@@ -34,12 +35,6 @@
 			<br/>
 			<input type="text" name="rpw" />
 			<input type="submit" name="rm_word" value="Remove"/>
-	</form>
-	<form method="POST" action="days">
-		Number of days
-		 <br/>
-		 <input type="text" name="suggestion_duration" /> 
-		 <input type="submit" name="ndays" value="Modificar"/>
 	</form>
 </body>
 </html>

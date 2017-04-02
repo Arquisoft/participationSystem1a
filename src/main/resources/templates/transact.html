@@ -10,7 +10,8 @@
 		<li><a href="parameters.html">Parameter configuration</a></li>
 		<li><a href="accepted.html">Accepted Suggestions</a></li>
 		<li><a href="rejected.html">Rejected Suggestions</a></li>
-		<li><a href="transact.html">Suggestions on vote</a></li>
+		<li><a href="transact.html">Suggestions taking support</a></li>
+		<li><a href="voting.html">Suggestions on vote</a></li>
 	</ul>
 	<table border="1">
 		<thead>
@@ -21,6 +22,8 @@
 				<th>Votes to be accepted</th>
 				<th>Date end</th>
 				<th>Reject</th>
+				<th>Update MinVotes</th>
+				<th>Postpone End (Days from today)</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -30,7 +33,18 @@
 				<td th:text="${iter.votosPositivos}">Votes</td>
 				<td th:text="${iter.minVotos}">Min Votes</td>
 				<td th:text="${iter.fecha_fin}">End Date</td>
-				<td><a th:href="@{/rejectSuggestion(idPropuesta=${iter.id})}">Reject</a>
+				<td><a th:href="@{/rejectSuggestion(idPropuesta=${iter.id})}">Reject</a></td>
+				<td>
+					<form method="POST" th:action="@{/updateMinVotes(suggestion=${iter.id})}">
+						<input type="number" name="minVotes"/>
+						<input type="submit" name="update" value="Update"/>
+					</form>
+				</td>
+				<td>
+					<form method="POST" th:action="@{/postponeEndDate(suggestion=${iter.id})}">
+						<input type="number" name="endDate"/>
+						<input type="submit" name="update_date" value="Update"/>
+					</form>
 				</td>
 			</tr>
 		</tbody>
