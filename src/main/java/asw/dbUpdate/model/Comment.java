@@ -7,6 +7,7 @@ import java.util.Calendar;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,7 +20,7 @@ import javax.persistence.TemporalType;
 @Table(name = "TComments")
 public class Comment {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String texto;
 	private int votosPositivos;
@@ -40,12 +41,15 @@ public class Comment {
 	Comment() {
 	}
 
-	public Comment(String texto) {
+	public Comment(String texto, Participant participant, Suggestion suggestion) {
 		this.texto = texto;
+		this.participant = participant;
+		this.suggestion = suggestion;
 		this.votosPositivos = 0;
 		this.votosNegativos = 0;
 		this.valoracion = this.votosPositivos - this.votosNegativos;
 		this.fechaCreacion = Calendar.getInstance().getTime();
+		Associations.Comentar.link(this, this.participant, this.suggestion);
 	}
 
 	public String getTexto() {

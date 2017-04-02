@@ -1,5 +1,6 @@
 package asw.dbUpdate.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
@@ -27,6 +28,7 @@ public class VoteComment {
 	}
 
 	public VoteComment(Participant participant, Comment comment) {
+		// setTipoVoto(tipoVoto);
 		Associations.VotarComentario.link(participant, this, comment);
 	}
 
@@ -45,6 +47,14 @@ public class VoteComment {
 	protected void _setComment(Comment comment) {
 		this.comment = comment;
 	}
+
+	// public void setTipoVoto(int tipoVoto) {
+	// this.tipoVoto = tipoVoto;
+	// }
+	//
+	// public int getTipoVoto() {
+	// return tipoVoto;
+	// }
 
 	@Override
 	public int hashCode() {

@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -30,7 +31,7 @@ public class Participant {
 	private String DNI;
 	private String direccion;
 	private String nacionalidad;
-	@OneToMany(mappedBy = "participant")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "participant")
 	private Set<Comment> comentarios = new HashSet<Comment>();
 	@OneToMany(mappedBy = "creator")
 	private Set<Suggestion> propias = new HashSet<Suggestion>();

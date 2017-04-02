@@ -30,6 +30,7 @@ public class CommentController {
 
 	@RequestMapping("/comments")
 	public String showComments(@RequestParam("sugerencia") Long id, HttpSession session, Model model) {
+		session.setAttribute("idSugerencia", id);
 		List<Comment> comentarios = commentService.getCommentsBySuggestion(suggestionService.getSuggestionById(id));
 		model.addAttribute("comentarios", comentarios);
 		return "comments";
@@ -38,9 +39,9 @@ public class CommentController {
 	@RequestMapping("/votarPositivo")
 	public String votingPositive(@RequestParam("comentario") Long id, HttpSession session, Model model) {
 		if (!participantService.supportCommentPositive(((Participant) session.getAttribute("usuario")).getId(), id))
-			model.addAttribute("mensaje", "Ya has votado esta sugerencia anteriormente");
+			model.addAttribute("mensaje", "Ya has votado este comentario anteriormente");
 		else
-			model.addAttribute("mensaje", "");
+			model.addAttribute("mensaje", "Ha votado like a este comentario");
 		List<Comment> comentarios = commentService.getCommentsBySuggestion(suggestionService.getSuggestionById(id));
 		model.addAttribute("comentarios", comentarios);
 		return "comments";
@@ -49,10 +50,25 @@ public class CommentController {
 	@RequestMapping("/votarNegativo")
 	public String votingNegative(@RequestParam("comentario") Long id, HttpSession session, Model model) {
 		if (!participantService.supportCommentNegative(((Participant) session.getAttribute("usuario")).getId(), id))
-			model.addAttribute("mensaje", "Ya has votado esta sugerencia anteriormente");
+			model.addAttribute("mensaje", "Ya has votado este comentario anteriormente");
 		else
-			model.addAttribute("mensaje", "");
+			model.addAttribute("mensaje", "Ha votado dislike a este comentario");
 		List<Comment> comentarios = commentService.getCommentsBySuggestion(suggestionService.getSuggestionById(id));
+		model.addAttribute("comentarios", comentarios);
+		return "comments";
+	}
+
+	@RequestMapping("/comment")
+	public String comment(@RequestParam String comment, HttpSession session, Model model) {
+		if (comment.equals("")) {
+			model.addAttribute("mensaje", "No ha escrito nada");
+		} else {
+			commentService.saveComment(new Comment(comment, (Participant) session.getAttribute("usuario"),
+					suggestionService.getSuggestionById((Long) session.getAttribute("idSugerencia"))));
+
+		}
+		List<Comment> comentarios = commentService.getCommentsBySuggestion(
+				suggestionService.getSuggestionById((Long) session.getAttribute("idSugerencia")));
 		model.addAttribute("comentarios", comentarios);
 		return "comments";
 	}
