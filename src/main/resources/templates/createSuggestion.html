@@ -1,9 +1,15 @@
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Portal de usuario</title>
-<meta charset="utf-8" />
+<meta charset="UTF-8" />
+<title>Portal del usuario</title>
 </head>
 <body>
-	<p>prueba</p>
+	<h1>Crear propuesta</h1>
+	<form method="POST" action="create">
+		<input type="text" name="suggestion_title" /> <input type="submit"
+			name="crearPropuesta" value="Crear" /> <input type="date"
+			name="fechaFinPropuesta" />
+	</form>
 </body>
 </html>
