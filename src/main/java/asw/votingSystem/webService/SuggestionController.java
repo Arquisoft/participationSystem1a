@@ -21,6 +21,7 @@ import asw.dbUpdate.model.Category;
 import asw.dbUpdate.model.Participant;
 import asw.dbUpdate.model.Suggestion;
 import asw.dbUpdate.model.Word;
+import asw.reportWriter.kafka.KafkaProducer;
 
 @Controller
 public class SuggestionController {
@@ -69,8 +70,9 @@ public class SuggestionController {
 				e.printStackTrace();
 			}
 			Category categoria = categoryService.getCategoryById(idcategoria);
-			suggestionService.saveSuggestion(new Suggestion(suggestion_title, suggestion_description,
+			Suggestion s = suggestionService.saveSuggestion(new Suggestion(suggestion_title, suggestion_description,
 					(Participant) session.getAttribute("usuario"), fechaFin, categoria));
+			new KafkaProducer().sendNewSuggestion(s.getId());
 			List<Suggestion> sugerencias = suggestionService.getVotables();
 			model.addAttribute("sugerencias", sugerencias);
 			return "index";

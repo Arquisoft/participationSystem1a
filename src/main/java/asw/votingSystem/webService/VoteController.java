@@ -30,9 +30,11 @@ public class VoteController {
 	public String votingUp(@RequestParam("sugerencia") Long id, HttpSession session, Model model) {
 		if (!participantService.supportSuggestion(((Participant) session.getAttribute("usuario")).getId(), id))
 			model.addAttribute("mensaje", "Ya has votado esta sugerencia anteriormente");
-		else
+		else {
 			model.addAttribute("mensaje", "");
-		// Enviar aviso a kafka
+			// Enviar aviso a kafka
+			new KafkaProducer().sendPositiveSuggestion(id);
+		}
 		List<Suggestion> sugerencias = suggestionService.getVotables();
 		model.addAttribute("sugerencias", sugerencias);
 		return "index";

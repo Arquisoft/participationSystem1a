@@ -78,9 +78,9 @@ public class CommentController {
 					return "comments";
 				}
 			}
-			Participant p = (Participant) session.getAttribute("usuario");
-			Suggestion s = suggestionService.getSuggestionById((Long) session.getAttribute("idSugerencia"));
-			Comment c = commentService.saveComment(new Comment(comment, p, s));
+			
+			Comment c = commentService.saveComment(new Comment(comment, (Participant) session.getAttribute("usuario"), 
+					suggestionService.getSuggestionById((Long) session.getAttribute("idSugerencia"))));
 			new KafkaProducer().sendNewComment(c.getId());
 
 		}

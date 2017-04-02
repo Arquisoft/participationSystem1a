@@ -13,6 +13,6 @@ public interface SuggestionService {
 	List<Suggestion> getSuggestionByStatus(SuggestionState estado);
 	Suggestion getSuggestionById(Long id);
 	
-	void saveSuggestion(Suggestion suggestion);
+	Suggestion saveSuggestion(Suggestion suggestion);
 	void deleteSuggestion(Suggestion suggestion);
 }
