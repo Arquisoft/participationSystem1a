@@ -6,10 +6,17 @@
 </head>
 <body>
 	<h1>Crear propuesta</h1>
+	<p th:text="${mensaje}" />
 	<form method="POST" action="create">
-		<input type="text" name="suggestion_title" /> <input type="submit"
-			name="crearPropuesta" value="Crear" /> <input type="date"
-			name="fechaFinPropuesta" />
+		<ul>
+			<li><p>Titulo de la propuesta</p> <input type="text"
+				name="suggestion_title" /></li>
+			<li><p>Descripción de la propuesta</p> <input type="text"
+				name="suggestion_description" /></li>
+			<li><p>Fecha fin de la propuesta</p> <input type="date"
+				name="fechaFinPropuesta" /></li>
+		</ul>
+		<br /> <input type="submit" name="crearPropuesta" value="Crear" />
 	</form>
 </body>
 </html>
