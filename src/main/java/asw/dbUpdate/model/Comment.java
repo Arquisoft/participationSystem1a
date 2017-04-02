@@ -43,8 +43,6 @@ public class Comment {
 
 	public Comment(String texto, Participant participant, Suggestion suggestion) {
 		this.texto = texto;
-		this.participant = participant;
-		this.suggestion = suggestion;
 		this.votosPositivos = 0;
 		this.votosNegativos = 0;
 		this.valoracion = this.votosPositivos - this.votosNegativos;
