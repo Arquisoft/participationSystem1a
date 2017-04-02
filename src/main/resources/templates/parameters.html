@@ -23,9 +23,17 @@
 			<input type="text" name="rmcategory" />
 			<input type="submit" name="rm_category" value="Remove"/>
 	</form>
-	<form method="POST" action="words">
-			Add non-permitted word <br/><input type="text" name="npw" />
+	<form method="POST" action="addWords">
+			Add non-permitted word 
+			<br/>
+			<input type="text" name="npw" />
 			<input type="submit" name="add_word" value="Add"/>
+	</form>
+	<form method="POST" action="removeWords">
+			Remove non-permitted word 
+			<br/>
+			<input type="text" name="rpw" />
+			<input type="submit" name="rm_word" value="Add"/>
 	</form>
 	<form method="POST" action="days">
 		Number of days

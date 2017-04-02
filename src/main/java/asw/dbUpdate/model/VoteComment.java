@@ -1,6 +1,5 @@
 package asw.dbUpdate.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;

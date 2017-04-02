@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import asw.dbUpdate.CategoryService;
 import asw.dbUpdate.SuggestionService;
+import asw.dbUpdate.WordService;
 import asw.dbUpdate.model.Category;
 import asw.dbUpdate.model.Suggestion;
 import asw.dbUpdate.model.SuggestionState;
+import asw.dbUpdate.model.Word;
 
 @Controller
 public class ConfigurationController {
@@ -27,6 +29,9 @@ public class ConfigurationController {
 
 	@Autowired
 	private CategoryService categoryService;
+	
+	@Autowired
+	private WordService wordService;
 	
 	@RequestMapping("/parameters")
 	public String parameters(Model model){
@@ -130,8 +135,31 @@ public class ConfigurationController {
 		return "parameters";
 	}
 	
-	/*@RequestMapping("/addWords")
-	public String  removeWord*/
+	@RequestMapping("/addWords")
+	public String  addWord(@RequestParam("npw") String word2a, Model model){
+		Word word = wordService.getWordByName(word2a);
+		if(word == null){
+			Word w = new Word(word2a);
+			wordService.saveWord(w);
+			model.addAttribute("mensaje", "Non-permitted word " + word2a + " has been added");
+		}else{
+			model.addAttribute("mensaje", "Non-permitted word " + word2a + " already exist");
+		}	
+		return "parameters";
+	}
+	
+	@RequestMapping("/removeWords")
+	public String  removeWord(@RequestParam("rpw") String word2r, Model model){
+		Word word = wordService.getWordByName(word2r);
+		if(word != null){
+			Word w = new Word(word2r);
+			wordService.deleteWord(w);
+			model.addAttribute("mensaje", "Non-permitted word " + word2r + " has been removed");
+		}else{
+			model.addAttribute("mensaje", "Non-permitted word " + word2r + " doesn't exist");
+		}	
+		return "parameters";
+	}
 
 	@RequestMapping("/rejectSuggestion")
 	public String rejectSuggestion(@RequestParam("transacSuggestion") Long id, Model model) {

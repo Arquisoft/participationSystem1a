@@ -11,14 +11,14 @@ public class Word {
 	@Id
 	@GeneratedValue
 	public Long id;
-	private String word;
+	private String name;
 	
 	Word(){
 		
 	}
 	
-	public Word(String word){
-		this.word = word;
+	public Word(String name){
+		this.name = name;
 	}
 
 	@Override
@@ -55,15 +55,15 @@ public class Word {
 	}
 
 	public String getWord() {
-		return word;
+		return name;
 	}
 
 	public void setWord(String word) {
-		this.word = word;
+		this.name = word;
 	}
 
 	@Override
 	public String toString() {
-		return "Word [word=" + word + "]";
+		return "Word [name=" + name + "]";
 	}
 }
