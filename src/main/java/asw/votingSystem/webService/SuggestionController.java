@@ -14,9 +14,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import asw.dbUpdate.CategoryService;
 import asw.dbUpdate.CommentService;
 import asw.dbUpdate.ParticipantService;
 import asw.dbUpdate.SuggestionService;
+import asw.dbUpdate.model.Category;
 import asw.dbUpdate.model.Participant;
 import asw.dbUpdate.model.Suggestion;
 
@@ -24,13 +26,10 @@ import asw.dbUpdate.model.Suggestion;
 public class SuggestionController {
 
 	@Autowired
-	private CommentService commentService;
-
-	@Autowired
 	private SuggestionService suggestionService;
 
 	@Autowired
-	private ParticipantService participantService;
+	private CategoryService categoryService;
 
 	@RequestMapping("/createSuggestion")
 	public String viewFormCreateSuggestion(Model model) {
@@ -39,12 +38,18 @@ public class SuggestionController {
 
 	@RequestMapping("/create")
 	public String createSuggestion(@RequestParam String suggestion_title, @RequestParam String suggestion_description,
-			@RequestParam String fechaFinPropuesta, HttpSession session, Model model) {
+			@RequestParam String fechaFinPropuesta, @RequestParam String suggestion_category, HttpSession session,
+			Model model) {
 		if (fechaFinPropuesta.equals("yyyy-MM-dd") || suggestion_description.equals("")
-				|| suggestion_description.equals("")) {
+				|| suggestion_description.equals("") || suggestion_category.equals("")) {
 			model.addAttribute("mensajes", "No puedes dejar los campos de texto vacios");
 			return "createSuggestion";
 		} else {
+			Category categoria = categoryService.getCategoryByName(suggestion_category);
+			if (categoria == null) {
+				model.addAttribute("mensajes", "No existe esa categoria");
+				return "createSuggestion";
+			}
 			DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			String startDate = "2013-09-25";
 			Date fechaFin = null;
