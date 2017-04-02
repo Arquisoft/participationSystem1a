@@ -21,6 +21,7 @@ import javax.persistence.TemporalType;
 @Table(name = "TSuggestions")
 public class Suggestion {
 	public static int DIAS_ABIERTA = 7;
+	public static final int MIN_VOTOS_DEFECTO = 100;
 	@Id
 	@GeneratedValue
 	public Long id;
@@ -72,6 +73,7 @@ public class Suggestion {
 		this.fecha_creacion = Calendar.getInstance().getTime();
 		this.estado = SuggestionState.BuscandoApoyo;
 		this.category = category;
+		this.minVotos = MIN_VOTOS_DEFECTO;
 		Calendar c = Calendar.getInstance();
 		c.add(Calendar.DATE, DIAS_ABIERTA); // Pone la fecha de finalización
 											// DIAS_ABIERTA mas tarde
