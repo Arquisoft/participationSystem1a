@@ -151,15 +151,21 @@ public class Comment {
 				+ ", valoracion=" + valoracion + ", fechaCreacion=" + fechaCreacion + "]";
 	}
 
-	public void incrementPositiveVotes() {
-		this.votosPositivos++;
-		setValoracion(getVotosPositivos() - getVotosNegativos());
+	public void incrementVotes(int value) {
+		if (value == -1)
+			this.votosNegativos++;
+		else
+			this.votosPositivos++;
+		this.valoracion = this.votosPositivos - this.votosNegativos;
 
 	}
 
-	public void incrementateNegativeVotes() {
-		this.votosNegativos++;
-		setValoracion(getVotosPositivos() - getVotosNegativos());
+	public void decrementVotes(int value) {
+		if (value == -1)
+			this.votosNegativos--;
+		else
+			this.votosPositivos--;
+		this.valoracion = this.votosPositivos - this.votosNegativos;
 	}
 
 }

@@ -1,6 +1,5 @@
 package asw.dbUpdate.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
@@ -22,13 +21,14 @@ public class VoteComment {
 	@ManyToOne
 	@JoinColumn(name = "id_comment", referencedColumnName = "id")
 	private Comment comment;
+	private int voto;
 
 	VoteComment() {
 
 	}
 
-	public VoteComment(Participant participant, Comment comment) {
-		// setTipoVoto(tipoVoto);
+	public VoteComment(Participant participant, Comment comment, int voto) {
+		this.voto = voto;
 		Associations.VotarComentario.link(participant, this, comment);
 	}
 
@@ -48,13 +48,13 @@ public class VoteComment {
 		this.comment = comment;
 	}
 
-	// public void setTipoVoto(int tipoVoto) {
-	// this.tipoVoto = tipoVoto;
-	// }
-	//
-	// public int getTipoVoto() {
-	// return tipoVoto;
-	// }
+	public int getVoto() {
+		return voto;
+	}
+
+	public void setVoto(int voto) {
+		this.voto = voto;
+	}
 
 	@Override
 	public int hashCode() {
@@ -89,7 +89,8 @@ public class VoteComment {
 
 	@Override
 	public String toString() {
-		return "VoteComment [participant=" + participant.getId() + ", comment=" + comment.getId() + "]";
+		return "VoteComment [participant=" + participant.getId() + ", comment=" + comment.getId() + ", voto=" + voto
+				+ "]";
 	}
 
 }
