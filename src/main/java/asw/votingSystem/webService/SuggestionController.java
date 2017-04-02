@@ -30,36 +30,32 @@ public class SuggestionController {
 
 	@Autowired
 	private CategoryService categoryService;
-	
+
 	@Autowired
 	private WordService wordService;
 
 	@RequestMapping("/createSuggestion")
 	public String viewFormCreateSuggestion(Model model) {
+		model.addAttribute("categorias", categoryService.getAllCategories());
 		return "createSuggestion";
 	}
 
 	@RequestMapping("/create")
 	public String createSuggestion(@RequestParam String suggestion_title, @RequestParam String suggestion_description,
-			@RequestParam String fechaFinPropuesta, @RequestParam String suggestion_category, HttpSession session,
+			@RequestParam String fechaFinPropuesta, @RequestParam("categoria") Long idcategoria, HttpSession session,
 			Model model) {
 		if (fechaFinPropuesta.equals("yyyy-MM-dd") || suggestion_description.equals("")
-				|| suggestion_description.equals("") || suggestion_category.equals("")) {
+				|| suggestion_description.equals("")) {
 			model.addAttribute("mensajes", "No puedes dejar los campos de texto vacios");
 			return "createSuggestion";
 		} else {
-			Category categoria = categoryService.getCategoryByName(suggestion_category);
-			if (categoria == null) {
-				model.addAttribute("mensajes", "No existe esa categoria");
-				return "createSuggestion";
-			}
 			List<Word> words = wordService.getAllWords();
-			for (int i = 0; i<words.size(); i++){
-				if (suggestion_title.contains(words.get(i).getWord())){
+			for (int i = 0; i < words.size(); i++) {
+				if (suggestion_title.contains(words.get(i).getWord())) {
 					model.addAttribute("mensajes", "El titulo de la propuesta contiene palabras prohibidas");
 					return "createSuggestion";
 				}
-				if (suggestion_description.contains(words.get(i).getWord())){
+				if (suggestion_description.contains(words.get(i).getWord())) {
 					model.addAttribute("mensajes", "La descripción de la propuesta contiene palabras prohibidas");
 					return "createSuggestion";
 				}
@@ -72,6 +68,7 @@ public class SuggestionController {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
+			Category categoria = categoryService.getCategoryById(idcategoria);
 			suggestionService.saveSuggestion(new Suggestion(suggestion_title, suggestion_description,
 					(Participant) session.getAttribute("usuario"), fechaFin, categoria));
 			List<Suggestion> sugerencias = suggestionService.getVotables();
