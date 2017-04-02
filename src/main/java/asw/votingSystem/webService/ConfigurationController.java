@@ -104,7 +104,10 @@ public class ConfigurationController {
 		if (category == null) {
 			Category categoria = new Category(nombre);
 			categoryService.saveCategory(categoria);
+			model.addAttribute("mensaje", "Category " + nombre + " has been added");
 		}
+		else
+			model.addAttribute("mensaje", "Category " + nombre + " already exist");
 		// Enviar aviso a kafka
 		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
 		model.addAttribute("sugerencias", sugerencias);
@@ -114,9 +117,13 @@ public class ConfigurationController {
 	@RequestMapping("/removeCategories")
 	public String removeCategory(@RequestParam("rmcategory") String nombre, HttpSession session, Model model) {
 		Category category = categoryService.getCategoryByName(nombre);
-		if (category != null) {
+		if (category != null && category.getSuggestions().isEmpty()) {
+			
 			categoryService.deleteCategory(category);
+			model.addAttribute("mensaje", "Category " + nombre + " has been removed");
 		}
+		else
+			model.addAttribute("mensaje", "Category " + nombre +" doesn't exist or there are suggestion in it");
 		// Enviar aviso a kafka
 		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
 		model.addAttribute("sugerencias", sugerencias);
