@@ -38,5 +38,4 @@ public class WordServiceImpl implements WordService{
 	public Word getWordByName(String name) {
 		return repository.findByName(name);
 	}
-
 }

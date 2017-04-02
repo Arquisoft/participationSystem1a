@@ -152,8 +152,7 @@ public class ConfigurationController {
 	public String  removeWord(@RequestParam("rpw") String word2r, Model model){
 		Word word = wordService.getWordByName(word2r);
 		if(word != null){
-			Word w = new Word(word2r);
-			wordService.deleteWord(w);
+			wordService.deleteWord(word);
 			model.addAttribute("mensaje", "Non-permitted word " + word2r + " has been removed");
 		}else{
 			model.addAttribute("mensaje", "Non-permitted word " + word2r + " doesn't exist");
