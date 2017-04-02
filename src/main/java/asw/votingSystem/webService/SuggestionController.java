@@ -59,9 +59,7 @@ public class SuggestionController {
 			Suggestion s = suggestionService.saveSuggestion(new Suggestion(suggestion_title, suggestion_description,
 					(Participant) session.getAttribute("usuario"), categoria));
 			new KafkaProducer().sendNewSuggestion(s.getId());
-			List<Suggestion> sugerencias = suggestionService.getVotables();
-			model.addAttribute("sugerencias", sugerencias);
-			return "index";
+			return "redirect:/index";
 		}
 	}
 }
