@@ -17,8 +17,6 @@
 					<option th:each="iter : ${categorias}" th:value="${iter.id}"
 						th:text="${iter.name}" />
 			</select></li>
-			<li><p>Fecha fin de la propuesta</p> <input type="date"
-				name="fechaFinPropuesta" /></li>
 		</ul>
 		<br /> <input type="submit" name="crearPropuesta" value="Crear" />
 	</form>

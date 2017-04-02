@@ -1,9 +1,5 @@
 package asw.votingSystem.webService;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -43,10 +39,8 @@ public class SuggestionController {
 
 	@RequestMapping("/create")
 	public String createSuggestion(@RequestParam String suggestion_title, @RequestParam String suggestion_description,
-			@RequestParam String fechaFinPropuesta, @RequestParam("categoria") Long idcategoria, HttpSession session,
-			Model model) {
-		if (fechaFinPropuesta.equals("yyyy-MM-dd") || suggestion_description.equals("")
-				|| suggestion_description.equals("")) {
+			@RequestParam("categoria") Long idcategoria, HttpSession session, Model model) {
+		if (suggestion_description.equals("") || suggestion_description.equals("")) {
 			model.addAttribute("mensajes", "No puedes dejar los campos de texto vacios");
 			return "createSuggestion";
 		} else {
@@ -61,17 +55,9 @@ public class SuggestionController {
 					return "createSuggestion";
 				}
 			}
-			DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			String startDate = "2013-09-25";
-			Date fechaFin = null;
-			try {
-				fechaFin = sdf.parse(startDate);
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
 			Category categoria = categoryService.getCategoryById(idcategoria);
 			Suggestion s = suggestionService.saveSuggestion(new Suggestion(suggestion_title, suggestion_description,
-					(Participant) session.getAttribute("usuario"), fechaFin, categoria));
+					(Participant) session.getAttribute("usuario"), categoria));
 			new KafkaProducer().sendNewSuggestion(s.getId());
 			List<Suggestion> sugerencias = suggestionService.getVotables();
 			model.addAttribute("sugerencias", sugerencias);

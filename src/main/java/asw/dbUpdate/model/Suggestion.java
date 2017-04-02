@@ -62,22 +62,16 @@ public class Suggestion {
 		Associations.Crear.link(creator, this);
 	}
 
-	public Suggestion(String titulo, String descripcion, Participant creator, Date fecha_fin, Category category) {
+	public Suggestion(String titulo, String descripcion, Participant creator, Category category) {
+
 		this.votosPositivos = 0;
 		this.creator = creator;
 		this.popularidad = this.votosPositivos;
 		this.titulo = titulo;
 		this.descripcion = descripcion;
 		this.fecha_creacion = Calendar.getInstance().getTime();
-		this.fecha_fin = fecha_fin;
 		this.estado = SuggestionState.BuscandoApoyo;
 		this.category = category;
-		Associations.Crear.link(creator, this);
-	}
-
-	public Suggestion(String titulo, String descripcion, Participant creator, Date fecha_creacion, Date fecha_fin) {
-		this();
-		this.fecha_creacion = fecha_creacion;
 		Calendar c = Calendar.getInstance();
 		c.add(Calendar.DATE, DIAS_ABIERTA); // Pone la fecha de finalización
 											// DIAS_ABIERTA mas tarde
