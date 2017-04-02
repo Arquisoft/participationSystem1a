@@ -129,6 +129,9 @@ public class ConfigurationController {
 		model.addAttribute("sugerencias", sugerencias);
 		return "parameters";
 	}
+	
+	/*@RequestMapping("/addWords")
+	public String  removeWord*/
 
 	@RequestMapping("/rejectSuggestion")
 	public String rejectSuggestion(@RequestParam("transacSuggestion") Long id, Model model) {
