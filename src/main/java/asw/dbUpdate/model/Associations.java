@@ -34,6 +34,7 @@ public class Associations {
 		public static void link(Participant p, VoteComment v, Comment c) {
 			v._setParticipant(p);
 			v._setComment(c);
+			c.incrementVotes(v.getVoto());
 
 			p._getVotComentarios().add(v);
 			c._getVotComentarios().add(v);
@@ -42,6 +43,7 @@ public class Associations {
 		public static void unlink(Participant p, VoteComment v, Comment c) {
 			p._getVotComentarios().remove(v);
 			c._getVotComentarios().remove(v);
+			c.decrementVotes(v.getVoto());
 
 			v._setParticipant(null);
 			v._setComment(null);

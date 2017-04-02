@@ -68,8 +68,7 @@ public class ParticipantServiceImpl implements ParticipantService {
 		Participant part = pr.findOne(participant);
 		Comment com = cr.findOne(comment);
 		if (!vcr.exists(new VoteCommentKey(part.getId(), com.getId()))) {
-			VoteComment vote = new VoteComment(part, com);
-			com.incrementPositiveVotes();
+			VoteComment vote = new VoteComment(part, com, 1);
 			vcr.save(vote);
 			return true;
 		}
@@ -82,8 +81,7 @@ public class ParticipantServiceImpl implements ParticipantService {
 		Participant part = pr.findOne(participant);
 		Comment com = cr.findOne(comment);
 		if (!vcr.exists(new VoteCommentKey(part.getId(), com.getId()))) {
-			VoteComment vote = new VoteComment(part, com);
-			com.incrementateNegativeVotes();
+			VoteComment vote = new VoteComment(part, com, -1);
 			vcr.save(vote);
 			return true;
 		}

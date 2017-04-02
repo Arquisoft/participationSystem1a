@@ -43,8 +43,6 @@ public class Comment {
 
 	public Comment(String texto, Participant participant, Suggestion suggestion) {
 		this.texto = texto;
-		this.participant = participant;
-		this.suggestion = suggestion;
 		this.votosPositivos = 0;
 		this.votosNegativos = 0;
 		this.valoracion = this.votosPositivos - this.votosNegativos;
@@ -151,15 +149,21 @@ public class Comment {
 				+ ", valoracion=" + valoracion + ", fechaCreacion=" + fechaCreacion + "]";
 	}
 
-	public void incrementPositiveVotes() {
-		this.votosPositivos++;
-		setValoracion(getVotosPositivos() - getVotosNegativos());
+	public void incrementVotes(int value) {
+		if (value == -1)
+			this.votosNegativos++;
+		else
+			this.votosPositivos++;
+		this.valoracion = this.votosPositivos - this.votosNegativos;
 
 	}
 
-	public void incrementateNegativeVotes() {
-		this.votosNegativos++;
-		setValoracion(getVotosPositivos() - getVotosNegativos());
+	public void decrementVotes(int value) {
+		if (value == -1)
+			this.votosNegativos--;
+		else
+			this.votosPositivos--;
+		this.valoracion = this.votosPositivos - this.votosNegativos;
 	}
 
 }

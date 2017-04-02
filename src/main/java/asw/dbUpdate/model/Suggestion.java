@@ -27,9 +27,7 @@ public class Suggestion {
 	private int minVotos; // Numero minimo de votos necesarios para que se envie
 							// la propuesta al parlamento. Se configura
 							// exteriormente
-	private int popularidad; // Positivos - Negativos Accedemos aqui
-								// directamente pero tenemos que llevar un
-								// control de cada tipo de voto
+	private int popularidad;
 	private int votosPositivos;
 	@ManyToOne
 	@JoinColumn(name = "id_creator", referencedColumnName = "id")
@@ -38,22 +36,6 @@ public class Suggestion {
 	private String descripcion;
 	@Temporal(TemporalType.DATE)
 	private Date fecha_creacion;
-	public Date getFecha_creacion() {
-		return fecha_creacion;
-	}
-
-	public void setFecha_creacion(Date fecha_creacion) {
-		this.fecha_creacion = fecha_creacion;
-	}
-
-	public Date getFecha_fin() {
-		return fecha_fin;
-	}
-
-	public void setFecha_fin(Date fecha_fin) {
-		this.fecha_fin = fecha_fin;
-	}
-
 	@Temporal(TemporalType.DATE)
 	private Date fecha_fin;
 	@ManyToOne
@@ -74,27 +56,43 @@ public class Suggestion {
 
 	public Suggestion(String titulo, String descripcion, Participant creator) {
 		this.votosPositivos = 0;
-		this.creator = creator;
 		this.popularidad = this.votosPositivos;
 		this.titulo = titulo;
 		this.descripcion = descripcion;
+		Associations.Crear.link(creator, this);
 	}
-	
-	public Suggestion(String titulo, String descripcion, Participant creator,
-			Date fecha_creacion, Date fecha_fin){
+
+	public Suggestion(String titulo, String descripcion, Participant creator, Date fecha_creacion, Date fecha_fin) {
 		this();
 		this.fecha_creacion = fecha_creacion;
 		Calendar c = Calendar.getInstance();
-		c.add(Calendar.DATE, DIAS_ABIERTA); //Pone la fecha de finalización DIAS_ABIERTA mas tarde
+		c.add(Calendar.DATE, DIAS_ABIERTA); // Pone la fecha de finalización
+											// DIAS_ABIERTA mas tarde
 		this.fecha_fin = c.getTime();
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Date getFecha_creacion() {
+		return fecha_creacion;
+	}
+
+	public void setFecha_creacion(Date fecha_creacion) {
+		this.fecha_creacion = fecha_creacion;
+	}
+
+	public Date getFecha_fin() {
+		return fecha_fin;
+	}
+
+	public void setFecha_fin(Date fecha_fin) {
+		this.fecha_fin = fecha_fin;
 	}
 
 	public int getMinVotos() {
