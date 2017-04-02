@@ -36,6 +36,8 @@ public class ConfigurationController {
 
 	@RequestMapping("/parameters")
 	public String parameters(Model model) {
+		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
+		model.addAttribute("sugerencias", sugerencias);
 		return "parameters";
 	}
 
@@ -70,14 +72,26 @@ public class ConfigurationController {
 		return "config";
 	}
 
+	@RequestMapping("/voting")
+	public String voting(Model model) {
+		List<Suggestion> votingSuggestions = suggestionService.getSuggestionByStatus(SuggestionState.EnVotacion);
+		model.addAttribute("suggestions", votingSuggestions);
+		return "voting";
+	}
+
+	@RequestMapping("/config")
+	public String config(Model model) {
+		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
+		model.addAttribute("sugerencias", sugerencias);
+		return "config";
+	}
+
 	// TODO No funciona, ya lo arreglare si al final permitimos edicion
 	@RequestMapping("/save")
 	public String saveSuggestion(@RequestParam("sugerencia") Long id, HttpSession session, Model model) {
 		suggestionService.saveSuggestion((Suggestion) session.getAttribute("sugerencia"));
 		// Enviar aviso a kafka
-		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
-		model.addAttribute("sugerencias", sugerencias);
-		return "config";
+		return "redirect:/config";
 	}
 
 	@RequestMapping("/delete")
@@ -85,18 +99,14 @@ public class ConfigurationController {
 		Suggestion s = suggestionService.getSuggestionById(id);
 		suggestionService.deleteSuggestion(s);
 		// Enviar aviso a kafka
-		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
-		model.addAttribute("sugerencias", sugerencias);
-		return "config";
+		return "redirect:/config";
 	}
 
 	@RequestMapping("/days")
 	public String setDays(@RequestParam("suggestion_duration") int dias, HttpSession session, Model model) {
 		Suggestion.DIAS_ABIERTA = dias;
 		// Enviar aviso a kafka
-		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
-		model.addAttribute("sugerencias", sugerencias);
-		return "parameters";
+		return "redirect:/parameters";
 	}
 
 	@RequestMapping("/addCategories")
@@ -109,9 +119,7 @@ public class ConfigurationController {
 		} else
 			model.addAttribute("mensaje", "Category " + nombre + " already exist");
 		// Enviar aviso a kafka
-		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
-		model.addAttribute("sugerencias", sugerencias);
-		return "parameters";
+		return "redirect:/parameters";
 	}
 
 	@RequestMapping("/removeCategories")
@@ -124,9 +132,7 @@ public class ConfigurationController {
 		} else
 			model.addAttribute("mensaje", "Category " + nombre + " doesn't exist or there are suggestion in it");
 		// Enviar aviso a kafka
-		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
-		model.addAttribute("sugerencias", sugerencias);
-		return "parameters";
+		return "redirect:/parameters";
 	}
 
 	@RequestMapping("/addWords")
@@ -159,11 +165,8 @@ public class ConfigurationController {
 		Suggestion suggestion = suggestionService.getSuggestionById(id);
 		suggestion.setEstado(SuggestionState.Rechazada);
 		suggestionService.saveSuggestion(suggestion);
-		findTrasactSuggestions(model);
 		// Enviar aviso a kafka
-		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
-		model.addAttribute("sugerencias", sugerencias);
-		return "transact";
+		return "redirect:/transact";
 	}
 
 	@RequestMapping("/updateMinVotes")
@@ -175,17 +178,7 @@ public class ConfigurationController {
 			suggestionService.saveSuggestion(suggestion);
 		}
 		// Enviar aviso a kafka
-		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
-		model.addAttribute("sugerencias", sugerencias);
-		findTrasactSuggestions(model);
-		return "transact";
-	}
-
-	@RequestMapping("/voting")
-	public String voting(Model model) {
-		List<Suggestion> votingSuggestions = suggestionService.getSuggestionByStatus(SuggestionState.EnVotacion);
-		model.addAttribute("suggestions", votingSuggestions);
-		return "voting";
+		return "redirect:/transact";
 	}
 
 	@RequestMapping("/accept")
@@ -193,13 +186,9 @@ public class ConfigurationController {
 		Suggestion suggestion = suggestionService.getSuggestionById(id);
 		suggestion.setEstado(SuggestionState.Aceptada);
 		// Enviar aviso a kafka
-		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
-		model.addAttribute("sugerencias", sugerencias);
-		voting(model);
-		return "voting";
+		return "redirect:/voting";
 	}
 
-	// Esto no funciona, me tiene desesperao - Fixed :)
 	@RequestMapping("/postponeEndDate")
 	public String postponeEndDate(@RequestParam("suggestion") Long id, @RequestParam("endDate") int days, Model model) {
 		if (days > 0) {
@@ -209,8 +198,7 @@ public class ConfigurationController {
 			c.add(Calendar.DAY_OF_MONTH, days);
 			suggestion.setFecha_fin(c.getTime());
 			suggestionService.saveSuggestion(suggestion);
-			findTrasactSuggestions(model);
 		}
-		return "redirect:transact";
+		return "redirect:/transact";
 	}
 }
