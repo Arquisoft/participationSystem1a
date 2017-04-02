@@ -31,13 +31,19 @@ public class CommentController {
 
 	@Autowired
 	private ParticipantService participantService;
-	
+
 	@Autowired
 	private WordService wordService;
 
 	@RequestMapping("/comments")
 	public String showComments(@RequestParam("sugerencia") Long id, HttpSession session, Model model) {
-		session.setAttribute("idSugerencia", id);
+		session.setAttribute("idSuggestion", id);
+		return "redirect:/listComments";
+	}
+
+	@RequestMapping("/listComments")
+	public String listComments(Model model, HttpSession session) {
+		Long id = (Long) session.getAttribute("idSuggestion");
 		List<Comment> comentarios = commentService.getCommentsBySuggestion(suggestionService.getSuggestionById(id));
 		model.addAttribute("comentarios", comentarios);
 		return "comments";
@@ -50,9 +56,7 @@ public class CommentController {
 		else
 			model.addAttribute("mensaje", "Ha votado like a este comentario");
 		new KafkaProducer().sendPositiveComment(id);
-		List<Comment> comentarios = commentService.getCommentsBySuggestion(suggestionService.getSuggestionById(id));
-		model.addAttribute("comentarios", comentarios);
-		return "comments";
+		return "redirect:/listComments";
 	}
 
 	@RequestMapping("/votarNegativo")
@@ -61,9 +65,7 @@ public class CommentController {
 			model.addAttribute("mensaje", "Ya has votado este comentario anteriormente");
 		else
 			model.addAttribute("mensaje", "Ha votado dislike a este comentario");
-		List<Comment> comentarios = commentService.getCommentsBySuggestion(suggestionService.getSuggestionById(id));
-		model.addAttribute("comentarios", comentarios);
-		return "comments";
+		return "redirect:/listComments";
 	}
 
 	@RequestMapping("/comment")
@@ -72,22 +74,18 @@ public class CommentController {
 			model.addAttribute("mensaje", "No ha escrito nada");
 		} else {
 			List<Word> words = wordService.getAllWords();
-			for (int i = 0; i < words.size(); i++){
-				if (comment.contains(words.get(i).getWord())){
+			for (int i = 0; i < words.size(); i++) {
+				if (comment.contains(words.get(i).getWord())) {
 					model.addAttribute("mensaje", "El comentario contiene palabras prohibidas");
-					return "comments";
+					return "redirect:listComments";
 				}
 			}
 			Participant p = (Participant) session.getAttribute("usuario");
 			Suggestion s = suggestionService.getSuggestionById((Long) session.getAttribute("idSugerencia"));
-			Comment c = commentService.saveComment(new Comment(comment, p,
-					s));
+			Comment c = commentService.saveComment(new Comment(comment, p, s));
 			new KafkaProducer().sendNewComment(c.getId());
 
 		}
-		List<Comment> comentarios = commentService.getCommentsBySuggestion(
-				suggestionService.getSuggestionById((Long) session.getAttribute("idSugerencia")));
-		model.addAttribute("comentarios", comentarios);
-		return "comments";
+		return "redirect:/listComments";
 	}
 }
