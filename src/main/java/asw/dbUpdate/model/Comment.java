@@ -47,7 +47,7 @@ public class Comment {
 		this.votosNegativos = 0;
 		this.valoracion = this.votosPositivos - this.votosNegativos;
 		this.fechaCreacion = Calendar.getInstance().getTime();
-		Associations.Comentar.link(this, this.participant, this.suggestion);
+		Associations.Comentar.link(this, participant, suggestion);
 	}
 
 	public String getTexto() {
