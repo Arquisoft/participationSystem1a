@@ -28,6 +28,11 @@ public class ConfigurationController {
 	@Autowired
 	private CategoryService categoryService;
 	
+	@RequestMapping("/parameters")
+	public String parameters(Model model){
+		return "parameters";
+	}
+	
 	@RequestMapping("/accepted")
 	public String findAcceptedSuggestions(Model model) {
 		List<Suggestion> acceptedSuggestions = suggestionService
@@ -85,7 +90,7 @@ public class ConfigurationController {
 	}
 
 	@RequestMapping("/days")
-	public String setDays(@RequestParam("days") int dias, HttpSession session, Model model) {
+	public String setDays(@RequestParam("suggestion_duration") int dias, HttpSession session, Model model) {
 		Suggestion.DIAS_ABIERTA = dias;
 		// Enviar aviso a kafka
 		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
@@ -115,7 +120,7 @@ public class ConfigurationController {
 		// Enviar aviso a kafka
 		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
 		model.addAttribute("sugerencias", sugerencias);
-		return "paremeters";
+		return "parameters";
 	}
 
 	@RequestMapping("/rejectSuggestion")
