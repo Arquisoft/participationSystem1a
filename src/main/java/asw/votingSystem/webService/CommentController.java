@@ -16,7 +16,9 @@ import asw.dbUpdate.SuggestionService;
 import asw.dbUpdate.WordService;
 import asw.dbUpdate.model.Comment;
 import asw.dbUpdate.model.Participant;
+import asw.dbUpdate.model.Suggestion;
 import asw.dbUpdate.model.Word;
+import asw.reportWriter.kafka.KafkaProducer;
 
 @Controller
 public class CommentController {
@@ -29,7 +31,7 @@ public class CommentController {
 
 	@Autowired
 	private ParticipantService participantService;
-	
+
 	@Autowired
 	private WordService wordService;
 
@@ -47,6 +49,7 @@ public class CommentController {
 			model.addAttribute("mensaje", "Ya has votado este comentario anteriormente");
 		else
 			model.addAttribute("mensaje", "Ha votado like a este comentario");
+		new KafkaProducer().sendPositiveComment(id);
 		List<Comment> comentarios = commentService.getCommentsBySuggestion(suggestionService.getSuggestionById(id));
 		model.addAttribute("comentarios", comentarios);
 		return "comments";
@@ -69,14 +72,16 @@ public class CommentController {
 			model.addAttribute("mensaje", "No ha escrito nada");
 		} else {
 			List<Word> words = wordService.getAllWords();
-			for (int i = 0; i < words.size(); i++){
-				if (comment.contains(words.get(i).getWord())){
+			for (int i = 0; i < words.size(); i++) {
+				if (comment.toLowerCase().contains(words.get(i).getWord())) {
 					model.addAttribute("mensaje", "El comentario contiene palabras prohibidas");
 					return "comments";
 				}
 			}
-			commentService.saveComment(new Comment(comment, (Participant) session.getAttribute("usuario"),
-					suggestionService.getSuggestionById((Long) session.getAttribute("idSugerencia"))));
+			Participant p = (Participant) session.getAttribute("usuario");
+			Suggestion s = suggestionService.getSuggestionById((Long) session.getAttribute("idSugerencia"));
+			Comment c = commentService.saveComment(new Comment(comment, p, s));
+			new KafkaProducer().sendNewComment(c.getId());
 
 		}
 		List<Comment> comentarios = commentService.getCommentsBySuggestion(

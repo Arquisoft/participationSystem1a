@@ -14,6 +14,6 @@ public interface CommentService {
 
 	List<Comment> getCommentsBySuggestion(Suggestion suggestion);
 
-	void saveComment(Comment comment);
+	Comment saveComment(Comment comment);
 
 }

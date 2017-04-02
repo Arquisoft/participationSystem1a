@@ -18,30 +18,30 @@ public class KafkaProducer {
     private static final Logger logger = Logger.getLogger(KafkaProducer.class);
 
     // TOPICS
-    public static final String NEW_SUGGESTION = "NEW SUGGESTION";
-    public static final String NEW_COMMENT = "NEW COMMENT";
-    public static final String POSITIVE_COMMENT = "POSITIVE COMMENT";
-    public static final String NEGATIVE_COMMENT = "NEGATIVE COMMENT";
-    public static final String POSITIVE_SUGGESTION = "POSITIVE SUGGESTION";
+    public static final String NEW_SUGGESTION = "newSuggestion";
+    public static final String NEW_COMMENT = "newComment";
+    public static final String POSITIVE_COMMENT = "positiveComment";
+    public static final String NEGATIVE_COMMENT = "negativeComment";
+    public static final String POSITIVE_SUGGESTION = "positiveSuggestion";
     
     // SENDS
- 	public void sendNewSuggestion(int suggestionId) {
+ 	public void sendNewSuggestion(long suggestionId) {
  		send(NEW_SUGGESTION, "Creada la propuesta -> " + suggestionId);
  	}
  	
- 	public void sendNewComment(int commentId) {
+ 	public void sendNewComment(long commentId) {
  		send(NEW_COMMENT, "Creado el comentario -> " + commentId);
  	}
  	
- 	public void sendPositiveComment(int commentId) {
+ 	public void sendPositiveComment(long commentId) {
  		send(POSITIVE_COMMENT, "Voto positivo en el comentario -> " + commentId);
  	}
  	
- 	public void sendNegativeComment(int commentId) {
+ 	public void sendNegativeComment(long commentId) {
  		send(NEGATIVE_COMMENT, "Voto negativo en el comentario -> " + commentId);
  	}
  	
- 	public void sendPositiveSuggestion(int suggestionId) {
+ 	public void sendPositiveSuggestion(long suggestionId) {
  		send(POSITIVE_SUGGESTION, "Apoyo a la propuesta -> " + suggestionId);
  	}
     
