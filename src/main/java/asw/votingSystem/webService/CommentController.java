@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import asw.dbUpdate.CommentService;
 import asw.dbUpdate.ParticipantService;
 import asw.dbUpdate.SuggestionService;
+import asw.dbUpdate.WordService;
 import asw.dbUpdate.model.Comment;
 import asw.dbUpdate.model.Participant;
+import asw.dbUpdate.model.Word;
 
 @Controller
 public class CommentController {
@@ -27,6 +29,9 @@ public class CommentController {
 
 	@Autowired
 	private ParticipantService participantService;
+	
+	@Autowired
+	private WordService wordService;
 
 	@RequestMapping("/comments")
 	public String showComments(@RequestParam("sugerencia") Long id, HttpSession session, Model model) {
@@ -63,6 +68,13 @@ public class CommentController {
 		if (comment.equals("")) {
 			model.addAttribute("mensaje", "No ha escrito nada");
 		} else {
+			List<Word> words = wordService.getAllWords();
+			for (int i = 0; i < words.size(); i++){
+				if (comment.contains(words.get(i).getWord())){
+					model.addAttribute("mensaje", "El comentario contiene palabras prohibidas");
+					return "comments";
+				}
+			}
 			commentService.saveComment(new Comment(comment, (Participant) session.getAttribute("usuario"),
 					suggestionService.getSuggestionById((Long) session.getAttribute("idSugerencia"))));
 
