@@ -153,11 +153,13 @@ public class Comment {
 
 	public void incrementPositiveVotes() {
 		this.votosPositivos++;
+		setValoracion(getVotosPositivos() - getVotosNegativos());
 
 	}
 
 	public void incrementateNegativeVotes() {
 		this.votosNegativos++;
+		setValoracion(getVotosPositivos() - getVotosNegativos());
 	}
 
 }

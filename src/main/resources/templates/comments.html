@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Portal de usuario</title>
@@ -14,17 +15,19 @@
 				<th>Votos negativos</th>
 				<th>Valoracion</th>
 				<th>Participante</th>
+				<th>Fecha</th>
 				<th>Votar positivo</th>
 				<th>Votar negativo</th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody id="comments">
 			<tr th:each="iter : ${comentarios}">
 				<td th:text="${iter.texto}">Texto</td>
 				<td th:text="${iter.votosPositivos}">Votos positivos</td>
 				<td th:text="${iter.votosNegativos}">Votos negativos</td>
 				<td th:text="${iter.valoracion}">Valoracion</td>
 				<td th:text="${iter.participant.email}">Participante</td>
+				<td th:text="${iter.fechaCreacion}">Fecha</td>
 				<td><a id="positivo${iter.id}"
 					th:href="@{/votarPositivo(comentario=${iter.id})}">Votar
 						positivo</a></td>

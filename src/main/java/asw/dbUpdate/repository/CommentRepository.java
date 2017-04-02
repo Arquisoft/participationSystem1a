@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import asw.dbUpdate.model.Comment;
 import asw.dbUpdate.model.Participant;
 import asw.dbUpdate.model.Suggestion;
+import asw.dbUpdate.model.SuggestionState;
 
 @Repository
 public interface CommentRepository extends CrudRepository<Comment, Long> {
