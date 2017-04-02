@@ -17,6 +17,12 @@ public class KafkaProducer {
 
     private static final Logger logger = Logger.getLogger(KafkaProducer.class);
 
+    public static final String NEW_SUGGESTION = "NEW SUGGESTION";
+    public static final String NEW_COMMENT = "NEW COMMENT";
+    public static final String POSITIVE_COMMENT = "POSITIVE COMMENT";
+    public static final String NEGATIVE_COMMENT = "NEGATIVE COMMENT";
+    public static final String POSITIVE_SUGGESTION = "POSITIVE SUGGESTION";
+    
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
 
