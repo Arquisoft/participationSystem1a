@@ -41,10 +41,15 @@ public class MainController {
 			model.addAttribute("sugerencias", sugerencias);
 			return "config";
 		} else {
-			List<Suggestion> sugerencias = suggestionService.getVotables();
-			model.addAttribute("sugerencias", sugerencias);
-			return "index";
+			return "redirect:/index";
 		}
+	}
+
+	@RequestMapping("/index")
+	public String index(Model model) {
+		List<Suggestion> sugerencias = suggestionService.getVotables();
+		model.addAttribute("sugerencias", sugerencias);
+		return "index";
 	}
 
 	@ExceptionHandler(Exception.class)
