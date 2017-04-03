@@ -22,6 +22,3 @@ before_script:
 - "sh -e /etc/init.d/xvfb start"
 - sleep 3 # give xvfb some time to start
 
-script:
-- mvn build
-- mvn spring-boot:run
