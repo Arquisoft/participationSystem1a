@@ -7,7 +7,7 @@ env:
   global:
   - ZOOKEEPER_PEERS=localhost:2181
   - KAFKA_PEERS=localhost:9092
-
+services: mysql
 before_install:
 - wget http://www.us.apache.org/dist/kafka/0.8.2.1/kafka_2.10-0.8.2.1.tgz -O kafka.tgz
 - mkdir -p kafka && tar xzf kafka.tgz -C kafka --strip-components 1
@@ -21,8 +21,7 @@ before_script:
 - "export DISPLAY=:99.0"
 - "sh -e /etc/init.d/xvfb start"
 - sleep 3 # give xvfb some time to start
+
 script:
-- go build
-- go vet
-- GORACE="halt_on_error=1" go test -v -race 
-services: mysql
+- mvn build
+- mvn spring-boot:run
