@@ -1,16 +1,16 @@
 package test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.Date;
 
 import org.junit.Test;
 
+import asw.dbupdate.model.Category;
 import asw.dbupdate.model.Comment;
 import asw.dbupdate.model.Participant;
 import asw.dbupdate.model.Suggestion;
+import asw.dbupdate.model.Word;
 
 public class TestModel {
 
@@ -38,6 +38,58 @@ public class TestModel {
 		assertTrue(c.toString()
 				.equals("Comment [texto=test, votosPositivos=1, votosNegativos=1, valoracion=2, fechaCreacion="
 						+ c.getFechaCreacion() + "]"));
+	}
+
+	@Test
+	public void testCategory() {
+
+		Category c = new Category("categoria");
+		assertNull(c.getId());
+		assertEquals(c.getSuggestions().size(), 0);
+		assertEquals(c.getName(), "categoria");
+		assertEquals(c.toString(), "Category [name=categoria, suggestions=[]]");
+	}
+
+	@Test
+	public void testWord() {
+
+		Word w = new Word("palabra");
+		assertNull(w.getId());
+		assertEquals(w.getWord(), "palabra");
+		w.setWord("hola");
+		assertEquals("Word [name=hola]", w.toString());
+	}
+
+	@Test
+	public void testParticipant() {
+		Participant p = new Participant("dani", "duque", "12345", new Date(123), "dani@domain.com", "77777777F",
+				"direccion", "español");
+
+		assertNull(p.getId());
+		assertEquals(p.getComentarios().size(), 0);
+		p.setId(new Long(2));
+		p.setNombre("pepe");
+		p.setApellidos("lopez");
+		p.setFechaNacimiento(new Date(2));
+		p.setDNI("34455543E");
+		p.setDireccion("calle");
+		p.setNacionalidad("aleman");
+		p.setPassword("123");
+		p.setAdmin(false);
+		assertEquals("pepe", p.getNombre());
+		assertEquals("lopez", p.getApellidos());
+		assertEquals(new Date(2), p.getFechaNacimiento());
+		assertEquals("34455543E", p.getDNI());
+		assertEquals("calle", p.getDireccion());
+		assertEquals("aleman", p.getNacionalidad());
+		assertEquals("123", p.getPassword());
+		assertEquals(0, p.getPropias().size());
+		assertEquals(0, p.getVotComentarios().size());
+		assertEquals(0, p.getVotSugerencias().size());
+		assertFalse(p.isAdmin());
+		assertEquals(p.toString(),
+				"Participant [nombre=pepe, apellidos=lopez, fechaNacimiento=Thu Jan 01 01:00:00 CET 1970, email=dani@domain.com, DNI=34455543E, direccion=calle, nacionalidad=aleman]");
+
 	}
 
 }
