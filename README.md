@@ -1,4 +1,4 @@
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2f5e9b234d9b4cbd8669629c299990ad)](https://www.codacy.com/app/jelabra/participationSystem1a?utm_source=github.com&utm_medium=referral&utm_content=Arquisoft/participationSystem1a&utm_campaign=badger)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/8538b6fe8c19496c9b65394be50bf830)](https://www.codacy.com/app/DanielAlba96/participationSystem1a?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Arquisoft/participationSystem1a&amp;utm_campaign=Badge_Grade)utm_source=github.com&utm_medium=referral&utm_content=Arquisoft/participationSystem1a&utm_campaign=badger)
 [![Build Status](https://travis-ci.org/Arquisoft/participationSystem1a.svg?branch=master)](https://travis-ci.org/Arquisoft/participationSystem1a)
 [![codecov](https://codecov.io/gh/Arquisoft/participationSystem1a/branch/master/graph/badge.svg)](https://codecov.io/gh/Arquisoft/participationSystem1a)
 
