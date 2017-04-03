@@ -30,6 +30,9 @@ public class SuggestionController {
 
 	@Autowired
 	private WordService wordService;
+	
+	@Autowired
+	private KafkaProducer kafka;
 
 	@RequestMapping("/createSuggestion")
 	public String viewFormCreateSuggestion(Model model) {
@@ -58,7 +61,7 @@ public class SuggestionController {
 			Category categoria = categoryService.getCategoryById(idcategoria);
 			Suggestion s = suggestionService.saveSuggestion(new Suggestion(suggestion_title, suggestion_description,
 					(Participant) session.getAttribute("usuario"), categoria));
-			new KafkaProducer().sendNewSuggestion(s.getId());
+			kafka.sendNewSuggestion(s.getId());
 			return "redirect:/index";
 		}
 	}

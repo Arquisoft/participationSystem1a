@@ -35,6 +35,9 @@ public class CommentController {
 	@Autowired
 	private WordService wordService;
 
+	@Autowired
+	private KafkaProducer kafka;
+
 	@RequestMapping("/comments")
 	public String showComments(@RequestParam("sugerencia") Long id, HttpSession session, Model model) {
 		session.setAttribute("idSuggestion", id);
@@ -55,7 +58,7 @@ public class CommentController {
 			model.addAttribute("mensaje", "Ya has votado este comentario anteriormente");
 		else {
 			model.addAttribute("mensaje", "Ha votado like a este comentario");
-			new KafkaProducer().sendPositiveComment(id);
+			kafka.sendPositiveComment(id);
 		}
 		return "redirect:/listComments";
 	}
@@ -66,7 +69,7 @@ public class CommentController {
 			model.addAttribute("mensaje", "Ya has votado este comentario anteriormente");
 		else {
 			model.addAttribute("mensaje", "Ha votado dislike a este comentario");
-			new KafkaProducer().sendNegativeComment(id);
+			kafka.sendNegativeComment(id);
 		}
 		return "redirect:/listComments";
 	}
@@ -86,7 +89,7 @@ public class CommentController {
 			Participant p = (Participant) session.getAttribute("usuario");
 			Suggestion s = suggestionService.getSuggestionById((Long) session.getAttribute("idSugerencia"));
 			Comment c = commentService.saveComment(new Comment(comment, p, s));
-			new KafkaProducer().sendNewComment(c.getId());
+			kafka.sendNewComment(c.getId());
 
 		}
 		return "redirect:/listComments";

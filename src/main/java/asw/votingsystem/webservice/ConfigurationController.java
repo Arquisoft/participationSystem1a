@@ -31,6 +31,9 @@ public class ConfigurationController {
 
 	@Autowired
 	private WordService wordService;
+	
+	@Autowired
+	private KafkaProducer kafka;
 
 	@RequestMapping("/parameters")
 	public String parameters(Model model) {
@@ -89,7 +92,7 @@ public class ConfigurationController {
 	public String saveSuggestion(@RequestParam("sugerencia") Long id, HttpSession session, Model model) {
 		suggestionService.saveSuggestion((Suggestion) session.getAttribute("sugerencia"));
 		// Enviar aviso a kafka
-		new KafkaProducer().sendNewSuggestion(id);
+		kafka.sendNewSuggestion(id);
 		return "redirect:/config";
 	}
 
@@ -98,7 +101,7 @@ public class ConfigurationController {
 		Suggestion s = suggestionService.getSuggestionById(id);
 		suggestionService.deleteSuggestion(s);
 		// Enviar aviso a kafka
-		new KafkaProducer().sendDeleteSuggestion(id);
+		kafka.sendDeleteSuggestion(id);
 		return "redirect:/config";
 	}
 
@@ -106,7 +109,7 @@ public class ConfigurationController {
 	public String setDays(@RequestParam("suggestion_duration") int dias, HttpSession session, Model model) {
 		Suggestion.DIAS_ABIERTA = dias;
 		// Enviar aviso a kafka
-		new KafkaProducer().send(KafkaProducer.DAYS_OPEN, "Dias abierta -> " + dias);
+		kafka.send(KafkaProducer.DAYS_OPEN, "Dias abierta -> " + dias);
 		return "redirect:/parameters";
 	}
 
@@ -118,7 +121,7 @@ public class ConfigurationController {
 			categoria = categoryService.saveCategory(categoria);
 			model.addAttribute("mensaje", "Category " + nombre + " has been added");
 			// Enviar aviso a kafka
-			new KafkaProducer().sendNewCategory(categoria.getId());
+			kafka.sendNewCategory(categoria.getId());
 		} else
 			model.addAttribute("mensaje", "Category " + nombre + " already exist");
 		return "redirect:/parameters";
@@ -131,7 +134,7 @@ public class ConfigurationController {
 			long catId = category.getId();
 			categoryService.deleteCategory(category);
 			model.addAttribute("mensaje", "Category " + nombre + " has been removed");
-			new KafkaProducer().sendDeleteCategory(catId);
+			kafka.sendDeleteCategory(catId);
 		} else
 			model.addAttribute("mensaje", "Category " + nombre + " doesn't exist or there are suggestion in it");
 		// Enviar aviso a kafka
@@ -169,7 +172,7 @@ public class ConfigurationController {
 		suggestion.setEstado(SuggestionState.Rechazada);
 		suggestionService.saveSuggestion(suggestion);
 		// Enviar aviso a kafka
-		new KafkaProducer().sendDeniedSuggestion(id);;
+		kafka.sendDeniedSuggestion(id);;
 		return "redirect:/transact";
 	}
 

@@ -19,9 +19,12 @@ public class VoteController {
 
 	@Autowired
 	private ParticipantService participantService;
-	
+
 	@Autowired
 	private SuggestionService suggestionService;
+
+	@Autowired
+	private KafkaProducer kafka;
 
 	@RequestMapping("/support")
 	public String votingUp(@RequestParam("sugerencia") Long id, HttpSession session, Model model) {
@@ -30,10 +33,10 @@ public class VoteController {
 		else {
 			model.addAttribute("mensaje", "");
 			// Enviar aviso a kafka
-			new KafkaProducer().sendPositiveSuggestion(id);
+			kafka.sendPositiveSuggestion(id);
 			Suggestion s = suggestionService.getSuggestionById(id);
-			if(s.getVotosPositivos() == s.getMinVotos())
-				new KafkaProducer().sendMinVotesReached(id);
+			if (s.getVotosPositivos() == s.getMinVotos())
+				kafka.sendMinVotesReached(id);
 		}
 		return "redirect:/index";
 	}
