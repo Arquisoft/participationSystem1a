@@ -15,6 +15,7 @@ import cucumber.api.java.en.When;
 
 import static org.junit.Assert.assertEquals;
 
+
 public class LoginSteps {
 
 	private WebDriver driver=new HtmlUnitDriver();
@@ -51,7 +52,7 @@ public class LoginSteps {
 		String pass = "jualo123";
 		boolean isJualo = false;
 
-		if (jualo.get("usuario").equals(user) && jualo.get("pass").equals(pass)) {
+		if (jualo.get("user").equals(user) && jualo.get("pass").equals(pass)) {
 			isJualo = true;
 		}
 		
