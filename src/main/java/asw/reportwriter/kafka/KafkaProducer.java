@@ -29,6 +29,7 @@ public class KafkaProducer {
 	public static final String NEW_CATEGORY = "newCategory";
 	public static final String DELETE_CATEGORY = "deleteCategory";
 	public static final String DENIED_SUGGESTION = "deniedSuggestion";
+	
 	private KafkaTemplate<String, String> kafkaTemplate;
 
 	@Autowired
