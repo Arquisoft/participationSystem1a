@@ -36,9 +36,9 @@ public class Suggestion {
 	private String titulo;
 	private String descripcion;
 	@Temporal(TemporalType.DATE)
-	private Date fecha_creacion;
+	private Date fechaCreacion;
 	@Temporal(TemporalType.DATE)
-	private Date fecha_fin;
+	private Date fechaFin;
 	@ManyToOne
 	@JoinColumn(name = "id_category", referencedColumnName = "id")
 	private Category category;
@@ -70,14 +70,14 @@ public class Suggestion {
 		this.popularidad = this.votosPositivos;
 		this.titulo = titulo;
 		this.descripcion = descripcion;
-		this.fecha_creacion = Calendar.getInstance().getTime();
+		this.fechaCreacion = Calendar.getInstance().getTime();
 		this.estado = SuggestionState.BuscandoApoyo;
 		this.category = category;
 		this.minVotos = MIN_VOTOS_DEFECTO;
 		Calendar c = Calendar.getInstance();
 		c.add(Calendar.DATE, DIAS_ABIERTA); // Pone la fecha de finalización
 											// DIAS_ABIERTA mas tarde
-		this.fecha_fin = c.getTime();
+		this.fechaFin = c.getTime();
 	}
 
 	public Long getId() {
@@ -89,19 +89,19 @@ public class Suggestion {
 	}
 
 	public Date getFecha_creacion() {
-		return fecha_creacion;
+		return fechaCreacion;
 	}
 
 	public void setFecha_creacion(Date fecha_creacion) {
-		this.fecha_creacion = fecha_creacion;
+		this.fechaCreacion = fecha_creacion;
 	}
 
 	public Date getFecha_fin() {
-		return fecha_fin;
+		return fechaFin;
 	}
 
 	public void setFecha_fin(Date fecha_fin) {
-		this.fecha_fin = fecha_fin;
+		this.fechaFin = fecha_fin;
 	}
 
 	public int getMinVotos() {
