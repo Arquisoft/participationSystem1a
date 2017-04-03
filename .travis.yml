@@ -22,7 +22,7 @@ before_script:
 - "sh -e /etc/init.d/xvfb start"
 - sleep 3 # give xvfb some time to start
 script:
-- go build ./...
-- go vet ./...
-- GORACE="halt_on_error=1" go test -v -race ./...
+- go build
+- go vet
+- GORACE="halt_on_error=1" go test -v -race 
 services: mysql
