@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -35,8 +36,10 @@ public class Suggestion {
 	private Participant creator;
 	private String titulo;
 	private String descripcion;
+	@Column(name="fecha_creacion")
 	@Temporal(TemporalType.DATE)
 	private Date fechaCreacion;
+	@Column(name="fecha_fin")
 	@Temporal(TemporalType.DATE)
 	private Date fechaFin;
 	@ManyToOne

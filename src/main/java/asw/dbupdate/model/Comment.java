@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Calendar;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,6 +27,7 @@ public class Comment {
 	private int votosPositivos;
 	private int votosNegativos;
 	private int valoracion;
+	@Column(name="fecha_creacion")
 	@Temporal(TemporalType.DATE)
 	private Date fechaCreacion;
 	@ManyToOne
