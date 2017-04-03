@@ -16,9 +16,6 @@ before_install:
 - nohup bash -c "cd kafka && bin/kafka-server-start.sh config/server.properties &"
 - "export GOCEPT_SELENIUM_BROWSER='*firefox'"
 
-- spring init --dependencies=web myapp
-- cd myapp
-
 after_success:
 - bash <(curl -s https://codecov.io/bash)
 before_script:
