@@ -73,7 +73,7 @@ public class KafkaProducer {
  	}
     
     @Autowired
-    private KafkaTemplate<String, String> kafkaTemplate = new KafkaProducerFactory().kafkaTemplate();
+    private KafkaTemplate<String, String> kafkaTemplate;
 
     public void send(String topic, String data) {
         ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send(topic, data);

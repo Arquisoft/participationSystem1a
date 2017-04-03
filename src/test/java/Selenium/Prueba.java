@@ -34,7 +34,7 @@ public class Prueba {
 	}
 
 	@Test
-	public void testVoidVerComentarios() throws Exception {
+	public void testVerComentarios() throws Exception {
 		loginUser();
 		driver.findElement(By.id("apoyar${iter.id}")).click();
 		driver.findElement(By.id("comentarios${iter.id}")).click();
@@ -44,12 +44,44 @@ public class Prueba {
 		driver.findElement(By.id("positivo${iter.id}")).click();
 	}
 
+	@Test
+	public void testCrearPropuesta() throws Exception {
+		loginUser();
+		driver.findElement(By.linkText("Crear una propuesta")).click();
+		assertEquals("Crear propuesta", driver.findElement(By.cssSelector("h1")).getText());
+		assertEquals("Titulo de la propuesta", driver.findElement(By.cssSelector("li > p")).getText());
+		assertEquals("Descripción de la propuesta", driver.findElement(By.xpath("//li[2]/p")).getText());
+		assertEquals("Categoria de la propuesta", driver.findElement(By.xpath("//li[3]/p")).getText());
+		assertEquals("", driver.findElement(By.name("crearPropuesta")).getText());
+	}
+
+	@Test
+	public void testVerPaginaAdministrador() throws Exception {
+		loginAdmin();
+		assertEquals("Administration Page", driver.findElement(By.cssSelector("h1")).getText());
+		assertEquals("Parameter configuration", driver.findElement(By.linkText("Parameter configuration")).getText());
+		assertEquals("Accepted Suggestions", driver.findElement(By.linkText("Accepted Suggestions")).getText());
+		assertEquals("Rejected Suggestions", driver.findElement(By.linkText("Rejected Suggestions")).getText());
+		assertEquals("Suggestions taking support",
+				driver.findElement(By.linkText("Suggestions taking support")).getText());
+		assertEquals("Suggestions on vote", driver.findElement(By.linkText("Suggestions on vote")).getText());
+	}
+
 	private void loginUser() {
 		driver.get(baseUrl);
 		driver.findElement(By.id("email")).clear();
 		driver.findElement(By.id("email")).sendKeys("pepe@participant.es");
 		driver.findElement(By.id("password")).clear();
 		driver.findElement(By.id("password")).sendKeys("12345");
+		driver.findElement(By.id("login")).click();
+	}
+
+	private void loginAdmin() {
+		driver.get(baseUrl);
+		driver.findElement(By.id("email")).clear();
+		driver.findElement(By.id("email")).sendKeys("admin@domain.com");
+		driver.findElement(By.id("password")).clear();
+		driver.findElement(By.id("password")).sendKeys("admin123");
 		driver.findElement(By.id("login")).click();
 	}
 
