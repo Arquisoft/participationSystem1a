@@ -60,7 +60,7 @@ public class LoginSteps {
 
 		driver.findElement(By.id("email")).sendKeys(user);
 		driver.findElement(By.id("password")).sendKeys(pass);
-		driver.findElement(By.name("botonlogin")).click();
+		driver.findElement(By.id("login")).click();
 	}
 
 	@Then("^entro en la pantalla de sugerencias$")
@@ -68,8 +68,18 @@ public class LoginSteps {
 		// Write code here that turns the phrase above into concrete actions
 		// throw new PendingException();
 		
-		String currentURL = driver.getCurrentUrl();
-		assertEquals(currentURL, "http://localhost:8080/main");
+		String currentURL = driver.getCurrentUrl().split(";")[0];
+		dormir(1000);
+		assertEquals(currentURL, "http://localhost:8080/index");
+	}
+	
+	private void dormir(int tiempo) {
+		try {
+			Thread.sleep(tiempo);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
