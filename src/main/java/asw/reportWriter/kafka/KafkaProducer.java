@@ -24,6 +24,12 @@ public class KafkaProducer {
     public static final String NEGATIVE_COMMENT = "negativeComment";
     public static final String POSITIVE_SUGGESTION = "positiveSuggestion";
     public static final String MIN_VOTES_REACHED = "minVotesReached";
+    public static final String DELETE_SUGGESTION = "deleteSuggestion";
+    public static final String DAYS_OPEN = "daysOpen";
+    public static final String NEW_CATEGORY = "newCategory";
+    public static final String DELETE_CATEGORY = "deleteCategory";
+    public static final String DENIED_SUGGESTION = "deniedSuggestion";
+    
     
     // SENDS
  	public void sendNewSuggestion(long suggestionId) {
@@ -48,6 +54,22 @@ public class KafkaProducer {
  	
  	public void sendMinVotesReached(long suggestionId) {
  		send(MIN_VOTES_REACHED, "Se ha alcanzado el mínimo de votos -> " + suggestionId);
+ 	}
+ 	
+ 	public void sendDeleteSuggestion(long suggestionId) {
+ 		send(DELETE_SUGGESTION, "Borrada la propuesta -> " + suggestionId);
+ 	}
+ 	
+ 	public void sendNewCategory(long catId) {
+ 		send(NEW_CATEGORY, "Creada la categoria -> " + catId);
+ 	}
+ 	
+ 	public void sendDeleteCategory(long catId) {
+ 		send(DELETE_CATEGORY, "Borrada la categoria -> " + catId);
+ 	}
+ 	
+ 	public void sendDeniedSuggestion(long suggestionId) {
+ 		send(DENIED_SUGGESTION, "Denegada la propuesta -> " + suggestionId);
  	}
     
     @Autowired

@@ -53,9 +53,10 @@ public class CommentController {
 	public String votingPositive(@RequestParam("comentario") Long id, HttpSession session, Model model) {
 		if (!participantService.supportCommentPositive(((Participant) session.getAttribute("usuario")).getId(), id))
 			model.addAttribute("mensaje", "Ya has votado este comentario anteriormente");
-		else
+		else {
 			model.addAttribute("mensaje", "Ha votado like a este comentario");
-		new KafkaProducer().sendPositiveComment(id);
+			new KafkaProducer().sendPositiveComment(id);
+		}
 		return "redirect:/listComments";
 	}
 
@@ -63,8 +64,10 @@ public class CommentController {
 	public String votingNegative(@RequestParam("comentario") Long id, HttpSession session, Model model) {
 		if (!participantService.supportCommentNegative(((Participant) session.getAttribute("usuario")).getId(), id))
 			model.addAttribute("mensaje", "Ya has votado este comentario anteriormente");
-		else
+		else {
 			model.addAttribute("mensaje", "Ha votado dislike a este comentario");
+			new KafkaProducer().sendNegativeComment(id);
+		}
 		return "redirect:/listComments";
 	}
 

@@ -9,6 +9,6 @@ public interface CategoryService {
 	Category getCategoryByName(String name);
 	List<Category> getAllCategories();
 	
-	void saveCategory(Category category);
+	Category saveCategory(Category category);
 	void deleteCategory(Category categoria);
 }
