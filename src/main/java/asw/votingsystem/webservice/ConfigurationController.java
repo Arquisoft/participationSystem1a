@@ -201,9 +201,9 @@ public class ConfigurationController {
 		if (days > 0) {
 			Suggestion suggestion = suggestionService.getSuggestionById(id);
 			Calendar c = Calendar.getInstance();
-			c.setTime(suggestion.getFecha_fin());
+			c.setTime(suggestion.getFechaFin());
 			c.add(Calendar.DAY_OF_MONTH, days);
-			suggestion.setFecha_fin(c.getTime());
+			suggestion.setFechaFin(c.getTime());
 			suggestionService.saveSuggestion(suggestion);
 		}
 		return "redirect:/transact";

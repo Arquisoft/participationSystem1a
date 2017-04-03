@@ -88,19 +88,19 @@ public class Suggestion {
 		this.id = id;
 	}
 
-	public Date getFecha_creacion() {
+	public Date getFechaCreacion() {
 		return fechaCreacion;
 	}
 
-	public void setFecha_creacion(Date fecha_creacion) {
+	public void setFechaCreacion(Date fecha_creacion) {
 		this.fechaCreacion = fecha_creacion;
 	}
 
-	public Date getFecha_fin() {
+	public Date getFechaFin() {
 		return fechaFin;
 	}
 
-	public void setFecha_fin(Date fecha_fin) {
+	public void setFechaFin(Date fecha_fin) {
 		this.fechaFin = fecha_fin;
 	}
 
