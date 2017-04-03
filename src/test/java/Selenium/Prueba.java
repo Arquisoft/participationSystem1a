@@ -11,8 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
-
-import scala.util.control.Exception.By;
+import org.openqa.selenium.By;
 
 public class Prueba {
 	private WebDriver driver;
@@ -30,7 +29,7 @@ public class Prueba {
 	@Test
 	public void testVerPropuestas() throws Exception {
 		loginUser();
-		assertEquals("Propuestas activas", driver.findElement(By.cssSelector("h1")).getText());
+		assertEquals("Propuestas activas", driver.findElement(org.openqa.selenium.By.cssSelector("h1")).getText());
 		assertEquals("Crear una propuesta", driver.findElement(By.linkText("Crear una propuesta")).getText());
 	}
 
