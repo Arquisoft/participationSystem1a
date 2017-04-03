@@ -1,17 +1,29 @@
 package test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
 
-import org.junit.Test;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
+
+import asw.Application;
 import asw.dbupdate.model.Category;
 import asw.dbupdate.model.Comment;
 import asw.dbupdate.model.Participant;
 import asw.dbupdate.model.Suggestion;
 import asw.dbupdate.model.Word;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = Application.class)
+@SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class TestModel {
 
 	@Test
