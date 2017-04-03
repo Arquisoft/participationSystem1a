@@ -23,6 +23,7 @@ public class KafkaProducer {
     public static final String POSITIVE_COMMENT = "positiveComment";
     public static final String NEGATIVE_COMMENT = "negativeComment";
     public static final String POSITIVE_SUGGESTION = "positiveSuggestion";
+    public static final String MIN_VOTES_REACHED = "minVotesReached";
     
     // SENDS
  	public void sendNewSuggestion(long suggestionId) {
@@ -43,6 +44,10 @@ public class KafkaProducer {
  	
  	public void sendPositiveSuggestion(long suggestionId) {
  		send(POSITIVE_SUGGESTION, "Apoyo a la propuesta -> " + suggestionId);
+ 	}
+ 	
+ 	public void sendMinVotesReached(long suggestionId) {
+ 		send(MIN_VOTES_REACHED, "Se ha alcanzado el mínimo de votos -> " + suggestionId);
  	}
     
     @Autowired
