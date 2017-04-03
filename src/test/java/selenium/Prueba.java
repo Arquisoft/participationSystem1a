@@ -78,12 +78,40 @@ public class Prueba {
 		assertEquals("Suggestions on vote", driver.findElement(By.linkText("Suggestions on vote")).getText());
 	}
 
+	@Test
+	public void testRealizarComentario() throws Exception {
+		loginUserJualo();
+		String comentario = "me parece bien";
+		driver.findElement(By.xpath("/html/body/table/tbody/tr/td[6]/a")).click();
+		driver.findElement(By.id("comment")).clear();
+		driver.findElement(By.id("email")).sendKeys(comentario);
+		driver.findElement(By.id("login")).click();
+		
+		boolean esta = false;
+		for(int i=1; i < 10; i++) {
+			String text = driver.findElement(By.xpath("/html/body/table/tbody/tr["+i+"]/td[1]")).getText();
+			if(text.equals("me parece bien"))
+				esta = true;
+		}
+		
+		assertEquals(esta, true);
+	}
+
 	private void loginUser() {
 		driver.get(baseUrl);
 		driver.findElement(By.id("email")).clear();
 		driver.findElement(By.id("email")).sendKeys("pepe@participant.es");
 		driver.findElement(By.id("password")).clear();
 		driver.findElement(By.id("password")).sendKeys("12345");
+		driver.findElement(By.id("login")).click();
+	}
+	
+	private void loginUserJualo() {
+		driver.get(baseUrl);
+		driver.findElement(By.id("email")).clear();
+		driver.findElement(By.id("email")).sendKeys("jualo@participant.es");
+		driver.findElement(By.id("password")).clear();
+		driver.findElement(By.id("password")).sendKeys("jualo123");
 		driver.findElement(By.id("login")).click();
 	}
 
