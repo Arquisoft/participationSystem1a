@@ -172,7 +172,7 @@ public class ConfigurationController {
 		suggestion.setEstado(SuggestionState.Rechazada);
 		suggestionService.saveSuggestion(suggestion);
 		// Enviar aviso a kafka
-		kafka.sendDeniedSuggestion(id);;
+		kafka.sendDeniedSuggestion(id);
 		return "redirect:/transact";
 	}
 	
@@ -182,7 +182,7 @@ public class ConfigurationController {
 		suggestion.setEstado(SuggestionState.Rechazada);
 		suggestionService.saveSuggestion(suggestion);
 		// Enviar aviso a kafka
-		kafka.sendDeniedSuggestion(id);;
+		kafka.sendDeniedSuggestion(id);
 		return "redirect:/voting";
 	}
 	
@@ -202,6 +202,7 @@ public class ConfigurationController {
 	public String accept(@RequestParam("idPropuesta") Long id, Model model) {
 		Suggestion suggestion = suggestionService.getSuggestionById(id);
 		suggestion.setEstado(SuggestionState.Aceptada);
+		suggestionService.saveSuggestion(suggestion);
 		// Enviar aviso a kafka
 		return "redirect:/voting";
 	}
