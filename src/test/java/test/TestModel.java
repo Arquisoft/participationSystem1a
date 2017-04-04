@@ -8,7 +8,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.Date;
 
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
+import org.springframework.transaction.annotation.Transactional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,6 +24,7 @@ import asw.dbupdate.model.Word;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = Application.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@Transactional
 public class TestModel {
 
 	@Test
