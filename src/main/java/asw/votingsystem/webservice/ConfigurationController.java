@@ -175,7 +175,17 @@ public class ConfigurationController {
 		kafka.sendDeniedSuggestion(id);;
 		return "redirect:/transact";
 	}
-
+	
+	@RequestMapping("/reject")
+	public String reject(@RequestParam("idPropuesta") Long id, Model model) {
+		Suggestion suggestion = suggestionService.getSuggestionById(id);
+		suggestion.setEstado(SuggestionState.Rechazada);
+		suggestionService.saveSuggestion(suggestion);
+		// Enviar aviso a kafka
+		kafka.sendDeniedSuggestion(id);;
+		return "redirect:/voting";
+	}
+	
 	@RequestMapping("/updateMinVotes")
 	public String updateMinVote(@RequestParam("suggestion") Long id, @RequestParam("minVotes") int newMinVotes,
 			Model model) {

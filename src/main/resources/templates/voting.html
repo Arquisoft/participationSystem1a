@@ -27,9 +27,9 @@
 			<tr th:each="iter : ${suggestions}">
 				<td th:text="${iter.titulo}">Title</td>
 				<td th:text="${iter.descripcion}">Description</td>
-				<td th:text="${iter.fecha_fin}">End Date</td>
-				<td><a th:href="@{/acceptSuggestion(idPropuesta=${iter.id})}">Accept</a></td>
-				<td><a th:href="@{/rejectSuggestion(idPropuesta=${iter.id})}">Reject</a></td>
+				<td th:text="${iter.fechaFin}">End Date</td>
+				<td><a th:href="@{/accept(idPropuesta=${iter.id})}">Accept</a></td>
+				<td><a th:href="@{/reject(idPropuesta=${iter.id})}">Reject</a></td>
 			</tr>
 		</tbody>
 	</table>
