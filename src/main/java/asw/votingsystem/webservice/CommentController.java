@@ -87,7 +87,7 @@ public class CommentController {
 				}
 			}
 			Participant p = (Participant) session.getAttribute("usuario");
-			Suggestion s = suggestionService.getSuggestionById((Long) session.getAttribute("idSugerencia"));
+			Suggestion s = suggestionService.getSuggestionById((Long) session.getAttribute("idSuggestion"));
 			Comment c = commentService.saveComment(new Comment(comment, p, s));
 			kafka.sendNewComment(c.getId());
 
