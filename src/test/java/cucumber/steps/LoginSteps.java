@@ -6,27 +6,27 @@ import java.util.Map;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import selenium.SeleniumUtilsSDI;
 
 import static org.junit.Assert.assertEquals;
 
 
 public class LoginSteps {
 
-	private WebDriver driver=new HtmlUnitDriver();
+	private WebDriver driver= null;
 	private String baseUrl = "http://localhost:8080/";
 	
 	private Map<String, String> jualo;
 	
 	@Before
 	public void setUp() {
-		driver.get(baseUrl);
-
 		jualo = new HashMap<String, String>();
 		jualo.put("user", "jualo@participant.es");
 		jualo.put("pass", "jualo123");
@@ -40,8 +40,11 @@ public class LoginSteps {
 		// List<YourType>, List<List<E>>, List<Map<K,V>> or Map<K,V>.
 		// E,K,V must be a scalar (String, Integer, Date, enum etc)
 		// throw new PendingException();
+		driver = new FirefoxDriver();
 		assertEquals(jualo.get("user"), "jualo@participant.es");
 		assertEquals(jualo.get("pass"), "jualo123");
+		driver.get(baseUrl); 
+		
 	}
 
 	@When("^introduzco el usuario \"([^\"]*)\" y la contraseña \"([^\"]*)\"$")
@@ -68,9 +71,10 @@ public class LoginSteps {
 		// Write code here that turns the phrase above into concrete actions
 		// throw new PendingException();
 		
-		String currentURL = driver.getCurrentUrl().split(";")[0];
+		//String currentURL = driver.getCurrentUrl().split(";")[0];
+		SeleniumUtilsSDI.textoPresentePagina(driver, "Portal de usuario");
 		dormir(1000);
-		assertEquals(currentURL, "http://localhost:8080/index");
+		//assertEquals(currentURL, "http://localhost:8080/index");
 	}
 	
 	private void dormir(int tiempo) {
