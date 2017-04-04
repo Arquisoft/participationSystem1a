@@ -32,7 +32,7 @@
 				<td th:text="${iter.descripcion}">Description</td>
 				<td th:text="${iter.votosPositivos}">Votes</td>
 				<td th:text="${iter.minVotos}">Min Votes</td>
-				<td th:text="${iter.fecha_fin}">End Date</td>
+				<td th:text="${iter.fechaFin}">End Date</td>
 				<td><a th:href="@{/rejectSuggestion(idPropuesta=${iter.id})}">Reject</a></td>
 				<td>
 					<form method="POST"

@@ -87,15 +87,6 @@ public class ConfigurationController {
 		return "config";
 	}
 
-	// TODO No funciona, ya lo arreglare si al final permitimos edicion
-	@RequestMapping("/save")
-	public String saveSuggestion(@RequestParam("sugerencia") Long id, HttpSession session, Model model) {
-		suggestionService.saveSuggestion((Suggestion) session.getAttribute("sugerencia"));
-		// Enviar aviso a kafka
-		kafka.sendNewSuggestion(id);
-		return "redirect:/config";
-	}
-
 	@RequestMapping("/delete")
 	public String deleteSuggestion(@RequestParam("sugerencia") Long id, Model model) {
 		Suggestion s = suggestionService.getSuggestionById(id);
@@ -124,7 +115,7 @@ public class ConfigurationController {
 			kafka.sendNewCategory(categoria.getId());
 		} else
 			model.addAttribute("mensaje", "Category " + nombre + " already exist");
-		return "redirect:/parameters";
+		return "parameters";
 	}
 
 	@RequestMapping("/removeCategories")
@@ -138,7 +129,7 @@ public class ConfigurationController {
 		} else
 			model.addAttribute("mensaje", "Category " + nombre + " doesn't exist or there are suggestion in it");
 		// Enviar aviso a kafka
-		return "redirect:/parameters";
+		return "parameters";
 	}
 
 	@RequestMapping("/addWords")
@@ -172,10 +163,10 @@ public class ConfigurationController {
 		suggestion.setEstado(SuggestionState.Rechazada);
 		suggestionService.saveSuggestion(suggestion);
 		// Enviar aviso a kafka
-		kafka.sendDeniedSuggestion(id);;
-		return "redirect:/transact";
+		kafka.sendDeniedSuggestion(id);
+		return "redirect:/voting";
 	}
-
+	
 	@RequestMapping("/updateMinVotes")
 	public String updateMinVote(@RequestParam("suggestion") Long id, @RequestParam("minVotes") int newMinVotes,
 			Model model) {
@@ -188,7 +179,7 @@ public class ConfigurationController {
 		return "redirect:/transact";
 	}
 
-	@RequestMapping("/accept")
+	@RequestMapping("/acceptSuggestion")
 	public String accept(@RequestParam("idPropuesta") Long id, Model model) {
 		Suggestion suggestion = suggestionService.getSuggestionById(id);
 		suggestion.setEstado(SuggestionState.Aceptada);
