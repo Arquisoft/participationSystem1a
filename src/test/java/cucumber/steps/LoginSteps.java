@@ -15,7 +15,10 @@ import cucumber.api.java.en.When;
 
 import static org.junit.Assert.assertEquals;
 
-
+@SuppressWarnings("deprecation")
+@ContextConfiguration(classes = Application.class, loader = SpringApplicationContextLoader.class)
+@IntegrationTest
+@WebAppConfiguration
 public class LoginSteps {
 
 	private WebDriver driver= new HtmlUnitDriver();
