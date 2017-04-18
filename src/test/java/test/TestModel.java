@@ -7,12 +7,11 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
 
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
 
 import asw.Application;
 import asw.dbupdate.model.Category;
@@ -21,17 +20,17 @@ import asw.dbupdate.model.Participant;
 import asw.dbupdate.model.Suggestion;
 import asw.dbupdate.model.Word;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = Application.class)
-@SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = Application.class)
 @Transactional
 public class TestModel {
 
 	@Test
 	public void testComment() {
 
-		Participant p = new Participant("dani", "duque", "12345", new Date(123), "dani@domain.com", "77777777F",
-				"direccion", "español");
+		Participant p = new Participant("dani", "duque", "12345",
+				new Date(123), "dani@domain.com", "77777777F", "direccion",
+				"español");
 		Suggestion s = new Suggestion("prueba", "test", p);
 		Comment c = new Comment("test", p, s);
 		c.decrementVotes(2);
@@ -48,7 +47,8 @@ public class TestModel {
 		assertEquals(c.getVotosNegativos(), 1);
 		assertEquals(c.getVotosPositivos(), 1);
 		assertEquals(c.getVotComentarios().size(), 0);
-		assertTrue(c.toString()
+		assertTrue(c
+				.toString()
 				.equals("Comment [texto=test, votosPositivos=1, votosNegativos=1, valoracion=2, fechaCreacion="
 						+ c.getFechaCreacion() + "]"));
 	}
@@ -75,8 +75,9 @@ public class TestModel {
 
 	@Test
 	public void testParticipant() {
-		Participant p = new Participant("dani", "duque", "12345", new Date(123), "dani@domain.com", "77777777F",
-				"direccion", "español");
+		Participant p = new Participant("dani", "duque", "12345",
+				new Date(123), "dani@domain.com", "77777777F", "direccion",
+				"español");
 
 		assertNull(p.getId());
 		assertEquals(p.getComentarios().size(), 0);
@@ -100,7 +101,8 @@ public class TestModel {
 		assertEquals(0, p.getVotComentarios().size());
 		assertEquals(0, p.getVotSugerencias().size());
 		assertFalse(p.isAdmin());
-		assertEquals(p.toString(),
+		assertEquals(
+				p.toString(),
 				"Participant [nombre=pepe, apellidos=lopez, fechaNacimiento=Thu Jan 01 01:00:00 CET 1970, email=dani@domain.com, DNI=34455543E, direccion=calle, nacionalidad=aleman]");
 
 	}
