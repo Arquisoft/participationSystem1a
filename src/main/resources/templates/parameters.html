@@ -13,28 +13,22 @@
 		<li><a href="transact.html">Suggestions taking support</a></li>
 		<li><a href="voting.html">Suggestions on vote</a></li>
 	</ul>
-	<p th:text="${mensaje}" />
 	<form method="POST" action="addCategories">
-			Add Category <br/><input type="text" name="acategory" />
-			<input type="submit" name="add_category" value="Add"/>
+		<p th:text="${mensaje}" />
+		Add Category <br /> <input type="text" name="acategory" /> <input
+			type="submit" name="add_category" value="Add" />
 	</form>
 	<form method="POST" action="removeCategories">
-			Remove Category 
-			<br/>
-			<input type="text" name="rmcategory" />
-			<input type="submit" name="rm_category" value="Remove"/>
+		Remove Category <br /> <input type="text" name="rmcategory" /> <input
+			type="submit" name="rm_category" value="Remove" />
 	</form>
 	<form method="POST" action="addWords">
-			Add non-permitted word 
-			<br/>
-			<input type="text" name="npw" />
-			<input type="submit" name="add_word" value="Add"/>
+		Add non-permitted word <br /> <input type="text" name="npw" /> <input
+			type="submit" name="add_word" value="Add" />
 	</form>
 	<form method="POST" action="removeWords">
-			Remove non-permitted word 
-			<br/>
-			<input type="text" name="rpw" />
-			<input type="submit" name="rm_word" value="Remove"/>
+		Remove non-permitted word <br /> <input type="text" name="rpw" /> <input
+			type="submit" name="rm_word" value="Remove" />
 	</form>
 </body>
 </html>
